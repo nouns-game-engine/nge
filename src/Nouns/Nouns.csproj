@@ -1,23 +1,27 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net5.0</TargetFramework>
+		<TargetFramework>net6.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<OutputType>Exe</OutputType>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<ApplicationIcon>game.ico</ApplicationIcon>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-	  <LangVersion>10</LangVersion>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-	  <LangVersion>10</LangVersion>
+		<LangVersion>10</LangVersion>
+		<Platforms>AnyCPU;x64</Platforms>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\lib\FNA\FNA.Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="*.a" />
+	  <None Remove="LinkerConfig.xml" />
+	  <None Remove="index.html" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="game.ico" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -41,10 +45,6 @@
 			<Link>lib64\%(RecursiveDir)%(Filename)%(Extension)</Link>
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Content Include="game.ico" />
 	</ItemGroup>
 
 	<ItemGroup>
