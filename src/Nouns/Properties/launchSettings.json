@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "Nouns.Wasm": {
+    "Nouns": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-namespace Nouns.Editor;
+namespace Nouns;
 
 public static class Input
 {
