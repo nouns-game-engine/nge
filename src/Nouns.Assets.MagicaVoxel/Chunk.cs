@@ -2,7 +2,7 @@
 
 namespace Nouns.Assets.MagicaVoxel;
 
-[DebuggerDisplay("{Id}: {Children.Count} children")]
+[DebuggerDisplay("CHUNK: {Id}:= {Children.Count} children")]
 public class Chunk
 {
     public string? Id { get; set; }

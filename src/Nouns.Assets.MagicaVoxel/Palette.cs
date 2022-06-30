@@ -1,8 +1,10 @@
 ﻿
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 
 namespace Nouns.Assets.MagicaVoxel;
 
+[DebuggerDisplay("RGBA:({Colors?.Count ?? 0} colors)")]
 public sealed class Palette : Chunk
 {
     public List<Color>? Colors { get; set; }

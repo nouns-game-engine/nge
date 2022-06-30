@@ -2,7 +2,7 @@
 
 namespace Nouns.Assets.MagicaVoxel;
 
-[DebuggerDisplay("{Size}: {Voxels.Count} voxels")]
+[DebuggerDisplay("Model: {Size}=: {Voxels.Count} voxels")]
 public sealed class Model : Chunk
 {
     public Size? Size { get; set; }

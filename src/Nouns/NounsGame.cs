@@ -1,20 +1,15 @@
-﻿using ImGuiNET;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Nouns.Editor;
-using Num = System.Numerics;
 
 namespace Nouns;
 
-internal class NounsGame : Game
+internal class NounsGame : EditEnabledGame
 {
-    GraphicsDeviceManager graphics;
-    SpriteBatch spriteBatch;
-
-    ImGuiRenderer imGuiRenderer;
-    Texture2D xnaTexture;
-    IntPtr imGuiTexture;
-
+    private readonly GraphicsDeviceManager graphics;
+    private SpriteBatch spriteBatch;
+    
     public NounsGame()
     {
         graphics = new GraphicsDeviceManager(this);
@@ -23,80 +18,22 @@ internal class NounsGame : Game
         graphics.PreferMultiSampling = true;
         Content.RootDirectory = "Content";
 
+        Window.Title = "nounsgame.wtf";
         Window.AllowUserResizing = true;
         IsMouseVisible = true;
     }
 
     protected override void Initialize()
     {
-        imGuiRenderer = new ImGuiRenderer(this);
-        imGuiRenderer.RebuildFontAtlas();
+        InitializeEditor();
 
+        // calls LoadContent();
         base.Initialize();
     }
-
-    #region Editor
-
-    // Direct port of the example at https://github.com/ocornut/imgui/blob/master/examples/sdl_opengl2_example/main.cpp
-    private float f = 0.0f;
-
-    private bool show_test_window = false;
-    private bool show_another_window = false;
-    private Num.Vector3 clear_color = new Num.Vector3(114f / 255f, 144f / 255f, 154f / 255f);
-    private byte[] _textBuffer = new byte[100];
-
-    protected virtual void ImGuiLayout()
-    {
-        // 1. Show a simple window
-        // Tip: if we don't call ImGui.Begin()/ImGui.End() the widgets appears in a window automatically called "Debug"
-        {
-            ImGui.Text("Hello, world!");
-            ImGui.SliderFloat("float", ref f, 0.0f, 1.0f, string.Empty);
-            ImGui.ColorEdit3("clear color", ref clear_color);
-            if (ImGui.Button("Test Window")) show_test_window = !show_test_window;
-            if (ImGui.Button("Another Window")) show_another_window = !show_another_window;
-            ImGui.Text(string.Format("Application average {0:F3} ms/frame ({1:F1} FPS)",
-                1000f / ImGui.GetIO().Framerate, ImGui.GetIO().Framerate));
-
-            ImGui.InputText("Text input", _textBuffer, 100);
-
-            ImGui.Text("Texture sample");
-            ImGui.Image(imGuiTexture, new Num.Vector2(300, 150), Num.Vector2.Zero, Num.Vector2.One, Num.Vector4.One,
-                Num.Vector4.One); // Here, the previously loaded texture is used
-        }
-
-        // 2. Show another simple window, this time using an explicit Begin/End pair
-        if (show_another_window)
-        {
-            ImGui.SetNextWindowSize(new Num.Vector2(200, 100), ImGuiCond.FirstUseEver);
-            ImGui.Begin("Another Window", ref show_another_window);
-            ImGui.Text("Hello");
-            ImGui.End();
-        }
-
-        // 3. Show the ImGui test window. Most of the sample code is in ImGui.ShowTestWindow()
-        if (show_test_window)
-        {
-            ImGui.SetNextWindowPos(new Num.Vector2(650, 20), ImGuiCond.FirstUseEver);
-            ImGui.ShowDemoWindow(ref show_test_window);
-        }
-    }
-
-    #endregion
-
+    
     protected override void LoadContent()
     {
         spriteBatch = new SpriteBatch(GraphicsDevice);
-
-        // First, load the texture as a Texture2D (can also be done using the XNA/FNA content pipeline)
-        xnaTexture = CreateTexture(GraphicsDevice, 300, 150, pixel =>
-        {
-            var red = (pixel % 300) / 2;
-            return new Color(red, 1, 1);
-        });
-
-        // Then, bind it to an ImGui-friendly pointer, that we can use during regular ImGui.** calls (see below)
-        imGuiTexture = imGuiRenderer.BindTexture(xnaTexture);
 
         base.LoadContent();
     }
@@ -108,38 +45,35 @@ internal class NounsGame : Game
         base.UnloadContent();
     }
 
-    protected override void Draw(GameTime gameTime)
+    protected override void Update(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.CornflowerBlue);
+        base.Update(gameTime); // required to call FrameworkDispatcher
 
-        // Call BeforeLayout first to set things up
-        imGuiRenderer.BeforeLayout(gameTime);
-
-        // Draw our UI
-        ImGuiLayout();
-
-        // Call AfterLayout now to finish up and draw all the things
-        imGuiRenderer.AfterLayout();
-
-        base.Draw(gameTime);
+        Input.Update(IsActive);
+        
+        if (devMenuEnabled)
+            UpdateEditor(gameTime);
+        else if (Input.KeyWentDown(Keys.F1))
+            devMenuEnabled = !devMenuEnabled;
     }
 
-    public static Texture2D CreateTexture(GraphicsDevice device, int width, int height, Func<int, Color> paint)
+    protected override void Draw(GameTime gameTime)
     {
-        //initialize a texture
-        var texture = new Texture2D(device, width, height);
+        GraphicsDevice.SetRenderTarget(renderTarget);
+        GraphicsDevice.Clear(Color.Black);
 
-        //the array holds the color for each pixel in the texture
-        Color[] data = new Color[width * height];
-        for(var pixel = 0; pixel < data.Length; pixel++)
+        GraphicsDevice.SetRenderTarget(null);
+        spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque);
+        spriteBatch.Draw(renderTarget, Vector2.Zero, Color.White);
+        spriteBatch.End();
+
+        if (devMenuEnabled)
         {
-            //the function applies the color according to the specified pixel
-            data[pixel] = paint( pixel );
+            imGui.BeforeLayout(gameTime);
+            DrawEditor(gameTime);
+            imGui.AfterLayout();
         }
 
-        //set the color
-        texture.SetData( data );
-
-        return texture;
+        base.Draw(gameTime);
     }
 }

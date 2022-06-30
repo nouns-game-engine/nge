@@ -1,5 +1,8 @@
-﻿namespace Nouns.Assets.MagicaVoxel;
+﻿using System.Diagnostics;
 
+namespace Nouns.Assets.MagicaVoxel;
+
+[DebuggerDisplay("PACK:({ModelCount} models)")]
 public sealed class Pack : Chunk
 {
     public int ModelCount { get; set; }
