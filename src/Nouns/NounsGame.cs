@@ -3,12 +3,23 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Nouns.Editor;
 
+#if !WASM
+using Nouns.Editor;
+#endif
+
 namespace Nouns;
 
-internal class NounsGame : EditEnabledGame
+internal class NounsGame : 
+    #if !WASM 
+    EditEnabledGame
+    #else   
+    Game
+    #endif
 {
+    // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable (retained)
     private readonly GraphicsDeviceManager graphics;
-    private SpriteBatch spriteBatch;
+
+    private SpriteBatch spriteBatch = null!;
     
     public NounsGame()
     {
@@ -25,7 +36,9 @@ internal class NounsGame : EditEnabledGame
 
     protected override void Initialize()
     {
+#if !WASM 
         InitializeEditor();
+#endif
 
         // calls LoadContent();
         base.Initialize();
@@ -51,17 +64,23 @@ internal class NounsGame : EditEnabledGame
 
         Input.Update(IsActive);
         
+#if !WASM
         if (devMenuEnabled)
             UpdateEditor(gameTime);
+
         else if (Input.KeyWentDown(Keys.F1))
             devMenuEnabled = !devMenuEnabled;
+#endif
     }
 
     protected override void Draw(GameTime gameTime)
     {
+#if !WASM
         GraphicsDevice.SetRenderTarget(renderTarget);
+#endif
         GraphicsDevice.Clear(Color.Black);
 
+#if !WASM
         GraphicsDevice.SetRenderTarget(null);
         spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque);
         spriteBatch.Draw(renderTarget, Vector2.Zero, Color.White);
@@ -73,7 +92,7 @@ internal class NounsGame : EditEnabledGame
             DrawEditor(gameTime);
             imGui.AfterLayout();
         }
-
+#endif
         base.Draw(gameTime);
     }
 }
