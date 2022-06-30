@@ -6,6 +6,7 @@
 		<Nullable>enable</Nullable>
 		<OutputType>Exe</OutputType>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<ApplicationIcon>game.ico</ApplicationIcon>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -33,6 +34,10 @@
 			<Link>lib64\%(RecursiveDir)%(Filename)%(Extension)</Link>
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="game.ico" />
 	</ItemGroup>
 
 	<ItemGroup>
