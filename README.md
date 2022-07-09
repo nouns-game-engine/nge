@@ -11,3 +11,6 @@ A [nouns](https://nouns.wtf)-inspired CC0 game and engine.
 | Mac      | stable       |
 | Linux    | stable       |
 | Web      | experimental |
+
+## Socials
+[@nounsgamewtf](https://twitter/nounsgamewtf)
