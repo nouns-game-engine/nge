@@ -32,12 +32,17 @@ This is an ambitious project. Game projects require an immense amount of work an
 
 ## Compatibility
 
-| Platform | Status       |
-|----------|--------------|
-| Windows  | stable       |
-| Mac      | stable       |
-| Linux    | stable       |
-| Web      | experimental |
+| Platform     | Status       |
+|--------------|--------------|
+| Windows      | stable       |
+| Mac          | stable       |
+| Linux        | stable       |
+| Web          | experimental |
+| Switch*      | experimental |
+| XBOX*        | stable       |
+| PlayStation* | stable       |
+
+_* requires developer registration and access to tools under NDA_
 
 ## Socials
 
