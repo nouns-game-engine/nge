@@ -1,8 +1,6 @@
-﻿using System;
+﻿namespace Nouns.Editor;
 
-namespace Nouns.Editor;
-
-[AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
+[AttributeUsage(AttributeTargets.Class)]
 public class OrderAttribute : Attribute
 {
     public OrderAttribute(int order)
