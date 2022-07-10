@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nouns.Editor.Core", "Nouns.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nouns.Assets.Core", "Nouns.Assets.Core\Nouns.Assets.Core.csproj", "{9D12DD3D-B796-4834-80E6-B78837DE3871}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nouns.CLI", "Nouns.CLI\Nouns.CLI.csproj", "{BD0478F2-CA4D-4455-A5E7-E09A690BA24C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,14 @@ Global
 		{9D12DD3D-B796-4834-80E6-B78837DE3871}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9D12DD3D-B796-4834-80E6-B78837DE3871}.Release|x64.ActiveCfg = Release|Any CPU
 		{9D12DD3D-B796-4834-80E6-B78837DE3871}.Release|x64.Build.0 = Release|Any CPU
+		{BD0478F2-CA4D-4455-A5E7-E09A690BA24C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD0478F2-CA4D-4455-A5E7-E09A690BA24C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD0478F2-CA4D-4455-A5E7-E09A690BA24C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BD0478F2-CA4D-4455-A5E7-E09A690BA24C}.Debug|x64.Build.0 = Debug|Any CPU
+		{BD0478F2-CA4D-4455-A5E7-E09A690BA24C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD0478F2-CA4D-4455-A5E7-E09A690BA24C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD0478F2-CA4D-4455-A5E7-E09A690BA24C}.Release|x64.ActiveCfg = Release|Any CPU
+		{BD0478F2-CA4D-4455-A5E7-E09A690BA24C}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

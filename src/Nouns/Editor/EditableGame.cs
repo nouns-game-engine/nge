@@ -390,7 +390,7 @@ public abstract class EditableGame : Game, IEditorContext
 
     #region IEditingContext
 
-    private readonly List<object> objects = new List<object>();
+    private readonly List<object> objects = new();
 
     public ICollection<object> Objects => objects;
 
