@@ -158,25 +158,9 @@ public abstract class EditableGame : Game, IEditorContext
                     showWindows[index] = !showWindows[index];
             }
         }
-
-#if FNA
-			// https://wiki.libsdl.org/SDL_DropEvent
-			//while (SDL.SDL_PollEvent(out var evt) == 1)
-			//{
-			//	if (evt.type != SDL.SDL_EventType.SDL_DROPFILE)
-			//		continue;
-			//	var filename = SDL.UTF8_ToManaged(evt.drop.file, true);
-			//	foreach (var dropHandler in dropHandlers)
-			//	{
-			//		if (dropHandler.Enabled && dropHandler.Handle(filename))
-			//			break;
-			//	}
-			//}
-#endif
     }
 
     #endregion
-
 
     #region Draw
 
@@ -281,6 +265,8 @@ public abstract class EditableGame : Game, IEditorContext
         var location = Assembly.GetExecutingAssembly().Location;
         var binDir = Path.GetDirectoryName(location) ?? location;
 
+        var visited = new HashSet<string> { typeof(EditableGame).Assembly.Location };
+
         foreach (var dll in Directory.GetFiles(binDir, "*.dll"))
         {
             if (!File.Exists(dll))
@@ -289,38 +275,13 @@ public abstract class EditableGame : Game, IEditorContext
             try
             {
                 var assembly = Assembly.LoadFile(dll);
-                foreach (var t in assembly.GetTypes())
-                {
-                    {
-                        var ctor = t.GetConstructor(new[] { typeof(GraphicsDevice) });
-                        if (ctor != null)
-                        {
-                            if (typeof(IEditorWindow).IsAssignableFrom(t))
-                                windowList.Add((IEditorWindow) Activator.CreateInstance(t, GraphicsDevice)!);
 
-                            if (typeof(IEditorMenu).IsAssignableFrom(t))
-                                menuList.Add((IEditorMenu) Activator.CreateInstance(t, GraphicsDevice)!);
+                if (visited.Contains(assembly.Location))
+                    continue;
 
-                            if (typeof(IEditorDropHandler).IsAssignableFrom(t))
-                                dropHandlerList.Add((IEditorDropHandler) Activator.CreateInstance(t, GraphicsDevice)!);
-                        }
-                    }
+                visited.Add(assembly.Location);
 
-                    {
-                        var ctor = t.GetConstructor(Type.EmptyTypes);
-                        if (ctor != null)
-                        {
-                            if (typeof(IEditorWindow).IsAssignableFrom(t))
-                                windowList.Add((IEditorWindow) Activator.CreateInstance(t)!);
-
-                            if (typeof(IEditorMenu).IsAssignableFrom(t))
-                                menuList.Add((IEditorMenu) Activator.CreateInstance(t)!);
-
-                            if (typeof(IEditorDropHandler).IsAssignableFrom(t))
-                                dropHandlerList.Add((IEditorDropHandler) Activator.CreateInstance(t)!);
-                        }
-                    }
-                }
+                InitializeEditorComponents(assembly, windowList, menuList, dropHandlerList);
             }
             catch (Exception ex)
             {
@@ -345,7 +306,34 @@ public abstract class EditableGame : Game, IEditorContext
         dropHandlerList.Sort(OrderExtensions.TrySortByOrder);
         dropHandlers = dropHandlerList.ToArray();
     }
-	
+
+    private void InitializeEditorComponents(Assembly assembly, List<IEditorWindow> windowList, List<IEditorMenu> menuList, List<IEditorDropHandler> dropHandlerList)
+    {
+        var types = assembly.GetTypes();
+        foreach (var type in types)
+        {
+            ActivateWithConstructor(Type.EmptyTypes, windowList, menuList, dropHandlerList, type);
+            ActivateWithConstructor(new[] { typeof(IEditorContext) }, windowList, menuList, dropHandlerList, type, this);
+            ActivateWithConstructor(new[] { typeof(GraphicsDevice) }, windowList, menuList, dropHandlerList, type, GraphicsDevice);
+        }
+    }
+
+    private static void ActivateWithConstructor(Type[] parameterTypes, ICollection<IEditorWindow> windowList, ICollection<IEditorMenu> menuList, ICollection<IEditorDropHandler> dropHandlerList, Type type, params object[] parameters)
+    {
+        var ctor = type.GetConstructor(parameterTypes);
+        if (ctor != null)
+        {
+            if (typeof(IEditorWindow).IsAssignableFrom(type))
+                windowList.Add((IEditorWindow)Activator.CreateInstance(type, parameters));
+
+            if (typeof(IEditorMenu).IsAssignableFrom(type))
+                menuList.Add((IEditorMenu)Activator.CreateInstance(type, parameters));
+
+            if (typeof(IEditorDropHandler).IsAssignableFrom(type))
+                dropHandlerList.Add((IEditorDropHandler)Activator.CreateInstance(type, parameters));
+        }
+    }
+
     public void AddWindow(IEditorWindow window, bool isVisible = true)
     {
         Array.Resize(ref windows, windows.Length + 1);
