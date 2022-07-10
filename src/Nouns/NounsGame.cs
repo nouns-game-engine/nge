@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Nouns.Assets.MagicaVoxel;
 
 #if !WASM
 using Nouns.Editor;
@@ -36,10 +37,9 @@ namespace Nouns
         protected override void Initialize()
         {
 #if !WASM
-            InitializeEditor();
+            InitializeEditor(Content.RootDirectory);
 #endif
-
-            // calls LoadContent();
+            // calls LoadContent
             base.Initialize();
         }
 
@@ -48,6 +48,8 @@ namespace Nouns
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             base.LoadContent();
+
+            VoxReader.Initialize();
         }
 
         protected override void UnloadContent()
@@ -59,7 +61,8 @@ namespace Nouns
 
         protected override void Update(GameTime gameTime)
         {
-            base.Update(gameTime); // required to call FrameworkDispatcher
+            // calls FrameworkDispatcher
+            base.Update(gameTime);
 
             Input.Update(IsActive);
 

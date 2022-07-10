@@ -30,7 +30,7 @@ namespace Nouns.Assets.Core
 
 		private string rootDirectory;
 
-		public string RootDirectory
+		public string? RootDirectory
 		{
 		    get => rootDirectory;
 		    set
@@ -46,7 +46,7 @@ namespace Nouns.Assets.Core
 
 		#region Managed Assets
 
-		public static string NormalizeAssetPath(string assetPath)
+		public static string? NormalizeAssetPath(string? assetPath)
 		{
 			if (assetPath == null)
 				return null;

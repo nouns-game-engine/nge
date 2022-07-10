@@ -8,6 +8,7 @@ using ImGuiNET;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Nouns.Assets.Core;
 using Nouns.Snaps;
 using SDL2;
 
@@ -34,9 +35,7 @@ namespace Nouns.Editor
             CreateRenderTarget();
 
             Window.ClientSizeChanged += delegate { CreateRenderTarget(); };
-
-            base.Initialize();
-
+            
             void CreateRenderTarget()
             {
                 renderTarget = new RenderTarget2D(GraphicsDevice, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height,
@@ -52,7 +51,7 @@ namespace Nouns.Editor
         protected void UpdateEditor(GameTime gameTime)
         {
             if (lastActive != IsActive)
-                Trace.TraceInformation(IsActive ? "Editor gained focus." : "Editor lost focus.");
+                Trace.TraceInformation(IsActive ? "editor gained focus" : "editor lost focus");
 
             lastActive = IsActive;
 
@@ -252,8 +251,12 @@ namespace Nouns.Editor
 
         #endregion
 
-        protected void InitializeEditor()
+        private EditorAssetManager editorAssetManager;
+
+        protected void InitializeEditor(string rootDirectory)
         {
+            editorAssetManager = new EditorAssetManager(Content.ServiceProvider);
+
             SDL.SDL_AddEventWatch(dropFileEvent = DropFileEvent, IntPtr.Zero);
 
             ImGuiInit();
@@ -303,6 +306,7 @@ namespace Nouns.Editor
 
             //
             // Drops:
+            dropHandlerList.Add(new AssetDropHandler(editorAssetManager, rootDirectory));
             dropHandlerList.Sort(OrderExtensions.TrySortByOrder);
             dropHandlers = dropHandlerList.ToArray();
         }

@@ -21,7 +21,7 @@ namespace Nouns.Tests.Assets.MagicaVoxel
             var paths = Directory.EnumerateFiles("Content", "*.vox", SearchOption.AllDirectories).ToList();
             foreach (var path in paths)
             {
-                var vox = VoxReader.FromFile(path);
+                var vox = VoxReader.ReadFromFile(path);
                 _output.WriteLine("File: {0}, Header = {1}, Version = {2}, Chunks = {3}", Path.GetFileName(path),
                     vox.Header?.Trim(), vox.Version, vox.Main?.Children.Count + 1);
             }

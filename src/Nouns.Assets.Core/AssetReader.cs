@@ -1,28 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Nouns.Assets.Core
 {
 	public static class AssetReader
 	{
-		public delegate object ReadFromFile(string fullPath, IAssetProvider assetProvider, object serviceObject);
+		public delegate object ReadFromFile(string fullPath, IAssetProvider assetProvider, IServiceProvider services);
 
-		public delegate object ServiceObjectProvider(IServiceProvider services);
-
-		private static readonly Dictionary<Type, string> ExtensionRegistry = new();
-		private static readonly Dictionary<Type, ReadFromFile> ReadRegistry = new();
-
-		public static ServiceObjectProvider serviceObjectProvider;
+        private static readonly Dictionary<Type, string> extensionRegistry = new();
+		private static readonly Dictionary<Type, ReadFromFile> readRegistry = new();
 
 		public static void Clear()
 		{
-			ExtensionRegistry.Clear();
-			ReadRegistry.Clear();
+			extensionRegistry.Clear();
+			readRegistry.Clear();
 		}
 
 		public static bool CanRead(string extension)
 		{
-			var extensions = ExtensionRegistry.Values;
+			var extensions = extensionRegistry.Values;
 			foreach(var registered in extensions)
 				if (registered == extension)
 					return true;
@@ -31,22 +28,23 @@ namespace Nouns.Assets.Core
 
 		public static void Add<T>(string extension, ReadFromFile read)
 		{
-			ExtensionRegistry.Add(typeof(T), extension);
-			ReadRegistry.Add(typeof(T), read);
-		}
+			extensionRegistry.Add(typeof(T), extension);
+			readRegistry.Add(typeof(T), read);
+            Trace.TraceInformation($"added {extension} support for {typeof(T).Name}");
+        }
 		
-		public static Type Type(string extension)
+		public static Type GetTypeForExtension(string extension)
 		{
-			foreach (var registered in ExtensionRegistry)
+			foreach (var registered in extensionRegistry)
 				if (registered.Value == extension)
 					return registered.Key;
-			return default;
+            throw new InvalidOperationException("unknown asset extension");
 		}
 		
 		public static string Extension(Type type)
 		{
-			if (!ExtensionRegistry.TryGetValue(type, out var extension))
-				throw new InvalidOperationException("Unknown asset type");
+			if (!extensionRegistry.TryGetValue(type, out var extension))
+				throw new InvalidOperationException("unknown asset type");
 			return extension;
 		}
 		
@@ -58,18 +56,18 @@ namespace Nouns.Assets.Core
 		public static T Read<T>(IAssetProvider assetProvider, IServiceProvider services, string fullPath)
 			where T : class
 		{
-			if (!ReadRegistry.TryGetValue(typeof(T), out var read))
-				throw new InvalidOperationException("Unknown asset type");
-			var serviceObject = serviceObjectProvider(services);
-			return (T) read(fullPath, assetProvider, serviceObject);
+			if (!readRegistry.TryGetValue(typeof(T), out var read))
+				throw new InvalidOperationException("unknown asset type");
+
+			return (T) read(fullPath, assetProvider, services);
 		}
 
 		public static object Read(Type assetType, IAssetProvider assetProvider, IServiceProvider services, string fullPath)
 		{
-			if (!ReadRegistry.TryGetValue(assetType, out var read))
-				throw new InvalidOperationException("Unknown asset type");
-			var serviceObject = serviceObjectProvider(services);
-			return read(fullPath, assetProvider, serviceObject);
+			if (!readRegistry.TryGetValue(assetType, out var read))
+				throw new InvalidOperationException("unknown asset type");
+
+			return read(fullPath, assetProvider, services);
 		}
 	}
 }
