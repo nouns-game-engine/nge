@@ -19,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nouns.Editor.Core", "Nouns.Editor.Core\Nouns.Editor.Core.csproj", "{75F6D9D4-39C0-4665-A50C-798B5F762E91}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nouns.Assets.Core", "Nouns.Assets.Core\Nouns.Assets.Core.csproj", "{9D12DD3D-B796-4834-80E6-B78837DE3871}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +69,14 @@ Global
 		{75F6D9D4-39C0-4665-A50C-798B5F762E91}.Release|Any CPU.Build.0 = Release|Any CPU
 		{75F6D9D4-39C0-4665-A50C-798B5F762E91}.Release|x64.ActiveCfg = Release|Any CPU
 		{75F6D9D4-39C0-4665-A50C-798B5F762E91}.Release|x64.Build.0 = Release|Any CPU
+		{9D12DD3D-B796-4834-80E6-B78837DE3871}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D12DD3D-B796-4834-80E6-B78837DE3871}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D12DD3D-B796-4834-80E6-B78837DE3871}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9D12DD3D-B796-4834-80E6-B78837DE3871}.Debug|x64.Build.0 = Debug|Any CPU
+		{9D12DD3D-B796-4834-80E6-B78837DE3871}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D12DD3D-B796-4834-80E6-B78837DE3871}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D12DD3D-B796-4834-80E6-B78837DE3871}.Release|x64.ActiveCfg = Release|Any CPU
+		{9D12DD3D-B796-4834-80E6-B78837DE3871}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
