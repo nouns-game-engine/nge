@@ -1,33 +1,35 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 
-namespace Nouns.Assets.MagicaVoxel;
-
-[DebuggerDisplay("SIZE:({X},{Y},{Z})")]
-public sealed class Size : Chunk
+namespace Nouns.Assets.MagicaVoxel
 {
-    public int X { get; set; }
-    public int Y { get; set; }
-    public int Z { get; set; }
-
-    internal static Chunk Read(string id, ref ReadOnlySpan<byte> span, ref ulong bytesConsumed)
+    [DebuggerDisplay("SIZE:({X},{Y},{Z})")]
+    public sealed class Size : Chunk
     {
-        var start = bytesConsumed;
+        public int X { get; set; }
+        public int Y { get; set; }
+        public int Z { get; set; }
 
-        var size = new Size
+        internal static Chunk Read(string id, ref ReadOnlySpan<byte> span, ref ulong bytesConsumed)
         {
-            Id = id
-        };
+            var start = bytesConsumed;
 
-        if (span.TryParse(ref bytesConsumed, out var x))
-            size.X = x;
-        if (span.TryParse(ref bytesConsumed, out var y))
-            size.Y = y;
-        if (span.TryParse(ref bytesConsumed, out var z))
-            size.Z = z;
+            var size = new Size
+            {
+                Id = id
+            };
 
-        if (bytesConsumed - start != 12)
-            throw new InvalidOperationException("invalid SIZE chunk");
+            if (span.TryParse(ref bytesConsumed, out var x))
+                size.X = x;
+            if (span.TryParse(ref bytesConsumed, out var y))
+                size.Y = y;
+            if (span.TryParse(ref bytesConsumed, out var z))
+                size.Z = z;
 
-        return size;
+            if (bytesConsumed - start != 12)
+                throw new InvalidOperationException("invalid SIZE chunk");
+
+            return size;
+        }
     }
 }

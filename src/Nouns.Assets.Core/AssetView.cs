@@ -1,4 +1,7 @@
-﻿using Path = System.IO.Path;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace Nouns.Assets.Core
 {

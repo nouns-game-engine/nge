@@ -1,31 +1,33 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 
-namespace Nouns.Assets.MagicaVoxel;
-
-[DebuggerDisplay("UNKNOWN: {Id} =: {Children.Count} children")]
-public class Unknown : Chunk
+namespace Nouns.Assets.MagicaVoxel
 {
-    public byte[]? Content { get; set; }
-
-    internal static Chunk Read(ref ReadOnlySpan<byte> span, ref ulong bytesConsumed, string? id, int contentBytes)
+    [DebuggerDisplay("UNKNOWN: {Id} =: {Children.Count} children")]
+    public class Unknown : Chunk
     {
-        var start = bytesConsumed;
-        var unknown = new Unknown
-        {
-            Id = id
-        };
+        public byte[]? Content { get; set; }
 
-        if (contentBytes > 0)
+        internal static Chunk Read(ref ReadOnlySpan<byte> span, ref ulong bytesConsumed, string? id, int contentBytes)
         {
-            var content = span[..contentBytes];
-            unknown.Content = content.ToArray();
-            span = span[contentBytes..];
-            bytesConsumed += (ulong)content.Length;
+            var start = bytesConsumed;
+            var unknown = new Unknown
+            {
+                Id = id
+            };
+
+            if (contentBytes > 0)
+            {
+                var content = span[..contentBytes];
+                unknown.Content = content.ToArray();
+                span = span[contentBytes..];
+                bytesConsumed += (ulong)content.Length;
+            }
+
+            if (bytesConsumed - start != (ulong)contentBytes)
+                throw new InvalidOperationException($"invalid {id} chunk");
+
+            return unknown;
         }
-
-        if (bytesConsumed - start != (ulong) contentBytes)
-            throw new InvalidOperationException($"invalid {id} chunk");
-
-        return unknown;
     }
 }

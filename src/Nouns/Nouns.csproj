@@ -6,7 +6,6 @@
 		<OutputType>Exe</OutputType>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<ApplicationIcon>game.ico</ApplicationIcon>
-		<LangVersion>10</LangVersion>
 		<Platforms>AnyCPU;x64</Platforms>
 	</PropertyGroup>
 

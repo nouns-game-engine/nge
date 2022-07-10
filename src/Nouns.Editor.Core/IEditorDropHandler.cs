@@ -1,6 +1,7 @@
-﻿namespace Nouns.Editor;
-
-public interface IEditorDropHandler : IEditorEnabled
+﻿namespace Nouns.Editor
 {
-    bool Handle(IEditorContext context, params string[] files);
+    public interface IEditorDropHandler : IEditorEnabled
+    {
+        bool Handle(IEditorContext context, params string[] files);
+    }
 }

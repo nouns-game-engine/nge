@@ -1,4 +1,6 @@
-﻿namespace Nouns.CLI
+﻿using System;
+
+namespace Nouns.CLI
 {
     internal static class Masthead
     {

@@ -1,14 +1,15 @@
 ﻿using ImGuiNET;
 using Microsoft.Xna.Framework;
 
-namespace Nouns.Editor;
-
-public interface IEditorWindow : IEditorEnabled
+namespace Nouns.Editor
 {
-    ImGuiWindowFlags Flags { get; }
-    string? Label { get; }
-    string? Shortcut { get; }
-    int Width { get; }
-    int Height { get; }
-    void Layout(IEditorContext context, GameTime gameTime, ref bool opened);
+    public interface IEditorWindow : IEditorEnabled
+    {
+        ImGuiWindowFlags Flags { get; }
+        string? Label { get; }
+        string? Shortcut { get; }
+        int Width { get; }
+        int Height { get; }
+        void Layout(IEditorContext context, GameTime gameTime, ref bool opened);
+    }
 }

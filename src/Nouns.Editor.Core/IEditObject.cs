@@ -1,6 +1,7 @@
-﻿namespace Nouns.Editor;
-
-public interface IEditObject
+﻿namespace Nouns.Editor
 {
-    object Object { get; }
+    public interface IEditObject
+    {
+        object Object { get; }
+    }
 }

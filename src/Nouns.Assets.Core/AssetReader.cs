@@ -1,4 +1,7 @@
-﻿namespace Nouns.Assets.Core
+﻿using System;
+using System.Collections.Generic;
+
+namespace Nouns.Assets.Core
 {
 	public static class AssetReader
 	{

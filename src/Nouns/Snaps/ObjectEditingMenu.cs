@@ -2,22 +2,23 @@
 using Microsoft.Xna.Framework;
 using Nouns.Editor;
 
-namespace Nouns.Snaps;
-
-public class ObjectEditingMenu : IEditorMenu
+namespace Nouns.Snaps
 {
-    public bool Enabled => true;
-    public string Label => "Objects";
-
-    public void Layout(IEditorContext context, GameTime gameTime)
+    public class ObjectEditingMenu : IEditorMenu
     {
-        if (context.Objects.Count == 0)
-            return;
+        public bool Enabled => true;
+        public string Label => "Objects";
 
-        foreach (var item in context.Objects)
+        public void Layout(IEditorContext context, GameTime gameTime)
         {
-            if (ImGui.MenuItem(item.GetType().Name))
-                context.ToggleEditorsFor(item);
+            if (context.Objects.Count == 0)
+                return;
+
+            foreach (var item in context.Objects)
+            {
+                if (ImGui.MenuItem(item.GetType().Name))
+                    context.ToggleEditorsFor(item);
+            }
         }
     }
 }

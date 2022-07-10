@@ -1,6 +1,7 @@
-﻿namespace Nouns.Editor;
-
-public interface IEditorEnabled
+﻿namespace Nouns.Editor
 {
-    bool Enabled { get; }
+    public interface IEditorEnabled
+    {
+        bool Enabled { get; }
+    }
 }

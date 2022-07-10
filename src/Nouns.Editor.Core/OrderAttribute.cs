@@ -1,12 +1,15 @@
-﻿namespace Nouns.Editor;
+﻿using System;
 
-[AttributeUsage(AttributeTargets.Class)]
-public class OrderAttribute : Attribute
+namespace Nouns.Editor
 {
-    public OrderAttribute(int order)
+    [AttributeUsage(AttributeTargets.Class)]
+    public class OrderAttribute : Attribute
     {
-        Order = order;
-    }
+        public OrderAttribute(int order)
+        {
+            Order = order;
+        }
 
-    public int Order { get; }
+        public int Order { get; }
+    }
 }

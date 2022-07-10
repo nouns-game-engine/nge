@@ -1,9 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Nouns.Editor;
-
-public interface IEditorMenu : IEditorEnabled
+namespace Nouns.Editor
 {
-    string Label { get; }
-    void Layout(IEditorContext context, GameTime gameTime);
+
+    public interface IEditorMenu : IEditorEnabled
+    {
+        string Label { get; }
+        void Layout(IEditorContext context, GameTime gameTime);
+    }
 }

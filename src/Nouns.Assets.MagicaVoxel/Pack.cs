@@ -1,26 +1,28 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 
-namespace Nouns.Assets.MagicaVoxel;
-
-[DebuggerDisplay("PACK:({ModelCount} models)")]
-public sealed class Pack : Chunk
+namespace Nouns.Assets.MagicaVoxel
 {
-    public int ModelCount { get; set; }
-
-    public static Chunk Read(ref ReadOnlySpan<byte> span, ref ulong bytesConsumed, string id)
+    [DebuggerDisplay("PACK:({ModelCount} models)")]
+    public sealed class Pack : Chunk
     {
-        var start = bytesConsumed;
-        var pack = new Pack
+        public int ModelCount { get; set; }
+
+        public static Chunk Read(ref ReadOnlySpan<byte> span, ref ulong bytesConsumed, string id)
         {
-            Id = id
-        };
+            var start = bytesConsumed;
+            var pack = new Pack
+            {
+                Id = id
+            };
 
-        if (span.TryParse(ref bytesConsumed, out var modelCount))
-            pack.ModelCount = modelCount;
+            if (span.TryParse(ref bytesConsumed, out var modelCount))
+                pack.ModelCount = modelCount;
 
-        if (bytesConsumed - start != 4)
-            throw new InvalidOperationException("invalid PACK chunk");
+            if (bytesConsumed - start != 4)
+                throw new InvalidOperationException("invalid PACK chunk");
 
-        return pack;
+            return pack;
+        }
     }
 }
