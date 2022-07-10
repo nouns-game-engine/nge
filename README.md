@@ -42,7 +42,7 @@ This is an ambitious project. Game projects require an immense amount of work an
 | XBOX*        | stable       |
 | PlayStation* | stable       |
 
-_* requires developer registration and access to tools under NDA_
+_* requires developer registration and access to third-party tools under NDA_
 
 ## Socials
 
