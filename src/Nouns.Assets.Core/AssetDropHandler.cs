@@ -2,7 +2,7 @@
 using System.IO;
 using Nouns.Editor;
 
-namespace Nouns.Assets.Core
+namespace Nouns.Assets
 {
 	public class AssetDropHandler : IEditorDropHandler
 	{

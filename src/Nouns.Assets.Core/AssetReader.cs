@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace Nouns.Assets.Core
+namespace Nouns.Assets
 {
 	public static class AssetReader
 	{

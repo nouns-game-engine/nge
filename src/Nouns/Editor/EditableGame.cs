@@ -8,7 +8,7 @@ using ImGuiNET;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Nouns.Assets.Core;
+using Nouns.Assets;
 using Nouns.Snaps;
 using SDL2;
 

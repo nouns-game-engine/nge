@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace Nouns.Assets.Core
+namespace Nouns.Assets
 {
     public class AssetView : IAssetProvider, IAssetPathProvider
     {

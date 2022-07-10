@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Nouns.Assets.Core
+namespace Nouns.Assets
 {
 	public interface IHasReferencedAssets
 	{

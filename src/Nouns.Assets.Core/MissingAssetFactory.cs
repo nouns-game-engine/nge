@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Nouns.Assets.Core
+namespace Nouns.Assets
 {
 	public class MissingAssetFactory
 	{

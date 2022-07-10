@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using Nouns.Graphics;
 
 namespace Nouns.Assets.MagicaVoxel
 {
@@ -9,5 +10,8 @@ namespace Nouns.Assets.MagicaVoxel
         public byte Y { get; set; }
         public byte Z { get; set; }
         public byte I { get; set; }
+        public Faces SharedFaces { get; set; }
+
+        public Point3 AsPoint => new(X, Y, Z);
     }
 }

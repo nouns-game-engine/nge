@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.2.32602.215
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32510.428
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nouns", "Nouns\Nouns.csproj", "{4166C805-13EA-44C7-8513-10454CDEC651}"
 EndProject
@@ -17,11 +17,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nouns.Editor.Core", "Nouns.Editor.Core\Nouns.Editor.Core.csproj", "{75F6D9D4-39C0-4665-A50C-798B5F762E91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nouns.Editor.Core", "Nouns.Editor.Core\Nouns.Editor.Core.csproj", "{75F6D9D4-39C0-4665-A50C-798B5F762E91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nouns.Assets.Core", "Nouns.Assets.Core\Nouns.Assets.Core.csproj", "{9D12DD3D-B796-4834-80E6-B78837DE3871}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nouns.Assets.Core", "Nouns.Assets.Core\Nouns.Assets.Core.csproj", "{9D12DD3D-B796-4834-80E6-B78837DE3871}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nouns.CLI", "Nouns.CLI\Nouns.CLI.csproj", "{BD0478F2-CA4D-4455-A5E7-E09A690BA24C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nouns.CLI", "Nouns.CLI\Nouns.CLI.csproj", "{BD0478F2-CA4D-4455-A5E7-E09A690BA24C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nouns.Graphics.Core", "Nouns.Graphics.Core\Nouns.Graphics.Core.csproj", "{519D86E9-959A-4CFA-BAFD-A3D896723D89}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,6 +89,14 @@ Global
 		{BD0478F2-CA4D-4455-A5E7-E09A690BA24C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BD0478F2-CA4D-4455-A5E7-E09A690BA24C}.Release|x64.ActiveCfg = Release|Any CPU
 		{BD0478F2-CA4D-4455-A5E7-E09A690BA24C}.Release|x64.Build.0 = Release|Any CPU
+		{519D86E9-959A-4CFA-BAFD-A3D896723D89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{519D86E9-959A-4CFA-BAFD-A3D896723D89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{519D86E9-959A-4CFA-BAFD-A3D896723D89}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{519D86E9-959A-4CFA-BAFD-A3D896723D89}.Debug|x64.Build.0 = Debug|Any CPU
+		{519D86E9-959A-4CFA-BAFD-A3D896723D89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{519D86E9-959A-4CFA-BAFD-A3D896723D89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{519D86E9-959A-4CFA-BAFD-A3D896723D89}.Release|x64.ActiveCfg = Release|Any CPU
+		{519D86E9-959A-4CFA-BAFD-A3D896723D89}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

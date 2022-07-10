@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.IO.MemoryMappedFiles;
-using Nouns.Assets.Core;
 
 namespace Nouns.Assets.MagicaVoxel
 {
@@ -9,38 +8,37 @@ namespace Nouns.Assets.MagicaVoxel
     {
         public static void Initialize()
         {
-            AssetReader.Add<VoxFile>(".vox", (fullPath, _, _) => ReadFromFile(fullPath));
+            AssetReader.Add<VoxelModel>(".vox", (fullPath, _, _) => ReadFromFile(fullPath).ToModel());
         }
 
-        public static VoxFile ReadFromFile(string path, bool memoryMapped = false)
+        public static VoxFile ReadFromFile(string path)
         {
             var fileInfo = new FileInfo(path);
             if (!fileInfo.Exists)
                 throw new FileNotFoundException("could not find VOX file at specified path", path);
 
-            if (memoryMapped)
+#if !WASM
+            using var file = MemoryMappedFile.CreateFromFile(path, FileMode.Open);
+            using var view = file.CreateViewStream();
+            using var handle = view.SafeMemoryMappedViewHandle;
+            unsafe
             {
-                using var file = MemoryMappedFile.CreateFromFile(path, FileMode.Open);
-                using var view = file.CreateViewStream();
-                using var handle = view.SafeMemoryMappedViewHandle;
-                unsafe
+                try
                 {
-                    try
-                    {
-                        var ptr = (byte*) 0;
-                        handle.AcquirePointer(ref ptr);
-                        var length = Math.Min((int) fileInfo.Length, (int) handle.ByteLength);
-                        var span = new ReadOnlySpan<byte>(ptr, length);
-                        return ReadFromBuffer(span);
-                    }
-                    finally
-                    {
-                        handle.ReleasePointer();
-                    }
+                    var ptr = (byte*)0;
+                    handle.AcquirePointer(ref ptr);
+                    var length = Math.Min((int)fileInfo.Length, (int)handle.ByteLength);
+                    var span = new ReadOnlySpan<byte>(ptr, length);
+                    return ReadFromBuffer(span);
+                }
+                finally
+                {
+                    handle.ReleasePointer();
                 }
             }
-
+#else
             return ReadFromBuffer(File.ReadAllBytes(path));
+#endif
         }
         
         public static VoxFile ReadFromBuffer(ReadOnlySpan<byte> span)
