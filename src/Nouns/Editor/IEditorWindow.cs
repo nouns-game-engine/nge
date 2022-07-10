@@ -10,5 +10,5 @@ public interface IEditorWindow : IEditorEnabled
     string? Shortcut { get; }
     int Width { get; }
     int Height { get; }
-    void Layout(GameTime gameTime, ref bool opened);
+    void Layout(IEditorContext context, GameTime gameTime, ref bool opened);
 }

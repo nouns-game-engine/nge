@@ -2,5 +2,5 @@
 
 public interface IEditorDropHandler : IEditorEnabled
 {
-    bool Handle(params string[] files);
+    bool Handle(IEditorContext context, params string[] files);
 }

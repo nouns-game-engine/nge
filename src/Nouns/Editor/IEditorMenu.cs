@@ -5,5 +5,5 @@ namespace Nouns.Editor;
 public interface IEditorMenu : IEditorEnabled
 {
     string Label { get; }
-    void Layout(GameTime gameTime);
+    void Layout(IEditorContext context, GameTime gameTime);
 }

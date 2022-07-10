@@ -12,8 +12,8 @@ public static class Input
     public static KeyboardState keyboardState;
     public static KeyboardState lastKeyboardState;
 
-    static readonly GamePadState[] gamePadStates = new GamePadState[4];
-    static readonly GamePadState[] lastGamePadStates = new GamePadState[4];
+    private static readonly GamePadState[] gamePadStates = new GamePadState[4];
+    private static readonly GamePadState[] lastGamePadStates = new GamePadState[4];
 
     public static bool IsActive { get; private set; }
 

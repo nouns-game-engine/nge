@@ -10,7 +10,7 @@ namespace Nouns;
 
 internal class NounsGame : 
     #if !WASM 
-    EditEnabledGame
+    EditableGame
     #else   
     Game
     #endif

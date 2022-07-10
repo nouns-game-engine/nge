@@ -3,8 +3,9 @@ using System.Diagnostics;
 using System.Text;
 using ImGuiNET;
 using Microsoft.Xna.Framework;
+using Nouns.Editor;
 
-namespace Nouns.Editor;
+namespace Nouns.Snaps;
 
 public class LogWindow : TraceListener, IEditorWindow
 {
@@ -28,7 +29,7 @@ public class LogWindow : TraceListener, IEditorWindow
         buffer.Clear();
     }
 
-    public void Layout(GameTime gameTime, ref bool opened)
+    public void Layout(IEditorContext context, GameTime gameTime, ref bool opened)
     {
         if (ImGui.Button("Clear"))
             Clear();

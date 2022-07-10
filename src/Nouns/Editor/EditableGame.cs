@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using ImGuiNET;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Nouns.Snaps;
+using SDL2;
 
 namespace Nouns.Editor;
 
-public abstract class EditEnabledGame : Game
+public abstract class EditableGame : Game, IEditorContext
 {
     protected IEditorWindow[] windows = null!;
     protected IEditorMenu[] menus = null!;
@@ -181,16 +184,7 @@ public abstract class EditEnabledGame : Game
     {
         DrawMainMenu(gameTime);
 
-        for (var i = 0; i < showWindows.Length; i++)
-        {
-            if (!showWindows[i] || !windows[i].Enabled)
-                continue;
-            var window = windows[i];
-            ImGui.SetNextWindowSize(new System.Numerics.Vector2(window.Width, window.Height), ImGuiCond.FirstUseEver);
-            if (ImGui.Begin(window.Label, ref showWindows[i], window.Flags))
-                windows[i].Layout(gameTime, ref showWindows[i]);
-            ImGui.End();
-        }
+        DrawWindows(gameTime);
 
         if (showDemoWindow)
         {
@@ -219,12 +213,12 @@ public abstract class EditEnabledGame : Game
 
             foreach (var menu in menus)
             {
-                if (!menu.Enabled)
+                if (menu is ObjectEditingMenu && objects.Count == 0)
                     continue;
 
-                if (ImGui.BeginMenu(menu.Label, true))
+                if (ImGui.BeginMenu(menu.Label, menu.Enabled))
                 {
-                    menu.Layout(gameTime);
+                    menu.Layout(this, gameTime);
                     ImGui.EndMenu();
                 }
             }
@@ -258,12 +252,26 @@ public abstract class EditEnabledGame : Game
         }
     }
 
+    private void DrawWindows(GameTime gameTime)
+    {
+        for (var i = 0; i < showWindows.Length; i++)
+        {
+            if (!showWindows[i] || !windows[i].Enabled)
+                continue;
+            var window = windows[i];
+            ImGui.SetNextWindowSize(new System.Numerics.Vector2(window.Width, window.Height), ImGuiCond.FirstUseEver);
+            if (ImGui.Begin(window.Label, ref showWindows[i], window.Flags))
+                windows[i].Layout(this, gameTime, ref showWindows[i]);
+            ImGui.End();
+        }
+    }
+
     #endregion
-
-    protected virtual void Reset() { }
-
+    
     protected void InitializeEditor()
     {
+        SDL.SDL_AddEventWatch(dropFileEvent = DropFileEvent, IntPtr.Zero);
+
         ImGuiInit();
 
         var windowList = new List<IEditorWindow>();
@@ -357,4 +365,74 @@ public abstract class EditEnabledGame : Game
         Array.Resize(ref dropHandlers, dropHandlers.Length + 1);
         dropHandlers[^1] = dropHandler;
     }
+
+    #region Drop Handling
+
+    // ReSharper disable once NotAccessedField.Local
+    private SDL.SDL_EventFilter dropFileEvent = null!;
+
+    // See: https://wiki.libsdl.org/SDL_SetEventFilter
+    private int DropFileEvent(IntPtr func, IntPtr evtPtr)
+    {
+        try
+        {
+            SDL.SDL_Event evt = (SDL.SDL_Event)Marshal.PtrToStructure(evtPtr, typeof(SDL.SDL_Event));
+            if (evt.type == SDL.SDL_EventType.SDL_DROPFILE)
+            {
+                var filename = SDL.UTF8_ToManaged(evt.drop.file, true);
+                Trace.WriteLine($"File dropped: {filename}");
+                foreach (var dropHandler in dropHandlers)
+                {
+                    if (dropHandler.Enabled && dropHandler.Handle(this, filename))
+                    {
+                        break;
+                    }
+                }
+            }
+            return 0;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
+    #endregion
+
+    #region IEditingContext
+
+    private readonly List<object> objects = new List<object>();
+
+    public ICollection<object> Objects => objects;
+
+    public void ToggleEditorsFor(object item)
+    {
+        for (var i = 0; i < windows.Length; i++)
+        {
+            if (windows[i] is IEditObject edit && edit.Object == item)
+                showWindows[i] = !showWindows[i];
+        }
+    }
+
+    public void EditObject<T>(T instance)
+    {
+        if (objects.Contains(instance))
+            return;
+        objects.Add(instance);
+        AddWindow(new ObjectEditorWindow<T>(instance));
+    }
+
+    public virtual void Reset()
+    {
+        for (var i = windows.Length - 1; i >= 0; i--)
+        {
+            if (!(windows[i] is IEditObject))
+                continue;
+            Array.Resize(ref windows, windows.Length - 1);
+            Array.Resize(ref showWindows, showWindows.Length - 1);
+        }
+    }
+
+    #endregion
 }
