@@ -1,53 +1,84 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
-		<Nullable>enable</Nullable>
-		<OutputType>Exe</OutputType>
-		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-		<ApplicationIcon>game.ico</ApplicationIcon>
-		<Platforms>AnyCPU;x64</Platforms>
-	</PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <OutputType>Exe</OutputType>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <ApplicationIcon>game.ico</ApplicationIcon>
+    <Platforms>AnyCPU;x64</Platforms>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\..\lib\FNA\FNA.Core.csproj" />
-		<ProjectReference Include="..\Nouns.Assets.Core\Nouns.Assets.Core.csproj" />
-		<ProjectReference Include="..\Nouns.Assets.MagicaVoxel\Nouns.Assets.MagicaVoxel.csproj" />
-		<ProjectReference Include="..\Nouns.Editor.Core\Nouns.Editor.Core.csproj" />
-	</ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\lib\FNA\FNA.Core.csproj" />
+    <ProjectReference Include="..\..\lib\ImGUI.NET\src\ImNodes.NET\ImNodes.NET.csproj" />
+    <ProjectReference Include="..\Nouns.Assets.Core\Nouns.Assets.Core.csproj" />
+    <ProjectReference Include="..\Nouns.Assets.MagicaVoxel\Nouns.Assets.MagicaVoxel.csproj" />
+    <ProjectReference Include="..\Nouns.Editor.Core\Nouns.Editor.Core.csproj" />
+  </ItemGroup>
 
-	<ItemGroup>
-	  <Content Include="Content\**\*.*">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </Content>
-	  <Content Include="game.ico" />
-	</ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\lib\ImGUI.NET\src\ImGui.NET\ImGui.NET.csproj" />
+  </ItemGroup>
 
-	<ItemGroup>
-		<Content Include="..\..\lib\fnalibs\x86\**\*.*" Condition="'$(OS)' == 'Windows_NT' AND '$(Platform)' != 'x64'">
-			<Link>x86\%(RecursiveDir)%(Filename)%(Extension)</Link>
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="..\..\lib\fnalibs\x64\**\*.*" Condition="'$(OS)' == 'Windows_NT' AND '$(Platform)' != 'x86'">
-			<Link>x64\%(RecursiveDir)%(Filename)%(Extension)</Link>
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="..\..\lib\fnalibs\osx\**\*.*" Condition="'$(OS)' != 'Windows_NT'">
-			<Link>osx\%(RecursiveDir)%(Filename)%(Extension)</Link>
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="..\..\lib\fnalibs\lib\**\*.*" Condition="'$(OS)' != 'Windows_NT'">
-			<Link>lib\%(RecursiveDir)%(Filename)%(Extension)</Link>
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="..\..\lib\fnalibs\lib64\**\*.*" Condition="'$(OS)' != 'Windows_NT'">
-			<Link>lib64\%(RecursiveDir)%(Filename)%(Extension)</Link>
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-	</ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Numerics.Vectors" Version="4.4.0" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.4.0" />
+    <PackageReference Include="System.Buffers" Version="4.4.0" />
+  </ItemGroup>
 
-	<ItemGroup>
-	  <PackageReference Include="ImGui.NET" Version="1.87.3" />
-	</ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\**\*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="game.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\..\lib\fnalibs\x86\**\*.*" Condition="'$(OS)' == 'Windows_NT' AND '$(Platform)' != 'x64'">
+      <Link>x86\%(RecursiveDir)%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\lib\fnalibs\x64\**\*.*" Condition="'$(OS)' == 'Windows_NT' AND '$(Platform)' != 'x86'">
+      <Link>x64\%(RecursiveDir)%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\lib\fnalibs\osx\**\*.*" Condition="'$(OS)' != 'Windows_NT'">
+      <Link>osx\%(RecursiveDir)%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\lib\fnalibs\lib\**\*.*" Condition="'$(OS)' != 'Windows_NT'">
+      <Link>lib\%(RecursiveDir)%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\lib\fnalibs\lib64\**\*.*" Condition="'$(OS)' != 'Windows_NT'">
+      <Link>lib64\%(RecursiveDir)%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\..\lib\ImGUI.NET\deps\cimgui\win-x86\cimgui.dll">
+      <PackagePath>runtimes/win-x86/native</PackagePath>
+      <Pack>true</Pack>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\lib\ImGUI.NET\deps\cimgui\win-x64\cimgui.dll">
+      <PackagePath>runtimes/win-x64/native</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Pack>true</Pack>
+    </Content>
+    <Content Include="..\..\lib\ImGUI.NET\deps\cimgui\linux-x64\cimgui.so">
+      <PackagePath>runtimes/linux-x64/native/libcimgui.so</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Pack>true</Pack>
+    </Content>
+    <Content Include="..\..\lib\ImGUI.NET\deps\cimgui\osx\cimgui.dylib">
+      <PackagePath>runtimes/osx/native/libcimgui.dylib</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Pack>true</Pack>
+    </Content>
+  </ItemGroup>
 
 </Project>

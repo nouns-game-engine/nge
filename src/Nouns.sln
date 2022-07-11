@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32510.428
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nouns", "Nouns\Nouns.csproj", "{4166C805-13EA-44C7-8513-10454CDEC651}"
 EndProject
@@ -23,7 +23,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nouns.Assets.Core", "Nouns.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nouns.CLI", "Nouns.CLI\Nouns.CLI.csproj", "{BD0478F2-CA4D-4455-A5E7-E09A690BA24C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nouns.Graphics.Core", "Nouns.Graphics.Core\Nouns.Graphics.Core.csproj", "{519D86E9-959A-4CFA-BAFD-A3D896723D89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nouns.Graphics.Core", "Nouns.Graphics.Core\Nouns.Graphics.Core.csproj", "{519D86E9-959A-4CFA-BAFD-A3D896723D89}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{4A390F30-E849-4AF2-B386-FD3642463F5B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImGui.NET", "..\lib\ImGUI.NET\src\ImGui.NET\ImGui.NET.csproj", "{06593A9E-7EE6-469D-8E9F-BB79B73C1CD8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImNodes.NET", "..\lib\ImGUI.NET\src\ImNodes.NET\ImNodes.NET.csproj", "{6C523237-F955-4E79-B84B-5C71970B451A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,8 +41,8 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{4166C805-13EA-44C7-8513-10454CDEC651}.Debug|Any CPU.ActiveCfg = Debug|x64
 		{4166C805-13EA-44C7-8513-10454CDEC651}.Debug|Any CPU.Build.0 = Debug|x64
-		{4166C805-13EA-44C7-8513-10454CDEC651}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{4166C805-13EA-44C7-8513-10454CDEC651}.Debug|x64.Build.0 = Debug|Any CPU
+		{4166C805-13EA-44C7-8513-10454CDEC651}.Debug|x64.ActiveCfg = Debug|x64
+		{4166C805-13EA-44C7-8513-10454CDEC651}.Debug|x64.Build.0 = Debug|x64
 		{4166C805-13EA-44C7-8513-10454CDEC651}.Release|Any CPU.ActiveCfg = Release|x64
 		{4166C805-13EA-44C7-8513-10454CDEC651}.Release|Any CPU.Build.0 = Release|x64
 		{4166C805-13EA-44C7-8513-10454CDEC651}.Release|x64.ActiveCfg = Release|Any CPU
@@ -97,9 +103,30 @@ Global
 		{519D86E9-959A-4CFA-BAFD-A3D896723D89}.Release|Any CPU.Build.0 = Release|Any CPU
 		{519D86E9-959A-4CFA-BAFD-A3D896723D89}.Release|x64.ActiveCfg = Release|Any CPU
 		{519D86E9-959A-4CFA-BAFD-A3D896723D89}.Release|x64.Build.0 = Release|Any CPU
+		{06593A9E-7EE6-469D-8E9F-BB79B73C1CD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06593A9E-7EE6-469D-8E9F-BB79B73C1CD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06593A9E-7EE6-469D-8E9F-BB79B73C1CD8}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{06593A9E-7EE6-469D-8E9F-BB79B73C1CD8}.Debug|x64.Build.0 = Debug|Any CPU
+		{06593A9E-7EE6-469D-8E9F-BB79B73C1CD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06593A9E-7EE6-469D-8E9F-BB79B73C1CD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06593A9E-7EE6-469D-8E9F-BB79B73C1CD8}.Release|x64.ActiveCfg = Release|Any CPU
+		{06593A9E-7EE6-469D-8E9F-BB79B73C1CD8}.Release|x64.Build.0 = Release|Any CPU
+		{6C523237-F955-4E79-B84B-5C71970B451A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C523237-F955-4E79-B84B-5C71970B451A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C523237-F955-4E79-B84B-5C71970B451A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6C523237-F955-4E79-B84B-5C71970B451A}.Debug|x64.Build.0 = Debug|Any CPU
+		{6C523237-F955-4E79-B84B-5C71970B451A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C523237-F955-4E79-B84B-5C71970B451A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C523237-F955-4E79-B84B-5C71970B451A}.Release|x64.ActiveCfg = Release|Any CPU
+		{6C523237-F955-4E79-B84B-5C71970B451A}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8F3ABE53-B19A-464D-9DF1-B5C9B3C62FC2} = {4A390F30-E849-4AF2-B386-FD3642463F5B}
+		{06593A9E-7EE6-469D-8E9F-BB79B73C1CD8} = {4A390F30-E849-4AF2-B386-FD3642463F5B}
+		{6C523237-F955-4E79-B84B-5C71970B451A} = {4A390F30-E849-4AF2-B386-FD3642463F5B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7E97A822-CBBD-4D0F-B8FD-026EB191200D}
