@@ -37,6 +37,8 @@ This is an ambitious project. Game projects require an immense amount of work an
 | Windows      | stable       |
 | Mac          | stable       |
 | Linux        | stable       |
+| iOS          | stable       |
+| Android      | stable       |
 | Web          | experimental |
 | Switch*      | experimental |
 | XBOX*        | stable       |
