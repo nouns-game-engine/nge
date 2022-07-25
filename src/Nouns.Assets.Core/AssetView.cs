@@ -9,7 +9,7 @@ namespace Nouns.Assets
     {
         private readonly EditorAssetManager owner;
 
-        public string rootDirectory;
+        public string rootDirectory = null!;
 
         public AssetView(EditorAssetManager owner)
         {

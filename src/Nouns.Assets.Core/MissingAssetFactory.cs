@@ -7,28 +7,29 @@ namespace Nouns.Assets
 	{
 		public delegate object CreateMissingAsset(IServiceProvider services, string fullPath);
 
-		private static readonly Dictionary<Type, CreateMissingAsset> CreateRegistry = new();
+		private static readonly Dictionary<Type, CreateMissingAsset> createRegistry = new();
 
 		public static void Clear()
 		{
-			CreateRegistry.Clear();
+			createRegistry.Clear();
 		}
 
 		public static void Add<T>(CreateMissingAsset createMissingAsset)
 		{
-			CreateRegistry.Add(typeof(T), createMissingAsset);
+			createRegistry.Add(typeof(T), createMissingAsset);
 		}
 
-		public static T Create<T>(IServiceProvider services, string fullPath) where T : class
+		public static T? Create<T>(IServiceProvider services, string fullPath) where T : class
 		{
-			if (CreateRegistry.TryGetValue(typeof(T), out var createMissingAsset))
+			if (createRegistry.TryGetValue(typeof(T), out var createMissingAsset))
 				return createMissingAsset(services, fullPath) as T;
+
 			throw new InvalidOperationException("Unknown or unsupported asset type");
 		}
 
 		public static object Create(Type assetType, IServiceProvider services, string fullPath)
 		{
-			if (CreateRegistry.TryGetValue(assetType, out var createMissingAsset))
+			if (createRegistry.TryGetValue(assetType, out var createMissingAsset))
 				return createMissingAsset(services, fullPath);
 			throw new InvalidOperationException("Unknown or unsupported asset type");
 		}
