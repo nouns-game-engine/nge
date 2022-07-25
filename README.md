@@ -17,7 +17,7 @@ This means anyone can make, mix, and re-master their own games from the codebase
 
 - CC0 of all game engine code, without dependencies on any copyleft or proprietary libraries or SDKs (Unreal, Unity, et. al)
 -  Support for open asset formats
-- Cross-platform across Windows, Mac, and Linux by default, with well-known and battle-tested on-ramps to console SDKs. We also now have an experimental web-based build using WebAssembly
+- Cross-platform across Windows, Mac, and Linux by default, with well-known and battle-tested on-ramps to console SDKs and mobile devices. We also now have an experimental web-based build using WebAssembly
 - Designed such that the running game is also the development tooling. This is important, as many game projects ship bespoke, platform-specific editors and pipelines that make it harder to maintain and distribute
 - Designed with the intent to minimize the knowledge required for non-technical creators to contribute, fork, or expand the game or create their own game
 - The ability to run EVM code as intrinsic to the game state.
@@ -37,6 +37,8 @@ This is an ambitious project. Game projects require an immense amount of work an
 | Windows      | stable       |
 | Mac          | stable       |
 | Linux        | stable       |
+| iOS          | stable       |
+| Android      | stable       |
 | Web          | experimental |
 | Switch*      | experimental |
 | XBOX*        | stable       |
