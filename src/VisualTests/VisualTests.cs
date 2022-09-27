@@ -28,11 +28,31 @@ namespace VisualTests
             noun = new Noun
             {
                 Position = new Vector2(graphics.PreferredBackBufferWidth / 2f - 32, graphics.PreferredBackBufferHeight / 2f - 32),
-                Body = Content.Load<Texture2D>("body-computerblue"),
-                Head = Content.Load<Texture2D>("head-aardvark"),
-                Glasses = Content.Load<Texture2D>("glasses-hip-rose"),
-                Accessory = Content.Load<Texture2D>("accessory-fries"),
-                Legs = Content.Load<Texture2D>("legs-default")
+                Body = new NounPart
+                {
+                    Rectangle = new Rectangle(9, 21, 14,11),
+                    Texture = Content.Load<Texture2D>("body-computerblue")
+                },
+                Head = new NounPart
+                {
+                    Rectangle = new Rectangle(6, 3, 24, 18),
+                    Texture = Content.Load<Texture2D>("head-aardvark"),
+                },
+                Glasses = new NounPart
+                {
+                    Rectangle = new Rectangle(7, 11, 16, 6),
+                    Texture = Content.Load<Texture2D>("glasses-hip-rose")
+                },
+                Accessory = new NounPart
+                {
+                    Rectangle = new Rectangle(14, 23, 5, 7),
+                    Texture = Content.Load<Texture2D>("accessory-fries")
+                },
+                Legs = new NounPart
+                {
+                    Rectangle = new Rectangle(13, 32, 9, 11),
+                    Texture = Content.Load<Texture2D>("legs-default")
+                }
             };
 
             // calls component initialize
@@ -65,11 +85,7 @@ namespace VisualTests
             GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin();
-            spriteBatch.Draw(noun.Head, noun.Position, Color.White);
-            spriteBatch.Draw(noun.Body, noun.Position, Color.White);
-            spriteBatch.Draw(noun.Glasses, noun.Position, Color.White);
-            spriteBatch.Draw(noun.Accessory, noun.Position, Color.White);
-            spriteBatch.Draw(noun.Legs, new Vector2(noun.Position.X, noun.Position.Y + 32), Color.White);
+            noun.Draw(spriteBatch);
             spriteBatch.End();
 
             // calls component draw
