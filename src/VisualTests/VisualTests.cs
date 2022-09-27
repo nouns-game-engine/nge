@@ -2,6 +2,7 @@
 using System.Text.Json;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Nouns.Core;
 using Nouns.Pipeline;
 
@@ -25,9 +26,13 @@ namespace VisualTests
         }
 
         private Noun noun;
+        private Random random;
+        private Dictionary<string, Rect> rectangles;
 
         protected override void Initialize()
         {
+            random = new Random();
+
             const string assetDir = "./Content/unzipped";
             Directory.CreateDirectory(assetDir);
 
@@ -35,40 +40,41 @@ namespace VisualTests
                 ZipFile.ExtractToDirectory("./Content/assets_png_sized.zip", assetDir);
 
             var json = File.ReadAllText(Path.Combine(assetDir, "rectangles.json"));
-            var rectangles = JsonSerializer.Deserialize<Dictionary<string, Rect>>(json);
+            rectangles = JsonSerializer.Deserialize<Dictionary<string, Rect>>(json) ?? throw new NullReferenceException("unable to locate rectangle manifest");
             
-            noun = new Noun
-            {
-                Position = new Vector2(graphics.PreferredBackBufferWidth / 2f - 32, graphics.PreferredBackBufferHeight / 2f - 32),
-                Body = new NounPart
-                {
-                    Rectangle = rectangles["body-computerblue"].ToRectangle(),
-                    Texture = Content.Load<Texture2D>("unzipped/body-computerblue")
-                },
-                Head = new NounPart
-                {
-                    Rectangle = rectangles["head-aardvark"].ToRectangle(),
-                    Texture = Content.Load<Texture2D>("unzipped/head-aardvark"),
-                },
-                Glasses = new NounPart
-                {
-                    Rectangle = rectangles["glasses-square-blue"].ToRectangle(),
-                    Texture = Content.Load<Texture2D>("unzipped/glasses-square-blue")
-                },
-                Accessory = new NounPart
-                {
-                    Rectangle = rectangles["accessory-fries"].ToRectangle(),
-                    Texture = Content.Load<Texture2D>("unzipped/accessory-fries")
-                },
-                Legs = new NounPart
-                {
-                    Rectangle = new Rectangle(11, 32, 9, 11),
-                    Texture = Content.Load<Texture2D>("legs-default")
-                }
-            };
+            noun = GetRandomNoun();
 
             // calls component initialize
             base.Initialize();
+        }
+
+        private Noun GetRandomNoun()
+        {
+            return new Noun
+            {
+                Position = new Vector2(graphics.PreferredBackBufferWidth / 2f - 32, graphics.PreferredBackBufferHeight / 2f - 32),
+                Body = GetRandomNounPart("body"),
+                Head = GetRandomNounPart("head"),
+                Glasses = GetRandomNounPart("glasses"),
+                Accessory = GetRandomNounPart("accessory"),
+                Legs = new NounPart
+                {
+                    Rectangle = new Rectangle(11, 31, 9, 11),
+                    Texture = Content.Load<Texture2D>("legs-default")
+                }
+            };
+        }
+
+        private NounPart GetRandomNounPart(string type)
+        {
+            var keys = rectangles.Keys.Where(x => x.StartsWith(type)).ToList();
+            var key = keys[random.Next(keys.Count)];
+            var part = new NounPart
+            {
+                Rectangle = rectangles[key].ToRectangle(),
+                Texture = Content.Load<Texture2D>($"unzipped/{key}")
+            };
+            return part;
         }
 
         internal SpriteBatch spriteBatch = null!;
@@ -90,6 +96,12 @@ namespace VisualTests
             base.Update(gameTime);
 
             Input.Update(IsActive);
+
+            if (Input.KeyWentDown(Keys.Space))
+                noun = GetRandomNoun();
+
+            if (Input.KeyWentDown(Keys.Escape))
+                Exit();
         }
 
         protected override void Draw(GameTime gameTime)
