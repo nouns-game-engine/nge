@@ -17,9 +17,25 @@ namespace VisualTests
             graphics.PreferMultiSampling = true;
             Content.RootDirectory = "Content";
 
-            Window.Title = "nounsgame.wtf";
-            Window.AllowUserResizing = true;
+            Window.AllowUserResizing = false;
             IsMouseVisible = true;
+        }
+
+        private Noun noun;
+
+        protected override void Initialize()
+        {
+            noun = new Noun
+            {
+                Position = new Vector2(graphics.PreferredBackBufferWidth / 2f - 250, graphics.PreferredBackBufferHeight / 2f - 250),
+                Body = Content.Load<Texture2D>("body-computerblue"),
+                Head = Content.Load<Texture2D>("head-aardvark"),
+                Glasses = Content.Load<Texture2D>("glasses-hip-rose"),
+                Accessory = Content.Load<Texture2D>("accessory-fries")
+            };
+
+            // calls component initialize
+            base.Initialize();
         }
 
         internal SpriteBatch spriteBatch = null!;
@@ -46,6 +62,13 @@ namespace VisualTests
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
+
+            spriteBatch.Begin();
+            spriteBatch.Draw(noun.Head, noun.Position, Color.White);
+            spriteBatch.Draw(noun.Body, noun.Position, Color.White);
+            spriteBatch.Draw(noun.Glasses, noun.Position, Color.White);
+            spriteBatch.Draw(noun.Accessory, noun.Position, Color.White);
+            spriteBatch.End();
 
             // calls component draw
             base.Draw(gameTime);

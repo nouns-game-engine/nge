@@ -13,6 +13,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Content\**\*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="game.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="..\..\lib\fnalibs\x86\**\*.*" Condition="'$(OS)' == 'Windows_NT' AND '$(Platform)' != 'x64'">
       <Link>x86\%(RecursiveDir)%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -33,6 +40,13 @@
       <Link>lib64\%(RecursiveDir)%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Content\accessory-fries.png" />
+    <None Remove="Content\body-computerblue.png" />
+    <None Remove="Content\glasses-hip-rose.png" />
+    <None Remove="Content\head-aardvark.png" />
   </ItemGroup>
 
 </Project>
