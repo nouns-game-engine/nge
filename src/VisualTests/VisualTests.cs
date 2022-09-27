@@ -27,11 +27,12 @@ namespace VisualTests
         {
             noun = new Noun
             {
-                Position = new Vector2(graphics.PreferredBackBufferWidth / 2f - 250, graphics.PreferredBackBufferHeight / 2f - 250),
+                Position = new Vector2(graphics.PreferredBackBufferWidth / 2f - 32, graphics.PreferredBackBufferHeight / 2f - 32),
                 Body = Content.Load<Texture2D>("body-computerblue"),
                 Head = Content.Load<Texture2D>("head-aardvark"),
                 Glasses = Content.Load<Texture2D>("glasses-hip-rose"),
-                Accessory = Content.Load<Texture2D>("accessory-fries")
+                Accessory = Content.Load<Texture2D>("accessory-fries"),
+                Legs = Content.Load<Texture2D>("legs-default")
             };
 
             // calls component initialize
@@ -68,6 +69,7 @@ namespace VisualTests
             spriteBatch.Draw(noun.Body, noun.Position, Color.White);
             spriteBatch.Draw(noun.Glasses, noun.Position, Color.White);
             spriteBatch.Draw(noun.Accessory, noun.Position, Color.White);
+            spriteBatch.Draw(noun.Legs, new Vector2(noun.Position.X, noun.Position.Y + 32), Color.White);
             spriteBatch.End();
 
             // calls component draw

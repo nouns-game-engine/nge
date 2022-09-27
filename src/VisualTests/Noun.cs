@@ -11,4 +11,5 @@ public class Noun
     public Texture2D Body { get; set; }
     public Texture2D Glasses { get; set; }
     public Texture2D Accessory { get; set; }
+    public Texture2D Legs { get; set; }
 }

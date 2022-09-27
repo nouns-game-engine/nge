@@ -16,7 +16,6 @@
     <Content Include="Content\**\*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="game.ico" />
   </ItemGroup>
 
   <ItemGroup>
