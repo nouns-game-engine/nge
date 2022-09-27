@@ -1,8 +1,7 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-namespace Nouns
+namespace Nouns.Core
 {
     public static class Input
     {

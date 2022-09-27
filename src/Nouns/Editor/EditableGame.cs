@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Nouns.Assets;
+using Nouns.Core;
 using Nouns.Snaps;
 using SDL2;
 
@@ -251,7 +252,7 @@ namespace Nouns.Editor
 
         #endregion
 
-        private EditorAssetManager editorAssetManager;
+        private EditorAssetManager editorAssetManager = null!;
 
         protected void InitializeEditor(string rootDirectory)
         {
@@ -325,19 +326,20 @@ namespace Nouns.Editor
         private static void ActivateWithConstructor(Type[] parameterTypes, ICollection<IEditorWindow> windowList, ICollection<IEditorMenu> menuList, ICollection<IEditorDropHandler> dropHandlerList, Type type, params object[] parameters)
         {
             var ctor = type.GetConstructor(parameterTypes);
-            if (ctor != null)
-            {
-                if (typeof(IEditorWindow).IsAssignableFrom(type))
-                    windowList.Add((IEditorWindow)Activator.CreateInstance(type, parameters));
+            if (ctor == null)
+                return;
 
-                if (typeof(IEditorMenu).IsAssignableFrom(type))
-                    menuList.Add((IEditorMenu)Activator.CreateInstance(type, parameters));
+            if (typeof(IEditorWindow).IsAssignableFrom(type) && Activator.CreateInstance(type, parameters) is IEditorWindow window)
+                windowList.Add(window);
 
-                if (typeof(IEditorDropHandler).IsAssignableFrom(type))
-                    dropHandlerList.Add((IEditorDropHandler)Activator.CreateInstance(type, parameters));
-            }
+            if (typeof(IEditorMenu).IsAssignableFrom(type) && Activator.CreateInstance(type, parameters) is IEditorMenu menu)
+                menuList.Add(menu);
+
+            if (typeof(IEditorDropHandler).IsAssignableFrom(type) && Activator.CreateInstance(type, parameters) is IEditorDropHandler dropHandler)
+                dropHandlerList.Add(dropHandler);
         }
 
+        // ReSharper disable once UnusedMember.Global
         public void AddWindow(IEditorWindow window, bool isVisible = true)
         {
             Array.Resize(ref windows, windows.Length + 1);
@@ -346,12 +348,14 @@ namespace Nouns.Editor
             showWindows[windows.Length - 1] = isVisible;
         }
 
+        // ReSharper disable once UnusedMember.Global
         public void AddMenu(IEditorMenu menu)
         {
             Array.Resize(ref menus, menus.Length + 1);
             menus[^1] = menu;
         }
 
+        // ReSharper disable once UnusedMember.Global
         public void AddDropHandler(IEditorDropHandler dropHandler)
         {
             Array.Resize(ref dropHandlers, dropHandlers.Length + 1);

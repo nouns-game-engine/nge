@@ -278,8 +278,8 @@ namespace Nouns.Editor
                 _vertexBuffer?.Dispose();
 
                 _vertexBufferSize = (int)(drawData.TotalVtxCount * 1.5f);
-                _vertexBuffer = new VertexBuffer(_graphicsDevice, DrawVertDeclaration.Declaration, _vertexBufferSize, BufferUsage.None);
-                _vertexData = new byte[_vertexBufferSize * DrawVertDeclaration.Size];
+                _vertexBuffer = new VertexBuffer(_graphicsDevice, DrawVertDeclaration.declaration, _vertexBufferSize, BufferUsage.None);
+                _vertexData = new byte[_vertexBufferSize * DrawVertDeclaration.size];
             }
 
             if (drawData.TotalIdxCount > _indexBufferSize)
@@ -299,10 +299,10 @@ namespace Nouns.Editor
             {
                 ImDrawListPtr cmdList = drawData.CmdListsRange[n];
 
-                fixed (void* vtxDstPtr = &_vertexData[vtxOffset * DrawVertDeclaration.Size])
+                fixed (void* vtxDstPtr = &_vertexData[vtxOffset * DrawVertDeclaration.size])
                 fixed (void* idxDstPtr = &_indexData[idxOffset * sizeof(ushort)])
                 {
-                    Buffer.MemoryCopy((void*)cmdList.VtxBuffer.Data, vtxDstPtr, _vertexData.Length, cmdList.VtxBuffer.Size * DrawVertDeclaration.Size);
+                    Buffer.MemoryCopy((void*)cmdList.VtxBuffer.Data, vtxDstPtr, _vertexData.Length, cmdList.VtxBuffer.Size * DrawVertDeclaration.size);
                     Buffer.MemoryCopy((void*)cmdList.IdxBuffer.Data, idxDstPtr, _indexData.Length, cmdList.IdxBuffer.Size * sizeof(ushort));
                 }
 
@@ -311,7 +311,7 @@ namespace Nouns.Editor
             }
 
             // Copy the managed byte arrays to the gpu vertex- and index buffers
-            _vertexBuffer.SetData(_vertexData, 0, drawData.TotalVtxCount * DrawVertDeclaration.Size);
+            _vertexBuffer.SetData(_vertexData, 0, drawData.TotalVtxCount * DrawVertDeclaration.size);
             _indexBuffer.SetData(_indexData, 0, drawData.TotalIdxCount * sizeof(ushort));
         }
 

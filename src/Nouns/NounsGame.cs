@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Nouns.Assets.MagicaVoxel;
+using Nouns.Core;
 
 #if !WASM
 using Nouns.Editor;
@@ -27,7 +28,7 @@ namespace Nouns
 
         public NounsGame(params string[] args)
         {
-            TargetElapsedTime = Constants.LoadingScreenFrameTime;
+            TargetElapsedTime = Constants.loadingScreenFrameTime;
 
             this.args = args;
 
@@ -175,7 +176,7 @@ namespace Nouns
         public void OnFinishedLoading()
         {
             DidFinishLoading = true;
-            TargetElapsedTime = Constants.DefaultFrameTime;
+            TargetElapsedTime = Constants.defaultFrameTime;
         }
 
         #endregion

@@ -5,16 +5,16 @@ namespace Nouns.Editor
 {
     public static class DrawVertDeclaration
     {
-        public static readonly VertexDeclaration Declaration;
+        public static readonly VertexDeclaration declaration;
 
-        public static readonly int Size;
+        public static readonly int size;
 
         static DrawVertDeclaration()
         {
-            unsafe { Size = sizeof(ImDrawVert); }
+            unsafe { size = sizeof(ImDrawVert); }
 
-            Declaration = new VertexDeclaration(
-                Size,
+            declaration = new VertexDeclaration(
+                size,
 
                 // Position
                 new VertexElement(0, VertexElementFormat.Vector2, VertexElementUsage.Position, 0),
