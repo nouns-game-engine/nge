@@ -1,6 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.IO.Compression;
+using System.Text.Json;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Nouns.Core;
+using Nouns.Pipeline;
 
 namespace VisualTests
 {
@@ -25,32 +28,41 @@ namespace VisualTests
 
         protected override void Initialize()
         {
+            const string assetDir = "./Content/unzipped";
+            Directory.CreateDirectory(assetDir);
+
+            if (Directory.GetFiles(assetDir).Length == 0)
+                ZipFile.ExtractToDirectory("./Content/assets_png_sized.zip", assetDir);
+
+            var json = File.ReadAllText(Path.Combine(assetDir, "rectangles.json"));
+            var rectangles = JsonSerializer.Deserialize<Dictionary<string, Rect>>(json);
+            
             noun = new Noun
             {
                 Position = new Vector2(graphics.PreferredBackBufferWidth / 2f - 32, graphics.PreferredBackBufferHeight / 2f - 32),
                 Body = new NounPart
                 {
-                    Rectangle = new Rectangle(9, 21, 14,11),
-                    Texture = Content.Load<Texture2D>("body-computerblue")
+                    Rectangle = rectangles["body-computerblue"].ToRectangle(),
+                    Texture = Content.Load<Texture2D>("unzipped/body-computerblue")
                 },
                 Head = new NounPart
                 {
-                    Rectangle = new Rectangle(6, 3, 24, 18),
-                    Texture = Content.Load<Texture2D>("head-aardvark"),
+                    Rectangle = rectangles["head-aardvark"].ToRectangle(),
+                    Texture = Content.Load<Texture2D>("unzipped/head-aardvark"),
                 },
                 Glasses = new NounPart
                 {
-                    Rectangle = new Rectangle(7, 11, 16, 6),
-                    Texture = Content.Load<Texture2D>("glasses-hip-rose")
+                    Rectangle = rectangles["glasses-square-blue"].ToRectangle(),
+                    Texture = Content.Load<Texture2D>("unzipped/glasses-square-blue")
                 },
                 Accessory = new NounPart
                 {
-                    Rectangle = new Rectangle(14, 23, 5, 7),
-                    Texture = Content.Load<Texture2D>("accessory-fries")
+                    Rectangle = rectangles["accessory-fries"].ToRectangle(),
+                    Texture = Content.Load<Texture2D>("unzipped/accessory-fries")
                 },
                 Legs = new NounPart
                 {
-                    Rectangle = new Rectangle(13, 32, 9, 11),
+                    Rectangle = new Rectangle(11, 32, 9, 11),
                     Texture = Content.Load<Texture2D>("legs-default")
                 }
             };
@@ -84,8 +96,8 @@ namespace VisualTests
         {
             GraphicsDevice.Clear(Color.Black);
 
-            spriteBatch.Begin();
-            noun.Draw(spriteBatch);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone);
+            noun.Draw(spriteBatch, 3);
             spriteBatch.End();
 
             // calls component draw

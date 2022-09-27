@@ -13,12 +13,12 @@ public class Noun
     public NounPart Accessory { get; set; }
     public NounPart Legs { get; set; }
 
-    public void Draw(SpriteBatch spriteBatch)
+    public void Draw(SpriteBatch spriteBatch, int scale)
     {
-        Head.Draw(spriteBatch, Position);
-        Body.Draw(spriteBatch, Position);
-        Glasses.Draw(spriteBatch, Position);
-        Accessory.Draw(spriteBatch, Position);
-        Legs.Draw(spriteBatch, Position);
+        Head.Draw(spriteBatch, Position, scale);
+        Body.Draw(spriteBatch, Position, scale);
+        Glasses.Draw(spriteBatch, Position, scale);
+        Accessory.Draw(spriteBatch, Position, scale);
+        Legs.Draw(spriteBatch, Position, scale);
     }
 }

@@ -8,8 +8,14 @@ public class NounPart
     public Rectangle Rectangle { get; set; }
     public Texture2D Texture { get; set; }
 
-    public void Draw(SpriteBatch spriteBatch, Vector2 position)
+    public void Draw(SpriteBatch spriteBatch, Vector2 position, int scale)
     {
-        spriteBatch.Draw(Texture, new Vector2(position.X + Rectangle.X, position.Y + Rectangle.Y), Color.White);
+        var x = position.X + Rectangle.X * scale;
+        var y = position.Y + Rectangle.Y * scale;
+
+        position = new Vector2(x, y);
+
+        spriteBatch.Draw(Texture, position, null, Color.White, 0,
+            Vector2.Zero, scale, SpriteEffects.None, 0);
     }
 }

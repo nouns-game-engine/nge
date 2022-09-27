@@ -10,6 +10,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\lib\FNA\FNA.Core.csproj" />
     <ProjectReference Include="..\Nouns.Core\Nouns.Core.csproj" />
+    <ProjectReference Include="..\Nouns.Pipeline\Nouns.Pipeline.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,13 +40,6 @@
       <Link>lib64\%(RecursiveDir)%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Content\accessory-fries.png" />
-    <None Remove="Content\body-computerblue.png" />
-    <None Remove="Content\glasses-hip-rose.png" />
-    <None Remove="Content\head-aardvark.png" />
   </ItemGroup>
 
 </Project>
