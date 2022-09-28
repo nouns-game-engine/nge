@@ -5,6 +5,7 @@ namespace VisualTests;
 
 public class NounPart
 {
+    public string Name { get; set; }
     public Rectangle Rectangle { get; set; }
     public Texture2D Texture { get; set; }
 

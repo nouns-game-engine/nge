@@ -62,6 +62,7 @@ namespace VisualTests
                 Accessory = GetRandomNounPart("accessory"),
                 Legs = new NounPart
                 {
+                    Name = "default",
                     Rectangle = new Rectangle(11, 31, 9, 11),
                     Texture = Content.Load<Texture2D>("legs-default")
                 }
@@ -74,6 +75,7 @@ namespace VisualTests
             var key = keys[random.Next(keys.Count)];
             var part = new NounPart
             {
+                Name = key.Replace($"{type}-", "").Replace("-", " "),
                 Rectangle = rectangles[key].ToRectangle(),
                 Texture = Content.Load<Texture2D>($"unzipped/{key}")
             };
@@ -84,14 +86,15 @@ namespace VisualTests
         
         private FontManager fontManager;
         private Text chooseYourHero;
+        private Font titleFont;
 
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             
             fontManager = new FontManager(GraphicsDevice);
-            var font = fontManager.GetFont("./Content/nountown.otf", 48);
-            chooseYourHero = font.MakeText("Choose Your Hero!");
+            titleFont = fontManager.GetFont("./Content/LondrinaSolid-Regular.ttf", 48);
+            chooseYourHero = titleFont.MakeText("Choose Your Hero!");
         }
 
         protected override void UnloadContent()
@@ -122,8 +125,15 @@ namespace VisualTests
             noun.Draw(spriteBatch, 3);
             spriteBatch.End();
 
+            var font = fontManager.GetFont("./Content/nountown.otf", 48);
+
             spriteBatch.Begin();
-            spriteBatch.DrawString(chooseYourHero, new Vector2(50, 50), Color.White);
+            spriteBatch.DrawString(chooseYourHero, new Vector2(50, 50), Color.Red);
+            spriteBatch.DrawString(font, noun.Head.Name, new Vector2(50, 50 + 48), Color.White);
+            spriteBatch.DrawString(font, noun.Glasses.Name, new Vector2(50, 50 + 48 + 48), Color.White);
+            spriteBatch.DrawString(font, noun.Body.Name, new Vector2(50, 50 + 48 + 48 + 48), Color.White);
+            spriteBatch.DrawString(font, noun.Accessory.Name, new Vector2(50, 50 + 48 + 48 + 48 + 48), Color.White);
+            spriteBatch.DrawString(font, noun.Legs.Name, new Vector2(50, 50 + 48 + 48 + 48 + 48 + 48), Color.White);
             spriteBatch.End();
 
             // calls component draw
