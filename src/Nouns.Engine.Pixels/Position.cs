@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Nouns.Editor;
 
 namespace Nouns.Engine.Pixels
 {
@@ -22,7 +23,10 @@ namespace Nouns.Engine.Pixels
             Z = z;
         }
 
+        [NonEditable]
         public Vector2 ToDisplay => new(X, -(Y + Z));
+
+        [NonEditable]
         public Vector2 ToDisplayNoTransform => new(X, Y);
     }
 }
