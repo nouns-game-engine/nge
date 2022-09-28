@@ -35,6 +35,9 @@ namespace Nouns.Snaps
         {
             foreach (var member in cache[type])
             {
+                if (Attribute.IsDefined(member, typeof(NonEditableAttribute)))
+                    continue;
+
                 switch (member)
                 {
                     case FieldInfo f:

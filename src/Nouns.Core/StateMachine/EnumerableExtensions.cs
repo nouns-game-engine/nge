@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Nouns.StateMachine
+﻿namespace Nouns.Core.StateMachine
 {
 	internal static class EnumerableExtensions
 	{

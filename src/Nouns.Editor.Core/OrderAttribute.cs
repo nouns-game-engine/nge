@@ -3,7 +3,7 @@
 namespace Nouns.Editor
 {
     [AttributeUsage(AttributeTargets.Class)]
-    public class OrderAttribute : Attribute
+    public sealed class OrderAttribute : Attribute
     {
         public OrderAttribute(int order)
         {

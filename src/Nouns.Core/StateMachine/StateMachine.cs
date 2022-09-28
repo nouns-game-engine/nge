@@ -1,7 +1,7 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
+using Nouns.Editor;
 
-namespace Nouns.StateMachine
+namespace Nouns.Core.StateMachine
 {
     public class StateMachine<TUpdateContext> : StateProvider
     {
@@ -10,8 +10,10 @@ namespace Nouns.StateMachine
             CurrentState = GetState<State>();
         }
 
+        [NonEditable]
         public MethodTable? StateMethods => (MethodTable?) CurrentState?.methodTable;
 
+        [NonEditable]
         public State? CurrentState { get; private set; }
 
         public override string ToString()

@@ -1,4 +1,5 @@
-﻿using Nouns.StateMachine;
+﻿using Nouns.Core.StateMachine;
+using Nouns.Editor;
 
 namespace Nouns.Engine.Pixels
 {
@@ -30,6 +31,7 @@ namespace Nouns.Engine.Pixels
 
         #region State Machine
 
+        [NonEditable]
         public new MethodTable StateMethods => (MethodTable)CurrentState!.methodTable;
 
         public new class MethodTable : StateMachine<UpdateContext>.MethodTable

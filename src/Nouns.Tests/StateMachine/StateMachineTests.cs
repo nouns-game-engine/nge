@@ -1,4 +1,4 @@
-﻿using Nouns.StateMachine;
+﻿using Nouns.Core.StateMachine;
 using Xunit;
 using Xunit.Abstractions;
 

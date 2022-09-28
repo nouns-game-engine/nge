@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Nouns.StateMachine
+﻿namespace Nouns.Core.StateMachine
 {
     [AttributeUsage(AttributeTargets.Field)]
     public sealed class AlwaysNullCheckedAttribute : Attribute { }

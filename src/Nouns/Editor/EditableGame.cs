@@ -402,11 +402,11 @@ namespace Nouns.Editor
 
         public ICollection<object> Objects => objects;
 
-        public void ToggleEditorsFor(object item)
+        public void ToggleEditorsFor(object instance)
         {
             for (var i = 0; i < windows.Length; i++)
             {
-                if (windows[i] is IEditObject edit && edit.Object == item)
+                if (windows[i] is IEditObject edit && edit.Object == instance)
                     showWindows[i] = !showWindows[i];
             }
         }

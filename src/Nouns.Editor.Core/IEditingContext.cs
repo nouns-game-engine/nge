@@ -8,7 +8,7 @@ namespace Nouns.Editor
         GraphicsDevice GraphicsDevice { get; }
         ICollection<object> Objects { get; }
         void EditObject<T>(T instance);
-        void ToggleEditorsFor(object item);
+        void ToggleEditorsFor(object instance);
         void Reset();
     }
 }
