@@ -45,7 +45,8 @@ namespace Nouns.Snaps
             if (objectUnderEdit == null)
                 return;
 
-            LayoutMembers(objectUnderEdit, null, objectUnderEdit, GetOrCacheMembersForType(type));
+            var members = GetOrCacheMembersForType(type);
+            LayoutMembers(objectUnderEdit, null, objectUnderEdit, members);
         }
 
         private static void SetValue(MemberInfo member, Type memberType, object? parent, MemberInfo? parentMember, ref object target, object valueToSet)
@@ -148,34 +149,58 @@ namespace Nouns.Snaps
             }
             else
             {
-                var visible = true;
-                ImGui.CollapsingHeader(member.Name, ref visible);
-                LayoutMembers(parent, member, valueToSet, GetOrCacheMembersForType(valueToSet.GetType()));
+                //ImGui.SetNextItemWidth(maxTextSize[(parent ?? target).GetType()].X);
+                //ImGui.SetNextItemWidth(100);
+                //ImGui.PushItemWidth(100);
+                if (ImGui.CollapsingHeader(member.Name))
+                {
+                    var members = GetOrCacheMembersForType(valueToSet.GetType());
+                    LayoutMembers(parent, member, valueToSet, members);
+                }
             }
         }
 
         public object Object => objectUnderEdit!;
 
-        private static IEnumerable<MemberInfo> GetOrCacheMembersForType(Type type)
+        // ReSharper disable once StaticMemberInGenericType
+        private static readonly Dictionary<Type, Vector2> maxTextSize = new();
+
+        private static IEnumerable<MemberInfo> GetOrCacheMembersForType(Type typeToCache)
         {
-            if(!cache.TryGetValue(type, out var members))
+            if(!cache.TryGetValue(typeToCache, out var members))
             {
-                var properties = type.GetProperties()
+                var properties = typeToCache.GetProperties()
                     // currently does not support collection types
                     .Where(p => !typeof(IEnumerable).IsAssignableFrom(p.PropertyType))
                     .Where(p => !excludedTypes.Contains(p.PropertyType))
                     ;
                 
-                var fields = type.GetFields()
+                var fields = typeToCache.GetFields()
                     // currently does not support collection types
                     .Where(f => !typeof(IEnumerable).IsAssignableFrom(f.FieldType))
                     .Where(f => !excludedTypes.Contains(f.FieldType))
                     ;
 
-                cache.Add(type, members = properties.Cast<MemberInfo>()
+                cache.Add(typeToCache, members = properties.Cast<MemberInfo>()
                     .Concat(fields)
                     .Where(m => !Attribute.IsDefined(m, typeof(NonEditableAttribute)))
                     .ToArray());
+            }
+
+
+            if (maxTextSize.ContainsKey(typeToCache))
+                return members;
+
+            maxTextSize[typeToCache] = Vector2.Zero;
+            foreach (var member in members)
+            {
+                var textSize = ImGui.CalcTextSize(member.Name);
+                textSize.Y = ImGui.GetTextLineHeightWithSpacing();
+
+                if (textSize.X > maxTextSize[typeToCache].X)
+                    maxTextSize[typeToCache] = new Vector2(textSize.X, maxTextSize[typeToCache].Y);
+                if (textSize.Y > maxTextSize[typeToCache].Y)
+                    maxTextSize[typeToCache] = new Vector2(maxTextSize[typeToCache].X, textSize.Y);
             }
 
             return members;
