@@ -82,7 +82,7 @@ namespace Nouns.Snaps
                         pf.SetValue(parent, target);
                         break;
                     case PropertyInfo pp:
-                        pp.SetValue(target, target);
+                        pp.SetValue(parent, target);
                         break;
                 }
             }

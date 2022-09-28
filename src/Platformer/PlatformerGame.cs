@@ -69,6 +69,7 @@ namespace Platformer
             gameState.actors.Add(cloud);
 
             editContext.EditObject(cloud);
+            editContext.EditObject(thing);
 
             return Array.Empty<Task>();
         }
