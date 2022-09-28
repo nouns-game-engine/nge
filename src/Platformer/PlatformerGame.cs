@@ -68,6 +68,11 @@ namespace Platformer
             var cloud = new Cloud(thing, updateContext);
             gameState.actors.Add(cloud);
 
+            editContext.EditObject(sprite);
+            //editContext.EditObject(cel);
+            //editContext.EditObject(frame);
+            //editContext.EditObject(animationSet);
+            //editContext.EditObject(animation);
             editContext.EditObject(cloud);
             editContext.EditObject(thing);
 

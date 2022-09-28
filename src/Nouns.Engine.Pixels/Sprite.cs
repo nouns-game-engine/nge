@@ -1,11 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Nouns.Editor;
 
 namespace Nouns.Engine.Pixels;
 
 public struct Sprite
 {
+    [NonEditable]
     public Texture2D texture;
+
     public Rectangle sourceRectangle;
     public Point origin;
 

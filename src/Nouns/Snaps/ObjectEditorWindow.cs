@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using ImGuiNET;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Nouns.Editor;
 
 namespace Nouns.Snaps
@@ -24,6 +25,14 @@ namespace Nouns.Snaps
 
         // ReSharper disable once StaticMemberInGenericType
         private static readonly Dictionary<Type, MemberInfo[]> cache = new();
+
+        // ReSharper disable once StaticMemberInGenericType
+        private static readonly HashSet<Type> excludedTypes = new();
+
+        static ObjectEditorWindow()
+        {
+            excludedTypes.Add(typeof(GraphicsAdapter));
+        }
 
         public ObjectEditorWindow(T objectUnderEdit)
         {
@@ -154,14 +163,19 @@ namespace Nouns.Snaps
                 var properties = type.GetProperties()
                     // currently does not support collection types
                     .Where(p => !typeof(IEnumerable).IsAssignableFrom(p.PropertyType))
+                    .Where(p => !excludedTypes.Contains(p.PropertyType))
+                    ;
+                
+                var fields = type.GetFields()
+                    // currently does not support collection types
+                    .Where(f => !typeof(IEnumerable).IsAssignableFrom(f.FieldType))
+                    .Where(f => !excludedTypes.Contains(f.FieldType))
                     ;
 
                 cache.Add(type, members = properties.Cast<MemberInfo>()
-                    .Concat(
-                        type.GetFields()
-                            // currently does not support collection types
-                            .Where(f => !typeof(IEnumerable).IsAssignableFrom(f.FieldType))
-                        ).ToArray());
+                    .Concat(fields)
+                    .Where(m => !Attribute.IsDefined(m, typeof(NonEditableAttribute)))
+                    .ToArray());
             }
 
             return members;
@@ -171,9 +185,6 @@ namespace Nouns.Snaps
         {
             foreach (var member in members)
             {
-                if (Attribute.IsDefined(member, typeof(NonEditableAttribute)))
-                    continue;
-
                 switch (member)
                 {
                     case FieldInfo f:
