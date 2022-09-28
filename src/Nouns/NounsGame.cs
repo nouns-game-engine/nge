@@ -57,7 +57,7 @@ namespace Nouns
             InitializeEditor(Content.RootDirectory);
 #endif
 
-            game = new PlatformerGame(Content);
+            game = new PlatformerGame(Content, this);
             game.Initialize();
             
             // calls LoadContent

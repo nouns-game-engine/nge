@@ -1,7 +1,6 @@
-﻿using Nouns.Engine.Pixels;
-using Nouns.StateMachine;
+﻿using Nouns.StateMachine;
 
-namespace Platformer
+namespace Nouns.Engine.Pixels
 {
     public class Actor : StateMachine<UpdateContext>
     {

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Nouns.Editor;
 using Nouns.Engine.Pixels;
 using Nouns.StateMachine;
 
@@ -8,14 +9,17 @@ namespace Platformer
 {
     public class PlatformerGame
     {
+        private readonly IEditingContext editContext;
+
         private GameState gameState;
         private UpdateContext updateContext;
         private DrawContext drawContext;
 
         public ContentManager Content { get; }
 
-        public PlatformerGame(ContentManager content)
+        public PlatformerGame(ContentManager content, IEditingContext editContext)
         {
+            this.editContext = editContext;
             Content = content;
         }
 
@@ -63,6 +67,8 @@ namespace Platformer
             var thing = new Thing(animationSet, new Position(100, 100), false);
             var cloud = new Cloud(thing, updateContext);
             gameState.actors.Add(cloud);
+
+            editContext.EditObject(cloud);
 
             return Array.Empty<Task>();
         }

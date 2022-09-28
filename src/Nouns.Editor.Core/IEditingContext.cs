@@ -3,10 +3,11 @@ using System.Collections.Generic;
 
 namespace Nouns.Editor
 {
-    public interface IEditorContext
+    public interface IEditingContext
     {
         GraphicsDevice GraphicsDevice { get; }
         ICollection<object> Objects { get; }
+        void EditObject<T>(T instance);
         void ToggleEditorsFor(object item);
         void Reset();
     }

@@ -15,7 +15,7 @@ using SDL2;
 
 namespace Nouns.Editor
 {
-    public abstract class EditableGame : Game, IEditorContext
+    public abstract class EditableGame : Game, IEditingContext
     {
         protected IEditorWindow[] windows = null!;
         protected IEditorMenu[] menus = null!;
@@ -318,7 +318,7 @@ namespace Nouns.Editor
             foreach (var type in types)
             {
                 ActivateWithConstructor(Type.EmptyTypes, windowList, menuList, dropHandlerList, type);
-                ActivateWithConstructor(new[] { typeof(IEditorContext) }, windowList, menuList, dropHandlerList, type, this);
+                ActivateWithConstructor(new[] { typeof(IEditingContext) }, windowList, menuList, dropHandlerList, type, this);
                 ActivateWithConstructor(new[] { typeof(GraphicsDevice) }, windowList, menuList, dropHandlerList, type, GraphicsDevice);
             }
         }
@@ -413,8 +413,11 @@ namespace Nouns.Editor
 
         public void EditObject<T>(T instance)
         {
+            if (instance == null)
+                return;
             if (objects.Contains(instance))
                 return;
+
             objects.Add(instance);
             AddWindow(new ObjectEditorWindow<T>(instance));
         }
@@ -423,7 +426,7 @@ namespace Nouns.Editor
         {
             for (var i = windows.Length - 1; i >= 0; i--)
             {
-                if (!(windows[i] is IEditObject))
+                if (windows[i] is not IEditObject)
                     continue;
                 Array.Resize(ref windows, windows.Length - 1);
                 Array.Resize(ref showWindows, showWindows.Length - 1);

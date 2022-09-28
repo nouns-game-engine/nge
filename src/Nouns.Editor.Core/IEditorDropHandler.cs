@@ -2,6 +2,6 @@
 {
     public interface IEditorDropHandler : IEditorEnabled
     {
-        bool Handle(IEditorContext context, params string[] fullPaths);
+        bool Handle(IEditingContext context, params string[] fullPaths);
     }
 }

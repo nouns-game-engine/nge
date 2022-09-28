@@ -29,7 +29,7 @@ namespace Nouns.Snaps
             buffer.Clear();
         }
 
-        public void Layout(IEditorContext context, GameTime gameTime, ref bool opened)
+        public void Layout(IEditingContext context, GameTime gameTime, ref bool opened)
         {
             if (ImGui.Button("Clear"))
                 Clear();

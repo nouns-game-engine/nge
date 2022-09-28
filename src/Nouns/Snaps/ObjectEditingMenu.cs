@@ -9,7 +9,7 @@ namespace Nouns.Snaps
         public bool Enabled => true;
         public string Label => "Objects";
 
-        public void Layout(IEditorContext context, GameTime gameTime)
+        public void Layout(IEditingContext context, GameTime gameTime)
         {
             if (context.Objects.Count == 0)
                 return;

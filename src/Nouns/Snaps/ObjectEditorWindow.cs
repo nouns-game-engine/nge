@@ -31,7 +31,7 @@ namespace Nouns.Snaps
                 .Concat(instance.GetType().GetFields()).ToArray();
         }
 
-        public void Layout(IEditorContext context, GameTime gameTime, ref bool opened)
+        public void Layout(IEditingContext context, GameTime gameTime, ref bool opened)
         {
             foreach (var member in cache[type])
             {

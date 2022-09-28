@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\lib\FNA\FNA.Core.csproj" />
+    <ProjectReference Include="..\Nouns.Core\Nouns.Core.csproj" />
+    <ProjectReference Include="..\Nouns.Editor.Core\Nouns.Editor.Core.csproj" />
   </ItemGroup>
 
 </Project>

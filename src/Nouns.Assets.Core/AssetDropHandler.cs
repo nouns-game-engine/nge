@@ -21,7 +21,7 @@ namespace Nouns.Assets
             };
         }
 		
-		public bool Handle(IEditorContext context, params string[] fullPaths)
+		public bool Handle(IEditingContext context, params string[] fullPaths)
 		{
 			foreach (var fullPath in fullPaths)
 			{
