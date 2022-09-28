@@ -5,6 +5,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Nouns.Core;
 using Nouns.Pipeline;
+using Velentr.Font;
+using static System.Net.Mime.MediaTypeNames;
+using Text = Velentr.Font.Text;
 
 namespace VisualTests
 {
@@ -78,10 +81,17 @@ namespace VisualTests
         }
 
         internal SpriteBatch spriteBatch = null!;
+        
+        private FontManager fontManager;
+        private Text chooseYourHero;
 
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            
+            fontManager = new FontManager(GraphicsDevice);
+            var font = fontManager.GetFont("./Content/nountown.otf", 48);
+            chooseYourHero = font.MakeText("Choose Your Hero!");
         }
 
         protected override void UnloadContent()
@@ -110,6 +120,10 @@ namespace VisualTests
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone);
             noun.Draw(spriteBatch, 3);
+            spriteBatch.End();
+
+            spriteBatch.Begin();
+            spriteBatch.DrawString(chooseYourHero, new Vector2(50, 50), Color.White);
             spriteBatch.End();
 
             // calls component draw
