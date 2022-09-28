@@ -2,7 +2,7 @@
   "profiles": {
     "Nouns": {
       "commandName": "Project",
-      "commandLineArgs": "--imgui reset --config reset",
+      "commandLineArgs": "--imgui reset --config reset --config set web3:rpcUrl http://localhost:8545",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

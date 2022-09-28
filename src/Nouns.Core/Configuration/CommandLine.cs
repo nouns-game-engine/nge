@@ -37,6 +37,15 @@ namespace Nouns.Core.Configuration
                                         File.Delete(Constants.DefaultConfigFileName);
                                     configuration = Config.GetOrCreateConfiguration();
                                     break;
+                                case "set":
+                                    if (EndOfSubArguments(arguments))
+                                        Console.Error.WriteLine("missing set key and value");
+                                    var key = arguments.Dequeue();
+                                    if (EndOfSubArguments(arguments))
+                                        Console.Error.WriteLine("missing set value");
+                                    var value = arguments.Dequeue();
+                                    configuration[key] = value;
+                                    break;
                                 default:
                                     Console.Error.WriteLine($"unrecognized command '{target}'");
                                     break;
