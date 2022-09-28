@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Numerics;
-using System.Text;
-using System.Text.Json;
 using ImGuiNET;
 using Microsoft.Extensions.Configuration;
 using Nouns.Editor;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Nethereum.Web3;
-using Nouns.Core.Web3;
-using Nouns.Pipeline;
+using Nouns.Graphics.Pipeline;
 using Vector2 = System.Numerics.Vector2;
 
 namespace Nouns.Snaps
@@ -63,29 +57,11 @@ namespace Nouns.Snaps
                 if (ImGui.InputInt("Token ID", ref tokenId, 1))
                     TokenId = Math.Max(0, tokenId);
 
-                var canMakeCall = tokenId >= 0 && !string.IsNullOrWhiteSpace(contractAddress);
-
-                if (canMakeCall && ImGui.Button("Import"))
+                if (tokenId >= 0 && !string.IsNullOrWhiteSpace(contractAddress) && ImGui.Button("Import"))
                 {
-                    var rpc = new Web3(rpcUrl.ToString());
-                    var service = rpc.Eth.ERC721.GetContractService(contractAddress);
-                    var tokenUri = service.TokenURIQueryAsync(tokenId).ConfigureAwait(false).GetAwaiter().GetResult();
-
-                    var encoded = tokenUri["data:application/json;base64,".Length..];
-                    var payload = Convert.FromBase64String(encoded);
-                    var json = Encoding.UTF8.GetString(payload);
-                    var metadata = JsonSerializer.Deserialize<JsonTokenMetadata>(json);
-
-                    if (metadata != null && !string.IsNullOrWhiteSpace(metadata.Image))
-                    {
-                        encoded = metadata.Image["data:image/svg+xml;base64,".Length..];
-                        payload = Convert.FromBase64String(encoded);
-
-                        var svg = Encoding.UTF8.GetString(payload);
-                        var stream = SvgFunctions.SvgToPng(svg);
-                        var texture = Texture2D.FromStream(graphicsDevice, stream);
+                    var texture = Web3Functions.GetTextureFromToken(graphicsDevice, rpcUrl, contractAddress, tokenId);
+                    if(texture != null)
                         lastImportedTexture = imGui.BindTexture(texture);
-                    }
                 }
             }
 

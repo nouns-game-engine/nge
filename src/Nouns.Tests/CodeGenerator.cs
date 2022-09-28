@@ -5,7 +5,7 @@ using Xunit.Abstractions;
 using SixLabors.ImageSharp.Formats.Png;
 using System.IO;
 using System.Text.Json;
-using Nouns.Pipeline;
+using Nouns.Graphics.Pipeline;
 using SixLabors.ImageSharp;
 
 namespace Nouns.Tests

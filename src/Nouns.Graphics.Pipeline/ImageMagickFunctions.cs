@@ -1,6 +1,6 @@
 ﻿using ImageMagick;
 
-namespace Nouns.Pipeline;
+namespace Nouns.Graphics.Pipeline;
 
 public static class ImageMagickFunctions
 {

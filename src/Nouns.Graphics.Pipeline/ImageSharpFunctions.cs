@@ -3,7 +3,7 @@ using SixLabors.ImageSharp.Formats;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 
-namespace Nouns.Pipeline
+namespace Nouns.Graphics.Pipeline
 {
     public static class ImageSharpFunctions
     {

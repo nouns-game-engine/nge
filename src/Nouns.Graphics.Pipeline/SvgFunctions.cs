@@ -1,8 +1,8 @@
-﻿using Svg;
-using System.Drawing.Imaging;
+﻿using System.Drawing.Imaging;
 using System.Text;
+using Svg;
 
-namespace Nouns.Pipeline
+namespace Nouns.Graphics.Pipeline
 {
     public static class SvgFunctions
     {

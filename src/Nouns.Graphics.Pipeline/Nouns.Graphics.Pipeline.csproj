@@ -12,4 +12,9 @@
     <PackageReference Include="Svg" Version="3.4.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\lib\FNA\FNA.Core.csproj" />
+    <ProjectReference Include="..\Nouns.Core\Nouns.Core.csproj" />
+  </ItemGroup>
+
 </Project>

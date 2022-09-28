@@ -28,7 +28,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Nouns.Assets.MagicaVoxel\Nouns.Assets.MagicaVoxel.csproj" />
-    <ProjectReference Include="..\Nouns.Pipeline\Nouns.Pipeline.csproj" />
     <ProjectReference Include="..\Nouns\Nouns.csproj" />
   </ItemGroup>
 
