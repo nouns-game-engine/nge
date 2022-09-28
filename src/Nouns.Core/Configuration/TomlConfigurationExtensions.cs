@@ -1,6 +1,5 @@
 using Microsoft.Extensions.FileProviders;
-using Nouns.CLI.Configuration;
-using System;
+using Nouns.Core.Configuration;
 using Tomlyn;
 
 // ReSharper disable once CheckNamespace (following convention)

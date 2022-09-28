@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -24,14 +24,16 @@ namespace Nouns
     {
         // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable (retained)
         private readonly GraphicsDeviceManager graphics;
-
         private readonly string[] args;
 
-        public NounsGame(params string[] args)
+        public NounsGame(IConfiguration configuration, params string[] args)
         {
-            TargetElapsedTime = Constants.loadingScreenFrameTime;
-
+#if !WASM
+            this.configuration = configuration;
+#endif
             this.args = args;
+
+            TargetElapsedTime = Constants.loadingScreenFrameTime;
 
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1280;
@@ -44,8 +46,8 @@ namespace Nouns
             IsMouseVisible = true;
         }
 
-        private LoadingScreen loadingScreen;
-        private PlatformerGame game;
+        private LoadingScreen loadingScreen = null!;
+        private PlatformerGame game = null!;
 
         protected override void Initialize()
         {
@@ -153,7 +155,7 @@ namespace Nouns
 
         private bool oneTimeBackgroundLoad;
 
-        private Task backgroundLoadTask;
+        private Task backgroundLoadTask = null!;
 
         public bool DidFinishLoading { get; private set; }
 

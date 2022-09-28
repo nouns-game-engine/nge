@@ -150,8 +150,8 @@ namespace Nouns.Snaps
             else
             {
                 //ImGui.SetNextItemWidth(maxTextSize[(parent ?? target).GetType()].X);
-                //ImGui.SetNextItemWidth(100);
-                //ImGui.PushItemWidth(100);
+                //ImGui.PushItemWidth(maxTextSize[(parent ?? target).GetType()].X);
+
                 if (ImGui.CollapsingHeader(member.Name))
                 {
                     var members = GetOrCacheMembersForType(valueToSet.GetType());

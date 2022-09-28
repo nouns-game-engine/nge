@@ -5,6 +5,7 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using ImGuiNET;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -27,6 +28,8 @@ namespace Nouns.Editor
 
         protected ImGuiRenderer imGui = null!;
         protected RenderTarget2D renderTarget = null!;
+
+        protected IConfiguration configuration;
 
         protected void ImGuiInit()
         {
@@ -302,6 +305,7 @@ namespace Nouns.Editor
 
             // 
             // Menus:
+            menuList.Add(new Web3Menu(configuration));
             menuList.Sort(OrderExtensions.TrySortByOrder);
             menus = menuList.ToArray();
 
@@ -372,19 +376,20 @@ namespace Nouns.Editor
         {
             try
             {
-                SDL.SDL_Event evt = (SDL.SDL_Event)Marshal.PtrToStructure(evtPtr, typeof(SDL.SDL_Event));
-                if (evt.type == SDL.SDL_EventType.SDL_DROPFILE)
+                var evt = (SDL.SDL_Event)(Marshal.PtrToStructure(evtPtr, typeof(SDL.SDL_Event)) ?? throw new NullReferenceException());
+                if (evt.type != SDL.SDL_EventType.SDL_DROPFILE)
+                    return 0;
+
+                var filename = SDL.UTF8_ToManaged(evt.drop.file, true);
+                Trace.WriteLine($"File dropped: {filename}");
+                foreach (var dropHandler in dropHandlers)
                 {
-                    var filename = SDL.UTF8_ToManaged(evt.drop.file, true);
-                    Trace.WriteLine($"File dropped: {filename}");
-                    foreach (var dropHandler in dropHandlers)
+                    if (dropHandler.Enabled && dropHandler.Handle(this, filename))
                     {
-                        if (dropHandler.Enabled && dropHandler.Handle(this, filename))
-                        {
-                            break;
-                        }
+                        break;
                     }
                 }
+
                 return 0;
             }
             catch (Exception e)

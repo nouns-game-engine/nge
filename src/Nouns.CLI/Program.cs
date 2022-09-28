@@ -4,7 +4,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Nouns.CLI.Configuration;
+using Nouns.Core.Configuration;
 
 namespace Nouns.CLI
 {

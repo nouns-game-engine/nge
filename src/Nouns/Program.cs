@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Nouns.Core.Configuration;
+using System;
 using System.IO;
 using System.Runtime.InteropServices;
 
@@ -28,7 +29,8 @@ namespace Nouns
             //           <string>True</string>
             Environment.SetEnvironmentVariable("FNA_GRAPHICS_ENABLE_HIGHDPI", "1");
 
-            using var game = new NounsGame();
+            var configuration = Config.GetOrCreateConfiguration("config.toml");
+            using var game = new NounsGame(configuration, args);
             game.Run();
         }
     }

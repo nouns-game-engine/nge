@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Reflection;
 using Microsoft.Extensions.Configuration;
-using Nouns.CLI.Configuration;
 
 namespace Nouns.CLI
 {
@@ -25,27 +24,6 @@ namespace Nouns.CLI
 
                 switch (arg.ToLower())
                 {
-                    case "games":
-
-                        if (!EndOfSubArguments(arguments))
-                        {
-                            var command = arguments.Dequeue();
-                            switch (command.ToLowerInvariant())
-                            {
-                                case "add":
-                                    AddGame(arguments);
-                                    break;
-
-                                case "list":
-                                    ListGames(config);
-                                    break;
-                            }
-
-                            return;
-                        }
-
-                        ListGames(config);
-                        break;
                     case "stat":
                         if (EndOfSubArguments(arguments))
                         {
@@ -60,48 +38,15 @@ namespace Nouns.CLI
                                     Console.Out.WriteLine(Assembly.GetExecutingAssembly().GetName().Version);
                                     break;
                                 default:
-                                    Console.Error.WriteLine("unrecognized stat '" + target + "'");
+                                    Console.Error.WriteLine($"unrecognized stat '{target}'");
                                     break;
                             }
                         }
                         break;
                     default:
-                        Console.Error.WriteLine("unrecognized command line parameter '" + arg + "' (position " + (args.Length - arguments.Count - 1) + ")");
+                        Console.Error.WriteLine($"unrecognized command line parameter '{arg}' (position {(args.Length - arguments.Count - 1)})");
                         break;
                 }
-            }
-        }
-
-        private static void ListGames(IConfiguration config)
-        {
-            var games = config.GetSection("games");
-            var gameCount = 0;
-            foreach (var game in games.GetChildren())
-            {
-                gameCount++;
-
-                Console.WriteLine(game.Value);
-            }
-
-            if (gameCount == 0)
-                Console.Out.WriteLine("no games found.");
-            else
-                Console.Out.WriteLine("(" + gameCount + " results)");
-        }
-
-        private static void AddGame(Queue<string> arguments)
-        {
-            if (EndOfSubArguments(arguments))
-            {
-                Console.Error.WriteLine("no game name specified");
-            }
-            else
-            {
-                var gameName = arguments.Dequeue().ToLowerInvariant();
-                if (Config.TryAddGame(gameName))
-                    Console.Out.WriteLine("added game " + gameName);
-                else
-                    Console.Error.WriteLine("could not add game " + gameName);
             }
         }
     }
