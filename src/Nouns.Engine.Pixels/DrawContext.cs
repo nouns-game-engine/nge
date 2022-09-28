@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Nouns.Graphics.Pixels;
+namespace Nouns.Engine.Pixels;
 
 public sealed class DrawContext
 {

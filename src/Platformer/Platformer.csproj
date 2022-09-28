@@ -15,7 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Nouns.Core\Nouns.Core.csproj" />
     <ProjectReference Include="..\Nouns.Editor.Core\Nouns.Editor.Core.csproj" />
-    <ProjectReference Include="..\Nouns.Graphics.Pixels\Nouns.Graphics.Pixels.csproj" />
+    <ProjectReference Include="..\Nouns.Engine.Pixels\Nouns.Engine.Pixels.csproj" />
   </ItemGroup>
 
 </Project>

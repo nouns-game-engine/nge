@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Nouns.Graphics.Pixels;
+namespace Nouns.Engine.Pixels;
 
 public class Cel
 {

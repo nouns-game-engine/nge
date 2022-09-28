@@ -1,4 +1,4 @@
-﻿namespace Nouns.Graphics.Pixels;
+﻿namespace Nouns.Engine.Pixels;
 
 public class Animation
 {

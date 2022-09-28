@@ -1,4 +1,4 @@
-﻿using Nouns.Graphics.Pixels;
+﻿using Nouns.Engine.Pixels;
 using Nouns.StateMachine;
 
 namespace Platformer
