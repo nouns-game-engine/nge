@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Nouns.Assets.MagicaVoxel;
 using Nouns.Core;
+using Platformer;
 
 #if !WASM
 using Nouns.Editor;
@@ -44,6 +45,7 @@ namespace Nouns
         }
 
         private LoadingScreen loadingScreen;
+        private PlatformerGame game;
 
         protected override void Initialize()
         {
@@ -54,16 +56,19 @@ namespace Nouns
 #if !WASM
             InitializeEditor(Content.RootDirectory);
 #endif
+
+            game = new PlatformerGame(Content);
+            game.Initialize();
             
             // calls LoadContent
             base.Initialize();
         }
 
-        internal SpriteBatch spriteBatch = null!;
+        internal SpriteBatch sb = null!;
 
         protected override void LoadContent()
         {
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            sb = new SpriteBatch(GraphicsDevice);
 
             if (!oneTimeBackgroundLoad)
             {
@@ -77,7 +82,7 @@ namespace Nouns
         protected override void UnloadContent()
         {
             Content.Unload();
-            spriteBatch.Dispose();
+            sb.Dispose();
         }
 
         protected override void Update(GameTime gameTime)
@@ -96,6 +101,8 @@ namespace Nouns
 
                 else if (Input.KeyWentDown(Keys.F1))
                     devMenuEnabled = !devMenuEnabled;
+
+                game.Update();
 #endif
             }
             else
@@ -115,14 +122,15 @@ namespace Nouns
             {
 #if !WASM
                 GraphicsDevice.SetRenderTarget(renderTarget);
+                game.Draw(renderTarget);
 #endif
-                GraphicsDevice.Clear(Color.Black);
 
 #if !WASM
                 GraphicsDevice.SetRenderTarget(null);
-                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque);
-                spriteBatch.Draw(renderTarget, Vector2.Zero, Color.White);
-                spriteBatch.End();
+
+                sb.Begin(SpriteSortMode.Immediate, BlendState.Opaque);
+                sb.Draw(renderTarget, Vector2.Zero, Color.White);
+                sb.End();
 
                 if (devMenuEnabled)
                 {
@@ -151,13 +159,10 @@ namespace Nouns
 
         private void StartBackgroundLoading()
         {
-            var backgroundTasks = new List<Task>();
+#if !WASM
+            var backgroundTasks = game.StartBackgroundLoading();
 
-            // simulate background loading
-            backgroundTasks.Add(Task.Delay(TimeSpan.FromSeconds(10)));
-
-            var array = backgroundTasks.ToArray();
-            if (array.Length == 0)
+            if (backgroundTasks.Length == 0)
             {
                 DidFinishLoading = true;
                 OnFinishedLoading();
@@ -165,23 +170,28 @@ namespace Nouns
             }
 
             var sw = Stopwatch.StartNew();
-            backgroundLoadTask = Task.Factory.ContinueWhenAll(array, tasks =>
+
+            backgroundLoadTask = Task.Factory.ContinueWhenAll(backgroundTasks, tasks =>
             {
                 Task.WaitAll(tasks);
                 Trace.WriteLine($"background load completed, took: {sw.Elapsed}");
                 OnFinishedLoading();
             });
+#else
+            game.BackgroundLoad();
+#endif
         }
 
         public void OnFinishedLoading()
         {
             DidFinishLoading = true;
             TargetElapsedTime = Constants.defaultFrameTime;
+            game.OnFinishedLoading(sb);
         }
 
-        #endregion
+#endregion
 
-        #region Command Line
+#region Command Line
 
         public void ProcessCommandLine()
         {
@@ -205,6 +215,6 @@ namespace Nouns
             return arguments.Count == 0 || arguments.Peek().StartsWith("--") || arguments.Peek().StartsWith("+");
         }
 
-        #endregion
+#endregion
     }
 }

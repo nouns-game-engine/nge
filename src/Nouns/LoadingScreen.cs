@@ -26,8 +26,8 @@ internal sealed class LoadingScreen
             viewport.Bounds.Width / 2f - texture.Width / 2f, 
             viewport.Bounds.Height / 2f - texture.Height / 2f);
 
-        game.spriteBatch.Begin(0, null, SamplerState.PointClamp, null, null, null);
-        game.spriteBatch.Draw(texture, position, null, Color.White, 0f, Vector2.One, 1f, 0, 0);
-        game.spriteBatch.End();
+        game.sb.Begin(0, null, SamplerState.PointClamp, null, null, null);
+        game.sb.Draw(texture, position, null, Color.White, 0f, Vector2.One, 1f, 0, 0);
+        game.sb.End();
     }
 }
