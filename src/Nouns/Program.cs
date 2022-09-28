@@ -29,7 +29,7 @@ namespace Nouns
             //           <string>True</string>
             Environment.SetEnvironmentVariable("FNA_GRAPHICS_ENABLE_HIGHDPI", "1");
 
-            var configuration = Config.GetOrCreateConfiguration("config.toml");
+            var configuration = Config.GetOrCreateConfiguration();
             using var game = new NounsGame(configuration, args);
             game.Run();
         }

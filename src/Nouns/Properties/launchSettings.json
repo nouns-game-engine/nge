@@ -2,6 +2,7 @@
   "profiles": {
     "Nouns": {
       "commandName": "Project",
+      "commandLineArgs": "--imgui reset --config reset",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

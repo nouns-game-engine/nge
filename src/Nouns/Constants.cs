@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Nouns;
+﻿namespace Nouns;
 
 internal class Constants
 {

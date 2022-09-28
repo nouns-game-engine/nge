@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Tomlyn.Syntax;
+// ReSharper disable StringLiteralTypo
 
 namespace Nouns.Core.Configuration
 {
@@ -8,7 +9,7 @@ namespace Nouns.Core.Configuration
         private static IConfigurationRoot configuration = null!;
         private static string configFilePath = null!;
 
-        public static IConfiguration GetOrCreateConfiguration(string configFileName)
+        public static IConfiguration GetOrCreateConfiguration(string configFileName = Constants.DefaultConfigFileName)
         {
             var workingDir = Directory.GetCurrentDirectory();
             configFilePath = Path.Combine(workingDir, configFileName);
@@ -34,7 +35,16 @@ namespace Nouns.Core.Configuration
                     {
                         Items =
                         {
-                            {"rpcUrl", "http://localhost:8545"},
+                            {"rpcUrl", "http://localhost:8545"}
+                        }
+                    },
+                    new TableArraySyntax("web3.knownContracts")
+                    {
+                        Items =
+                        {
+                            {"Nouns", @"0x9c8ff314c9bc7f6e59a9d9225fb22946427edc03"},
+                            {"CrypToadz", @"0x1cb1a5e65610aeff2551a50f76a87a7d3fb649c6"},
+                            {"Terraforms", @"0x4e1f41613c9084fdb9e34e11fae9412427480e56"}
                         }
                     },
                     new TableSyntax("locations")

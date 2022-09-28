@@ -64,6 +64,34 @@ public static class DataUri
 
         format.Data = format.IsBase64 ? Convert.FromBase64String(data) : Encoding.UTF8.GetBytes(data);
         return true;
+    }
+
+    public static bool TryParseApplication(string uri, out Format format)
+    {
+        format = new Format();
+        var match = Regex.Match(uri, @"data:application/(?<type>.+?),(?<data>.+)");
+        if (!match.Success)
+            return false;
+
+        var applicationType = match.Groups["type"].Value.ToLowerInvariant();
+        var data = match.Groups["data"].Value;
+
+        switch (applicationType)
+        {
+            case "json;base64":
+                format.Extension = "json";
+                format.IsBase64 = true;
+                break;
+            case "json":
+                format.Extension = "json";
+                break;
+            default:
+                format.Extension = applicationType;
+                break;
+        }
+
+        format.Data = format.IsBase64 ? Convert.FromBase64String(data) : Encoding.UTF8.GetBytes(data);
+        return true;
 
     }
 }

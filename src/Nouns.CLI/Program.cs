@@ -25,7 +25,8 @@ namespace Nouns.CLI
             graphicsDevice = AcquireGraphicsDevice(out var serviceContainer);
             services = serviceContainer;
 
-            CommandLine.ProcessArguments(Config.GetOrCreateConfiguration("config.toml"), args);
+            var configuration = Config.GetOrCreateConfiguration();
+            CommandLine.ProcessArguments(ref configuration, args);
         }
 
         #region Bootstrap

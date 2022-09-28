@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Text;
 using ImGuiNET;
 using Microsoft.Extensions.Configuration;
 using Nouns.Editor;
@@ -41,44 +41,11 @@ namespace Nouns.Snaps
         private IntPtr? lastImportedTexture;
         private Vector2? lastImportedSize;
 
+        private int index = 0;
+
         public void Layout(IEditingContext context, GameTime gameTime)
         {
-            RpcUrlTextBox();
-
-            if (!string.IsNullOrWhiteSpace(RpcUrl) && Uri.TryCreate(RpcUrl, UriKind.Absolute, out var rpcUrl))
-            {
-                var contractAddress = !string.IsNullOrWhiteSpace(ContractAddress)
-                    ? ContractAddress
-                    : "0x9c8ff314c9bc7f6e59a9d9225fb22946427edc03";
-
-                if (ImGui.InputText("Contract Address", ref contractAddress, 42))
-                    ContractAddress = contractAddress ?? "0x9c8ff314c9bc7f6e59a9d9225fb22946427edc03";
-                
-                var tokenId = TokenId;
-                if (ImGui.InputInt("Token ID", ref tokenId, 1))
-                    TokenId = Math.Max(0, tokenId);
-
-                if (tokenId >= 0 && !string.IsNullOrWhiteSpace(contractAddress) && ImGui.Button("Import"))
-                {
-                    var (texture, size) = Web3Functions.GetTextureAndSizeFromToken(graphicsDevice, rpcUrl, contractAddress, tokenId);
-                    if (texture != null)
-                        lastImportedTexture = imGui.BindTexture(texture);
-                    if(size.HasValue)
-                        lastImportedSize = new Vector2(size.Value.X, size.Value.Y);
-                }
-            }
-
-            if (lastImportedTexture.HasValue)
-            {
-                var size = lastImportedSize.HasValue ? new Vector2(lastImportedSize.Value.X, lastImportedSize.Value.Y) : new Vector2(320, 320);
-                ImGui.Image(lastImportedTexture.Value, size);
-            }
-        }
-
-        private void RpcUrlTextBox()
-        {
             var url = RpcUrl ?? "http://localhost:8545";
-
             var valid = true;
 
             if (Uri.TryCreate(url, UriKind.Absolute, out var uri))
@@ -98,6 +65,48 @@ namespace Nouns.Snaps
 
             if (!valid)
                 ImGui.PopStyleColor();
+            
+            var values = configuration.GetSection("web3.knownContracts");
+            if (values != null)
+            {
+                var list = values.AsEnumerable()
+                    .Select(x => x.Key.Replace("web3.knownContracts", "").Replace(":", ""))
+                    .Where(x => !string.IsNullOrWhiteSpace(x))
+                    .ToArray();
+
+                if (ImGui.Combo("Known Contracts", ref index, list, list.Length))
+                    ContractAddress = values[list[index]];
+            }
+            
+            if (!string.IsNullOrWhiteSpace(RpcUrl) && Uri.TryCreate(RpcUrl, UriKind.Absolute, out var rpcUrl))
+            {
+                var contractAddress = !string.IsNullOrWhiteSpace(ContractAddress)
+                    ? ContractAddress
+                    : "0x9c8ff314c9bc7f6e59a9d9225fb22946427edc03";
+
+                if (ImGui.InputText("Contract Address", ref contractAddress, 42))
+                    ContractAddress = contractAddress ?? "0x9c8ff314c9bc7f6e59a9d9225fb22946427edc03";
+
+                var tokenId = TokenId;
+                if (ImGui.InputInt("Token ID", ref tokenId, 1))
+                    TokenId = Math.Max(0, tokenId);
+
+                if (tokenId >= 0 && !string.IsNullOrWhiteSpace(contractAddress) && ImGui.Button("Import"))
+                {
+                    var (texture, size) =
+                        Web3Functions.GetTextureAndSizeFromToken(graphicsDevice, rpcUrl, contractAddress, tokenId);
+                    if (texture != null)
+                        lastImportedTexture = imGui.BindTexture(texture);
+                    if (size.HasValue)
+                        lastImportedSize = new Vector2(size.Value.X, size.Value.Y);
+                }
+            }
+
+            if (lastImportedTexture.HasValue)
+            {
+                var size = lastImportedSize.HasValue ? new Vector2(lastImportedSize.Value.X, lastImportedSize.Value.Y) : new Vector2(320, 320);
+                ImGui.Image(lastImportedTexture.Value, size);
+            }
         }
     }
 }

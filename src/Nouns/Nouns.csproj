@@ -7,6 +7,8 @@
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<ApplicationIcon>game.ico</ApplicationIcon>
 		<Platforms>AnyCPU;x64</Platforms>
+		<StartupObject>Nouns.Program</StartupObject>
+		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
 
 	<ItemGroup>

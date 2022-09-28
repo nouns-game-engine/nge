@@ -16,7 +16,19 @@ namespace Nouns.Graphics.Pipeline
                 return (null, null);
 
             if (!DataUri.TryParseImage(metadata.Image, out var format) || format.Data == null)
-                return (null, null);
+            {
+                if (!metadata.Image.StartsWith("http://") && !metadata.Image.StartsWith("https://"))
+                    return (null, null);
+
+                var response = Singleton.http.GetAsync(metadata.Image).ConfigureAwait(false).GetAwaiter().GetResult();
+                var buffer = response.Content.ReadAsByteArrayAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+
+                var urlExtension = Path.GetExtension(metadata.Image);
+                if(!string.IsNullOrWhiteSpace(urlExtension))
+                    format.Extension = urlExtension[1..];
+
+                format.Data = buffer;
+            }
 
             Texture2D? texture;
 

@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Input;
 using Nouns.Assets.MagicaVoxel;
 using Nouns.Core;
 using Platformer;
+using Nouns.Core.Configuration;
 
 #if !WASM
 using Nouns.Editor;
@@ -197,24 +198,7 @@ namespace Nouns
 
         public void ProcessCommandLine()
         {
-            var arguments = new Queue<string>(args);
-
-            while (arguments.Count > 0)
-            {
-                string arg = arguments.Dequeue();
-
-                switch (arg.ToLowerInvariant())
-                {
-                    default:
-                        break;
-                }
-            }
-        }
-
-        static bool EndOfSubArguments(Queue<string> arguments)
-        {
-            // + is to support steam-style arguments
-            return arguments.Count == 0 || arguments.Peek().StartsWith("--") || arguments.Peek().StartsWith("+");
+            CommandLine.ProcessArguments(ref configuration, args);
         }
 
 #endregion

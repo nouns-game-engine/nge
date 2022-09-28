@@ -11,16 +11,24 @@ namespace Nouns.Core.Web3
         {
             try
             {
-
                 var rpc = new Nethereum.Web3.Web3(rpcUrl);
                 var service = rpc.Eth.ERC721.GetContractService(contractAddress);
                 var tokenUri = service.TokenURIQueryAsync(tokenId).ConfigureAwait(false).GetAwaiter().GetResult();
 
-                var encoded = tokenUri[DataUri.ApplicationJsonBase64.Length..];
-                var payload = Convert.FromBase64String(encoded);
-                var json = Encoding.UTF8.GetString(payload);
-                var metadata = JsonSerializer.Deserialize<JsonTokenMetadata>(json);
+                if (tokenUri.StartsWith("http://") || tokenUri.StartsWith("https://"))
+                {
+                    var response = Singleton.http.GetAsync(tokenUri).ConfigureAwait(false).GetAwaiter().GetResult();
+                    var buffer = response.Content.ReadAsByteArrayAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+                    var charSet = response.Content.Headers.ContentType?.CharSet ?? "utf-8";
+                    var encoding = Encoding.GetEncoding(charSet);
+                    tokenUri = encoding.GetString(buffer);
+                }
 
+                var json = !DataUri.TryParseApplication(tokenUri, out var format) || format.Data == null
+                    ? tokenUri
+                    : Encoding.UTF8.GetString(format.Data);
+
+                var metadata = JsonSerializer.Deserialize<JsonTokenMetadata>(json);
                 return metadata;
             }
             catch (SmartContractRevertException e)
