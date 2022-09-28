@@ -39,6 +39,7 @@ namespace Nouns.Snaps
         private IConfigurationSection Web3() => configuration.GetSection("Web3");
 
         private IntPtr? lastImportedTexture;
+        private Vector2? lastImportedSize;
 
         public void Layout(IEditingContext context, GameTime gameTime)
         {
@@ -59,15 +60,18 @@ namespace Nouns.Snaps
 
                 if (tokenId >= 0 && !string.IsNullOrWhiteSpace(contractAddress) && ImGui.Button("Import"))
                 {
-                    var texture = Web3Functions.GetTextureFromToken(graphicsDevice, rpcUrl, contractAddress, tokenId);
-                    if(texture != null)
+                    var (texture, size) = Web3Functions.GetTextureAndSizeFromToken(graphicsDevice, rpcUrl, contractAddress, tokenId);
+                    if (texture != null)
                         lastImportedTexture = imGui.BindTexture(texture);
+                    if(size.HasValue)
+                        lastImportedSize = new Vector2(size.Value.X, size.Value.Y);
                 }
             }
 
             if (lastImportedTexture.HasValue)
             {
-                ImGui.Image(lastImportedTexture.Value, new Vector2(320, 320));
+                var size = lastImportedSize.HasValue ? new Vector2(lastImportedSize.Value.X, lastImportedSize.Value.Y) : new Vector2(320, 320);
+                ImGui.Image(lastImportedTexture.Value, size);
             }
         }
 

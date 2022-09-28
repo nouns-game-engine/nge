@@ -16,7 +16,7 @@ namespace Nouns.Core.Web3
                 var service = rpc.Eth.ERC721.GetContractService(contractAddress);
                 var tokenUri = service.TokenURIQueryAsync(tokenId).ConfigureAwait(false).GetAwaiter().GetResult();
 
-                var encoded = tokenUri["data:application/json;base64,".Length..];
+                var encoded = tokenUri[DataUri.ApplicationJsonBase64.Length..];
                 var payload = Convert.FromBase64String(encoded);
                 var json = Encoding.UTF8.GetString(payload);
                 var metadata = JsonSerializer.Deserialize<JsonTokenMetadata>(json);
