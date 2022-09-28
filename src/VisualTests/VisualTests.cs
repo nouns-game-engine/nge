@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework.Input;
 using Nouns.Core;
 using Nouns.Pipeline;
 using Velentr.Font;
-using static System.Net.Mime.MediaTypeNames;
 using Text = Velentr.Font.Text;
 
 namespace VisualTests
@@ -28,9 +27,9 @@ namespace VisualTests
             IsMouseVisible = true;
         }
 
-        private Noun noun;
         private Random random;
         private Dictionary<string, Rect> rectangles;
+        private Noun noun;
 
         protected override void Initialize()
         {
@@ -129,11 +128,11 @@ namespace VisualTests
 
             spriteBatch.Begin();
             spriteBatch.DrawString(chooseYourHero, new Vector2(50, 50), Color.Red);
-            spriteBatch.DrawString(font, noun.Head.Name, new Vector2(50, 50 + 48), Color.White);
-            spriteBatch.DrawString(font, noun.Glasses.Name, new Vector2(50, 50 + 48 + 48), Color.White);
-            spriteBatch.DrawString(font, noun.Body.Name, new Vector2(50, 50 + 48 + 48 + 48), Color.White);
-            spriteBatch.DrawString(font, noun.Accessory.Name, new Vector2(50, 50 + 48 + 48 + 48 + 48), Color.White);
-            spriteBatch.DrawString(font, noun.Legs.Name, new Vector2(50, 50 + 48 + 48 + 48 + 48 + 48), Color.White);
+            spriteBatch.DrawString(font, "Head " + noun.Head.Name, new Vector2(50, 98), Color.White);
+            spriteBatch.DrawString(font, "Glasses " + noun.Glasses.Name, new Vector2(50, 146), Color.White);
+            spriteBatch.DrawString(font, "Body " + noun.Body.Name, new Vector2(50, 194), Color.White);
+            spriteBatch.DrawString(font, "Accessory " + noun.Accessory.Name, new Vector2(50, 242), Color.White);
+            spriteBatch.DrawString(font, "Legs " + noun.Legs.Name, new Vector2(50, 290), Color.White);
             spriteBatch.End();
 
             // calls component draw
