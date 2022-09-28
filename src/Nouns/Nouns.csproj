@@ -15,6 +15,7 @@
 		<ProjectReference Include="..\Nouns.Assets.MagicaVoxel\Nouns.Assets.MagicaVoxel.csproj" />
 		<ProjectReference Include="..\Nouns.Core\Nouns.Core.csproj" />
 		<ProjectReference Include="..\Nouns.Editor.Core\Nouns.Editor.Core.csproj" />
+		<ProjectReference Include="..\Nouns.Pipeline\Nouns.Pipeline.csproj" />
 		<ProjectReference Include="..\Platformer\Platformer.csproj" />
 	</ItemGroup>
 
@@ -50,6 +51,7 @@
 
 	<ItemGroup>
 	  <PackageReference Include="ImGui.NET" Version="1.87.3" />
+	  <PackageReference Include="Nethereum.Web3" Version="4.9.0" />
 	</ItemGroup>
 
 </Project>

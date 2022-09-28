@@ -305,7 +305,7 @@ namespace Nouns.Editor
 
             // 
             // Menus:
-            menuList.Add(new Web3Menu(configuration));
+            menuList.Add(new Web3Menu(GraphicsDevice, imGui, configuration));
             menuList.Sort(OrderExtensions.TrySortByOrder);
             menus = menuList.ToArray();
 
