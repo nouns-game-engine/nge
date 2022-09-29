@@ -1,3 +1,5 @@
 # Table of contents
 
-* [Hyperstructures](README.md)
+* [Introduction](README.md)
+* [Projects](projects.md)
+* [Hyperstructures](<README (1).md>)
