@@ -10,7 +10,7 @@ description: Required resource allocation to achieve the proposal.
 These roles can cross multiple people, depending on the project plan.
 {% endhint %}
 
-#### Lead Hyperstructure Developer (full-time)
+#### Lead Blockchain Developer (full-time)
 
 This role is to map out all interaction points between the core engine and the blockchain hyperstructure, develop bridges between EVM and C#, and replace, wherever possible existing C# capabilities with EVM native capabilities, using the C# implementation as a test harness for verifying correct behavior. Much of the feedback loop in this role is also building the sample/default games using the engine and ensuring their suitability for hyperstructure hosting.
 
