@@ -4,6 +4,7 @@
 * [Projects](projects.md)
 * [Hyperstructures](<README (1).md>)
 * [Architecture](architecture.md)
+* [Team](team.md)
 * [Sponsors](sponsors.md)
 
 ## NounsDAO Proposal
