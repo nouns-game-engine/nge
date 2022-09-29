@@ -1,12 +1,18 @@
 # Table of contents
 
-* [Introduction](README.md)
-* [Why](why.md)
-* [Architecture](architecture.md)
-* [Components](components.md)
-* [Hyperstructures](<README (1).md>)
-* [Team](team.md)
-* [Sponsors](sponsors.md)
+## Documentation
+
+* [Getting Started](README.md)
+
+## About
+
+* [Introduction](about/readme.md)
+* [Why](about/why.md)
+* [Architecture](about/architecture.md)
+* [Components](about/components.md)
+* [Hyperstructures](about/hyperstructures.md)
+* [Team](about/team.md)
+* [Sponsors](about/sponsors.md)
 
 ## NounsDAO Proposal
 
