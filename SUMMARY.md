@@ -3,7 +3,7 @@
 * [Introduction](README.md)
 * [Why](why.md)
 * [Architecture](architecture.md)
-* [Projects](projects.md)
+* [Components](components.md)
 * [Hyperstructures](<README (1).md>)
 * [Team](team.md)
 * [Sponsors](sponsors.md)
