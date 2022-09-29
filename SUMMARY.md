@@ -4,3 +4,4 @@
 * [Projects](projects.md)
 * [Hyperstructures](<README (1).md>)
 * [Sponsors](sponsors.md)
+* [Architecture](architecture.md)
