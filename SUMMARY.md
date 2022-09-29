@@ -10,7 +10,7 @@
 ## NounsDAO Proposal
 
 * [Status](nounsdao-proposal/status.md)
-* [History](nounsdao-proposal/history.md)
+* [History](nounsdao-proposal/previous-proposal.md)
 * [Scope](nounsdao-proposal/scope.md)
 * [Risks](nounsdao-proposal/risks.md)
 * [Staff](nounsdao-proposal/staff.md)

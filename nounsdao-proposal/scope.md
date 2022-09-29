@@ -101,7 +101,7 @@ Production game-quality networking is a difficult problem in games, and there is
 
 Some games work with turn-based, occasionally connected devices, which is achievable at the smart contract level with Ethereum's existing infrastructure, and forms the basis of most on-chain games today.&#x20;
 
-> This form of networking requires no additional work for the engine outside of the existing "Game State Serializer" deliverable with "State Machine" roll-ups to store saved game states on-chain in an efficient way.
+> _**N.B.**_**  **_**This form of networking requires no additional work for the engine outside of the existing "Game State Serializer" deliverable with "State Machine Rollup" to store saved game states on-chain in an efficient way.**_
 
 Some need peer-to-peer networking (couch co-op games on limited budgets), some games need large server farms (i.e. [MMORPGs](https://en.wikipedia.org/wiki/Massively\_multiplayer\_online\_role-playing\_game)).
 
