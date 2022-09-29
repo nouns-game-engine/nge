@@ -35,13 +35,17 @@ As a CC0 project, there is no owner. Value is accrued in the form of direct expe
 
 > There are built-in incentives for participants in the protocol.
 
-While NounsGame does not intend to introduce any hard incentives, such as an in-game token, the ability for others to do so for their games and in-game marketplaces is an implicit incentive for participants, whether they are players obtaining incentives for playing creators' games, or creators building sustainable business models around their game content. For this reason, NounsGame purposefully removes itself as an arbiter of incentives, to remain agnostic and useful for all participants. NounsGame also provides expansiveness in the form of shared leaderboards and achievements, acting as an identity-based "passport" across participant creations, if the participants elect to use it.
+While NounsGame does not intend to introduce any hard incentives, such as an in-game token, the ability for others to do so for their games and in-game marketplaces is an implicit incentive for participants, whether they are players obtaining incentives for playing creators' games, or creators building sustainable business models around their game content.&#x20;
+
+For this reason, NounsGame purposefully removes itself as an arbiter of incentives, to remain agnostic and useful for all participants. NounsGame also provides expansiveness in the form of shared leaderboards and achievements, acting as an identity-based "passport" across participant creations, if the participants elect to use it.
 
 #### Permissionless
 
 > &#x20;**** Universally accessible and censorship resistant. Builders and users cannot be de-platformed.
 
-NounsGame achieves this largely being an unstoppable game engine, as well as by imposing no economic model on creators. The nature of how games are created and deployed on NounsGame makes it impossible for a creator to render their game unusable by its players. In the event a creator ceases to evolve or expand its game offering, and that offering uses an in-game currency of their own design, and in the event that in-game currency is burned or otherwise unavailable, NounsGame could enforce a "free play" option at the protocol level, to protect abandoned games.
+NounsGame achieves this largely being an unstoppable game engine, as well as by imposing no economic model on creators. The nature of how games are created and deployed on NounsGame makes it impossible for a creator to render their game unusable by its players.&#x20;
+
+In the event a creator ceases to evolve or expand its game offering, and that offering uses an in-game currency of their own design, and in the event that in-game currency is burned or otherwise unavailable, NounsGame could enforce a "free play" option at the protocol level, to protect abandoned games.
 
 #### Positive sum
 
