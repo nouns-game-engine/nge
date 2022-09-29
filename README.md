@@ -9,7 +9,7 @@ NounsGame is a CC0 general-purpose game engine. It has two primary reasons to ex
 
 ### What is a Hyperstructure?
 
-A term coined by Jacob @ Zora, a hyperstructure is a description of a software system with specific properties. in NounsGame terms, these properties are:
+A term coined by [Jacob @ Zora](https://twitter.com/js\_horne), a hyperstructure is a description of a software system with specific properties. in NounsGame terms, these properties are:
 
 #### Unstoppable
 
