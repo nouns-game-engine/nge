@@ -4,7 +4,7 @@ description: The scope of work for this proposal.
 
 # Scope
 
-{% hint style="warning" %}
+{% hint style="danger" %}
 This document is a very rough draft and will change frequently based on feedback and design sessions.
 {% endhint %}
 
@@ -22,7 +22,7 @@ Success of the project depends on these key deliverables, the absence of which b
   * Voxel 3D world with 3D physics
 * **Camera Subsystem**
   * UI overlay
-  * Scissoring
+  * [Culling](https://en.wikipedia.org/wiki/Occlusion)/[Scissoring](https://www.khronos.org/opengl/wiki/Scissor\_Test)/[Stencils](https://en.wikipedia.org/wiki/Stencil\_buffer)
   * Post-Production Hookups
 * **Audio Subsystem**
   * Cues/Triggers
@@ -55,7 +55,7 @@ Success of the project depends on these key deliverables, the absence of which b
   * Structured Logging
   * Snapshots
 * **Runtime Subsystem**
-  * Level Streaming
+  * Level [Streaming](https://en.wikipedia.org/wiki/Streaming\_media)
   * Audio Streaming
 * **Networking Subsystem**
   * Network "Ready"
@@ -74,7 +74,7 @@ Success of the project depends on these key deliverables, the absence of which b
 
 The project is greatly enhanced with these deliverables, but they are not required for successful operation of the hyperstructure. These could be added to the scope based on the progress of the main delivery, and are low to moderate risk.
 
-* **GPU-Accelerated EVM rendering**
+* **Targeted GPU-Accelerated EVM rendering**
   * Local EVM w/ render function detection
   * Offloading of EVM bytecode to runtime process for GPU preparation/caching
 * **Engine Modes**
