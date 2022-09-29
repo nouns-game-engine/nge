@@ -1,0 +1,120 @@
+---
+description: The scope of work for this proposal.
+---
+
+# Scope
+
+{% hint style="warning" %}
+This document is a very rough draft and will change frequently based on feedback and design sessions.
+{% endhint %}
+
+## Term
+
+This proposal is expected to run for two years and funding is scoped for that timeframe. During the project funding window, we expect to deliver the key deliverables, and potentially additional deliverables based on status and any challenges or setbacks encountered.
+
+### Key Deliverables
+
+Success of the project depends on these key deliverables, the absence of which blocks use of the engine as a public good.
+
+* **Engine Modes**
+  * Pixel 2D world w/ 1D inelastic physics
+  * Pixel 2.5D world w/ 1D/2D physics
+  * Voxel 3D world with 3D physics
+* **Camera Subsystem**
+  * UI overlay
+  * Scissoring
+  * Post-Production Hookups
+* **Audio Subsystem**
+  * Cues/Triggers
+  * Spatial Audio
+* **Input Subsystem**
+  * Keyboard
+  * Gamepads
+  * Mouse
+  * Input mapping
+* **Asset Pipeline**
+  * Live Asset Rebuild
+  * Asset Bundling (for First Time Experience (FTE) and startup speed)
+* **In-Game Editor (**[**IMGUI**](https://en.wikipedia.org/wiki/Immediate\_mode\_GUI)**-based)**
+  * Editing Snap-Ins
+  * Snapshots/Loop Recording
+  * Drag-And-Drop Importing
+  * Scene/Stage/Levels
+* **Configuration Subsystem**
+  * File-Based ([TOML](https://toml.io/en/))
+  * Two-Way Binding
+* **State Machine**
+  * Scripting
+* **Game State Serializer**
+  * Network Safety
+  * Rollups ([EIP-5050](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-5050.md) or equivalent)
+* **Localization Subsystem**
+  * Symbol Editor
+* **Crash Reporting**
+  * Stack Dumps
+  * Structured Logging
+  * Snapshots
+* **Runtime Subsystem**
+  * Level Streaming
+  * Audio Streaming
+* **Networking Subsystem**
+  * Network "Ready"
+  * Smoothing/Prediction Hookups
+* **Distribution Subsystem**
+  * _Auto-Generated Builds_
+    * Windows
+    * macOS
+    * Linux
+  * _EVM Deployment_
+    * Shared Contracts/Libraries
+    * Game Registry
+    * Front-End
+
+### Additional Deliverables
+
+The project is greatly enhanced with these deliverables, but they are not required for successful operation of the hyperstructure. These could be added to the scope based on the progress of the main delivery, and are low to moderate risk.
+
+* **GPU-Accelerated EVM rendering**
+  * Local EVM w/ render function detection
+  * Offloading of EVM bytecode to runtime process for GPU preparation/caching
+* **Engine Modes**
+  * PBR 3D world w/ 3D physics
+* **Integrated Network**
+  * P2P "Couch Co-Op" Example
+  * [Steam](https://store.steampowered.com/) Integration w/ Examples
+* **Achievements Subsystem**
+* **Leaderboard Subsystem**
+* ****[**NAT Punch-Through**](https://en.wikipedia.org/wiki/Hole\_punching\_\(networking\)) **Helpers**
+
+### Out Of Scope
+
+These deliverables are part of the project plan, but currently omitted from the scope of the project as they represent high-risk, high probability of failure within the timeline, but listed here for completeness and/or they present compelling, potential future work.&#x20;
+
+* **General Purpose Networking**
+* **General Purpose EVM/GPU Acceleration**
+
+### A Note On Networking
+
+{% hint style="danger" %}
+Production game-quality networking is a difficult problem in games, and there is no "one size fits all" solution.&#x20;
+{% endhint %}
+
+Some games work with turn-based, occasionally connected devices, which is achievable at the smart contract level with Ethereum's existing infrastructure, and forms the basis of most on-chain games today.&#x20;
+
+> This form of networking requires no additional work for the engine outside of the existing "Game State Serializer" deliverable with "State Machine" roll-ups to store saved game states on-chain in an efficient way.
+
+Some need peer-to-peer networking (couch co-op games on limited budgets), some games need large server farms (i.e. [MMORPGs](https://en.wikipedia.org/wiki/Massively\_multiplayer\_online\_role-playing\_game)).
+
+Some need medium throughput, packet-based, [protocol](https://wiki.vg/Protocol) level networking (i.e. [open world/sandbox games](https://en.wikipedia.org/wiki/Open\_world)).
+
+Some need [rollback](https://en.wikipedia.org/wiki/GGPO) models (i.e. [fighting games](https://en.wikipedia.org/wiki/Fighting\_game)), some games need [lock-step](https://en.wikipedia.org/wiki/Lockstep\_protocol) models (i.e. [RTS ](https://en.wikipedia.org/wiki/Real-time\_strategy)games).
+
+### So what will NounsGame provide for networking?
+
+What we can do, is help ensure games built with NounsGame are network-safe by default. We can do this by providing all the necessary integration points and support tooling for [client-side prediction and reconciliation](https://en.wikipedia.org/wiki/Client-side\_prediction), use network-stable serialization primitives by default, and provide common interfaces and tools desynchronization comparisons, latency simulation, and other [netcode ](https://en.wikipedia.org/wiki/Netcode)concerns.&#x20;
+
+In other words, using NounsGame, it should be possible to avoid "_shooting yourself in the foot_", as the engine design and tools will work with you, sometimes with tough love, to ensure your game has a higher success rate when adding networking.
+
+{% hint style="info" %}
+It's possible that _some_ networking examples can be bundled with the example games, but it is out-of-scope to avoid all of the above, and to not over-subscribe a networking architecture that is impossible to deliver in the timeline, and with the [quality and security](https://www.reddit.com/r/Unity3D/comments/6wjxu7/why\_does\_everyone\_hate\_on\_unet\_is\_it\_really\_that/) that would make it a useful public good.
+{% endhint %}

@@ -9,4 +9,13 @@
 
 ## NounsDAO Proposal
 
-* [Previous Proposal](nounsdao-proposal/previous-proposal.md)
+* [Status](nounsdao-proposal/status.md)
+* [History](nounsdao-proposal/history.md)
+* [Scope](nounsdao-proposal/scope.md)
+* [Risks](nounsdao-proposal/risks.md)
+* [Staff](nounsdao-proposal/staff.md)
+
+## Links
+
+* [FAQ](links/faq.md)
+* [Socials](links/socials.md)
