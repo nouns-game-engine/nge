@@ -103,11 +103,15 @@ Some games work with turn-based, occasionally connected devices, which is achiev
 
 > _**N.B.**_**  **_**This form of networking requires no additional work for the engine outside of the existing "Game State Serializer" deliverable with "State Machine Rollup" to store saved game states on-chain in an efficient way.**_
 
-Some need peer-to-peer networking (couch co-op games on limited budgets), some games need large server farms (i.e. [MMORPGs](https://en.wikipedia.org/wiki/Massively\_multiplayer\_online\_role-playing\_game)).
+Some need peer-to-peer networking (couch co-op).&#x20;
+
+Some need large server farms (i.e. [MMORPGs](https://en.wikipedia.org/wiki/Massively\_multiplayer\_online\_role-playing\_game)).
 
 Some need medium throughput, packet-based, [protocol](https://wiki.vg/Protocol) level networking (i.e. [open world/sandbox games](https://en.wikipedia.org/wiki/Open\_world)).
 
-Some need [rollback](https://en.wikipedia.org/wiki/GGPO) models (i.e. [fighting games](https://en.wikipedia.org/wiki/Fighting\_game)), some games need [lock-step](https://en.wikipedia.org/wiki/Lockstep\_protocol) models (i.e. [RTS ](https://en.wikipedia.org/wiki/Real-time\_strategy)games).
+Some need [rollback](https://en.wikipedia.org/wiki/GGPO) models (i.e. [fighting games](https://en.wikipedia.org/wiki/Fighting\_game)).\
+\
+Some games need [lock-step](https://en.wikipedia.org/wiki/Lockstep\_protocol) models (i.e. [RTS ](https://en.wikipedia.org/wiki/Real-time\_strategy)games).
 
 ### So what will NounsGame provide for networking?
 
