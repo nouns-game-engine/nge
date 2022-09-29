@@ -10,7 +10,7 @@ The nomenclature for _hyperstructures_ is defined in this article by Jacob @ Zor
 
 ## Approach & Caveats
 
-NounsGame is a game engine. To succeed as a hyperstructure, it must be [unstoppable](hyperstructures.md). Game engines are inherently "living" codebases, because of the shifting capabilities of user runtime environments, graphics processing standards and devices, and the state of library and hardware support across a wide variety of concerns.
+NounsGame is a game engine. To succeed as a hyperstructure, it must be [unstoppable](<README (1).md>). Game engines are inherently "living" codebases, because of the shifting capabilities of user runtime environments, graphics processing standards and devices, and the state of library and hardware support across a wide variety of concerns.
 
 While the primary quality of unstoppability is immutable code execution, for gaming concerns it must also include determinism. Determinism in this case means predictable output from game subsystems, such as graphics rendering and physics simulation, regardless of platform.
 

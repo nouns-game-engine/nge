@@ -13,3 +13,9 @@ NounsGame is still in pre-production. The documentation here may be prospective,
 Source code for the project is available on [GitHub](https://github.com/wattsyart/nounsgame).
 
 {% embed url="https://github.com/wattsyart/nounsgame" %}
+
+## Project Board
+
+The project board containing all tasks, issues, and milestones is available [here](https://github.com/users/wattsyart/projects/3).
+
+{% embed url="https://github.com/users/wattsyart/projects/3" %}

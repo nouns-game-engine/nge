@@ -6,13 +6,13 @@
 
 ## About
 
-* [Introduction](about/readme.md)
-* [Why](about/why.md)
-* [Architecture](about/architecture.md)
-* [Components](about/components.md)
-* [Hyperstructures](about/hyperstructures.md)
-* [Team](about/team.md)
-* [Sponsors](about/sponsors.md)
+* [Introduction](<README (2).md>)
+* [Why](why.md)
+* [Architecture](architecture.md)
+* [Components](components.md)
+* [Hyperstructures](<README (1).md>)
+* [Team](team.md)
+* [Sponsors](sponsors.md)
 
 ## NounsDAO Proposal
 
