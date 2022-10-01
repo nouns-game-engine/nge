@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 
-namespace Nouns.Graphics
+namespace Nouns.Graphics.Core
 {
     public readonly struct Point3 : IEquatable<Point3>
     {

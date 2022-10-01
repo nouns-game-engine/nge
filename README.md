@@ -1,21 +1,13 @@
----
-description: How to download and use the engine.
----
+# Sample Hardhat Project
 
-# Getting Started
+This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
 
-{% hint style="warning" %}
-NounsGame is still in pre-production. The documentation here may be prospective, contain errors or very little information, or not work as intended.
-{% endhint %}
+Try running some of the following tasks:
 
-## Source Code
-
-Source code for the project is available on [GitHub](https://github.com/wattsyart/nounsgame).
-
-{% embed url="https://github.com/wattsyart/nounsgame" %}
-
-## Project Board
-
-The project board containing all tasks, issues, and milestones is available [here](https://github.com/users/wattsyart/projects/3).
-
-{% embed url="https://github.com/users/wattsyart/projects/3" %}
+```shell
+npx hardhat help
+npx hardhat test
+REPORT_GAS=true npx hardhat test
+npx hardhat node
+npx hardhat run scripts/deploy.js
+```

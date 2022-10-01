@@ -2,7 +2,7 @@
   "profiles": {
     "Nouns": {
       "commandName": "Project",
-      "commandLineArgs": "--imgui reset --config reset --config set web3:rpcUrl http://localhost:8545",
+      "commandLineArgs": "--imgui reset --config reset --config set web3:rpcUrl https://mainnet.infura.io/v3/36102e85a6c1462a82e3cf59ad360420",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

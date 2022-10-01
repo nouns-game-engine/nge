@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Nouns.Graphics
+namespace Nouns.Graphics.Core
 {
     public struct VertexPositionNormalColor : IVertexType, IEquatable<VertexPositionNormalColor>
     {
