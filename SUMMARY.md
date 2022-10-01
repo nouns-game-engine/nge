@@ -7,7 +7,11 @@
 ## About
 
 * [Introduction](<README (2).md>)
-* [Why](why.md)
+* [Why](about/why/README.md)
+  * [Context](about/why/context.md)
+  * [The Decay Problem](about/why/the-decay-problem.md)
+  * [The Content Problem](about/why/the-content-problem.md)
+  * [The Game Problem](about/why/the-game-problem.md)
 * [Architecture](architecture.md)
 * [Components](components.md)
 * [Hyperstructures](<README (1).md>)
