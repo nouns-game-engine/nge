@@ -4,7 +4,7 @@ description: Documenting team members and their experience.
 
 # Team
 
-<figure><img src=".gitbook/assets/wattsy_small.jpg" alt="Croaksy by Gremplin"><figcaption><p> <a href="https://wattsy.art">Wattsy</a></p></figcaption></figure>
+<figure><img src="../.gitbook/assets/wattsy_small.jpg" alt="Croaksy by Gremplin"><figcaption><p> <a href="https://wattsy.art">Wattsy</a></p></figcaption></figure>
 
 Wattsy is the lead developer and co-founder of [Kohi Art Community](https://kohi.art), an Ethereum-based generative art platform with a goal to become an autonomous hyperstructure for L1-based native artworks.&#x20;
 
