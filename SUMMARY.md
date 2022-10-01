@@ -31,7 +31,6 @@
 
 ***
 
-* [assets](assets/README.md)
 * [Third Party Notices](THIRD\_PARTY\_NOTICES.md)
 
 ## Links
