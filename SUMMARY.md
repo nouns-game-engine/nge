@@ -19,11 +19,7 @@
 
 ***
 
-* [Links](links/README.md)
-  * [FAQ](links/faq.md)
-  * [Socials](links/socials.md)
-* [Third Party Notices](THIRD\_PARTY\_NOTICES.md)
-* [assets](assets/README.md)
+* [FAQ](faq.md)
 
 ## NounsDAO Proposal
 
@@ -32,3 +28,12 @@
 * [Scope](nounsdao-proposal/scope.md)
 * [Staff](nounsdao-proposal/staff.md)
 * [History](nounsdao-proposal/previous-proposal.md)
+
+***
+
+* [assets](assets/README.md)
+* [Third Party Notices](THIRD\_PARTY\_NOTICES.md)
+
+## Links
+
+* [Twitter](https://twitter.com/NounsGameWTF)
