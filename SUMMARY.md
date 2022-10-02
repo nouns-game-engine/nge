@@ -13,13 +13,13 @@
   * [The Game Problem](documentation/why/the-game-problem.md)
 * [Components](documentation/components.md)
 * [Hyperstructures](documentation/hyperstructures.md)
-* [Tools](documentation/tools.md)
+* [Tools](documentation/architecture.md)
 * [Sponsors](documentation/sponsors.md)
 * [Team](documentation/team.md)
 
 ***
 
-* [FAQ](faq.md)
+* [FAQ & FUD](faq.md)
 
 ## NounsDAO Proposal
 

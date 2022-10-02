@@ -2,7 +2,7 @@
 description: Describing dependencies, and implementation details of the game engine.
 ---
 
-# Architecture
+# Tools
 
 NounsGame has chosen [C#](https://learn.microsoft.com/en-us/dotnet/csharp/), [.NET](https://dotnet.microsoft.com/en-us/), and [FNA](https://github.com/FNA-XNA/FNA)/[Veldrid ](https://github.com/mellinoe/veldrid)as its underlying development stack for the game engine, for the following reasons:
 
