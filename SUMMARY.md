@@ -6,7 +6,7 @@
 
 * [Getting Started](documentation/getting-started.md)
 * [Introduction](documentation/introduction.md)
-* [Why](documentation/why/README.md)
+* [Why?](documentation/why/README.md)
   * [Context](documentation/why/context.md)
   * [The Content Problem](documentation/why/the-content-problem.md)
   * [The Decay Problem](documentation/why/the-decay-problem.md)
