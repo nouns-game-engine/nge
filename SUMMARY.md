@@ -11,9 +11,9 @@
   * [The Content Problem](documentation/why/the-content-problem.md)
   * [The Decay Problem](documentation/why/the-decay-problem.md)
   * [The Game Problem](documentation/why/the-game-problem.md)
-* [Architecture](documentation/architecture.md)
 * [Components](documentation/components.md)
 * [Hyperstructures](documentation/hyperstructures.md)
+* [Tools](documentation/tools.md)
 * [Sponsors](documentation/sponsors.md)
 * [Team](documentation/team.md)
 
