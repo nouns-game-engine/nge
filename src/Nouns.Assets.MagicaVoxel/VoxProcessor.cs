@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Nouns.Graphics;
 using Nouns.Graphics.Core;
 
 namespace Nouns.Assets.MagicaVoxel
@@ -45,7 +44,7 @@ namespace Nouns.Assets.MagicaVoxel
             }
 
             if (colors.Count == 0)
-                colors.AddRange(VoxFile.DefaultPalette);
+                colors.AddRange(VoxFile.defaultPalette);
 
             CalculateSharedFaces(voxels);
             voxels = CullHiddenFaces(voxels);

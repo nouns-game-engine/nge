@@ -2,11 +2,11 @@
 using System.IO.Compression;
 using Xunit;
 using Xunit.Abstractions;
-using SixLabors.ImageSharp.Formats.Png;
 using System.IO;
 using System.Text.Json;
 using Nouns.Graphics.Pipeline;
 using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Png;
 
 namespace Nouns.Tests
 {
