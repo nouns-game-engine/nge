@@ -19,10 +19,10 @@ namespace Nouns.Assets.Core
 			createRegistry.Add(typeof(T), createMissingAsset);
 		}
 
-		public static T? Create<T>(IServiceProvider services, string fullPath) where T : class
-		{
-			if (createRegistry.TryGetValue(typeof(T), out var createMissingAsset))
-				return createMissingAsset(services, fullPath) as T;
+		public static T Create<T>(IServiceProvider services, string fullPath) where T : class
+        {
+            if (createRegistry.TryGetValue(typeof(T), out var createMissingAsset))
+                return (T) createMissingAsset(services, fullPath);
 
 			throw new InvalidOperationException("Unknown or unsupported asset type");
 		}

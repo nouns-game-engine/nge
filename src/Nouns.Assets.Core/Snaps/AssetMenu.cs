@@ -7,6 +7,7 @@ using Nouns.Editor;
 
 namespace Nouns.Assets.Core.Snaps
 {
+    // ReSharper disable once UnusedMember.Global
     public sealed class AssetMenu : IEditorMenu
     {
         private readonly IConfiguration configuration;

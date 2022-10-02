@@ -32,7 +32,7 @@ namespace Nouns.Assets.Core
 
 		public static string GuessAssetDirectoryFrom(string fullPath)
 		{
-			var assetsFolderName = Path.DirectorySeparatorChar + "assets" + Path.DirectorySeparatorChar;
+			var assetsFolderName = $"{Path.DirectorySeparatorChar}assets{Path.DirectorySeparatorChar}";
 
 			fullPath = Path.GetFullPath(fullPath);
 			var index = fullPath.IndexOf(assetsFolderName, StringComparison.InvariantCultureIgnoreCase);
@@ -167,7 +167,7 @@ namespace Nouns.Assets.Core
 			return asset;
 		}
 
-		public string GetFullPathFor(object asset)
+		public string? GetFullPathFor(object asset)
 		{
 			assetToPathLookup.TryGetValue(asset, out var path);
 			return path;
@@ -180,13 +180,13 @@ namespace Nouns.Assets.Core
 		public void UserStartTracking<T>(T asset) where T : class
 		{
 			if (!assetToPathLookup.ContainsKey(asset))
-				assetToPathLookup.Add(asset, null);
+				assetToPathLookup.Add(asset, null!);
 		}
 
 		public void UserStartTracking(object asset)
 		{
 			if (!assetToPathLookup.ContainsKey(asset))
-				assetToPathLookup.Add(asset, null);
+				assetToPathLookup.Add(asset, null!);
 		}
 		
 		public T? UserLoadFromCache<T>(string fullPath) where T : class

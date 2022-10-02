@@ -7,7 +7,7 @@ using Nouns.Editor;
 
 namespace Nouns.Snaps
 {
-    public class ObjectEditorWindow<T> : IEditorWindow, IEditObject
+    public class ObjectEditingWindow<T> : IEditorWindow, IEditObject
     {
         public bool Enabled => objectUnderEdit != null;
 
@@ -26,12 +26,12 @@ namespace Nouns.Snaps
         // ReSharper disable once StaticMemberInGenericType
         private static readonly HashSet<Type> excludedTypes = new();
 
-        static ObjectEditorWindow()
+        static ObjectEditingWindow()
         {
             excludedTypes.Add(typeof(GraphicsAdapter));
         }
 
-        public ObjectEditorWindow(T objectUnderEdit)
+        public ObjectEditingWindow(T objectUnderEdit)
         {
             this.objectUnderEdit = objectUnderEdit;
             type = objectUnderEdit?.GetType() ?? throw new NullReferenceException();

@@ -1,6 +1,4 @@
 ﻿using Nouns.Core.Configuration;
-using System;
-using System.IO;
 using System.Runtime.InteropServices;
 
 namespace Nouns

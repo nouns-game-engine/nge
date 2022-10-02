@@ -9,6 +9,7 @@ using Nouns.Assets.MagicaVoxel;
 using Nouns.Core;
 using Platformer;
 using Nouns.Core.Configuration;
+using Nouns.Assets.Core;
 
 #if !WASM
 using Nouns.Editor;
@@ -61,7 +62,7 @@ namespace Nouns
 #endif
 
             game = new PlatformerGame(Content, this);
-            game.Initialize();
+            game.Initialize(Services);
             
             // calls LoadContent
             base.Initialize();
@@ -78,8 +79,9 @@ namespace Nouns
                 StartBackgroundLoading();
                 oneTimeBackgroundLoad = true;
             }
-
-            VoxReader.Initialize();
+            
+            // for testing only, should be removed
+            AssetReader.Add<Texture2D>(".png", (fullPath, _, services) => Texture2D.FromStream(services.GraphicsDevice(), File.OpenRead(fullPath)));
         }
 
         protected override void UnloadContent()

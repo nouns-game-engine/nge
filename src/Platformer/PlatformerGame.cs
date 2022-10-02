@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Nouns.Assets.Core;
+using Nouns.Core;
 using Nouns.Core.StateMachine;
 using Nouns.Editor;
 using Nouns.Engine.Pixels;
@@ -14,6 +16,7 @@ namespace Platformer
         private GameState gameState;
         private UpdateContext updateContext;
         private DrawContext drawContext;
+        private EditorAssetManager assetManager;
 
         public ContentManager Content { get; }
 
@@ -23,9 +26,13 @@ namespace Platformer
             Content = content;
         }
 
-        public void Initialize()
+        public void Initialize(GameServiceContainer services)
         {
             gameState = new GameState();
+
+            Engine.RegisterAssets();
+
+            assetManager = services.GetRequiredService<EditorAssetManager>();
         }
 
         public void Update()
@@ -69,6 +76,8 @@ namespace Platformer
             gameState.actors.Add(cloud);
 
             editContext.EditObject(cloud);
+
+            assetManager.UserStartTracking(animationSet);
 
             return Array.Empty<Task>();
         }

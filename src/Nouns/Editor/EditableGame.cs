@@ -457,7 +457,7 @@ namespace Nouns.Editor
                 return;
 
             objects.Add(instance);
-            AddWindow(new ObjectEditorWindow<T>(instance));
+            AddWindow(new ObjectEditingWindow<T>(instance));
         }
 
         public virtual void Reset()

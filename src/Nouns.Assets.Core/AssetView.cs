@@ -24,6 +24,9 @@ namespace Nouns.Assets.Core
                 case AssetClassification.Missing:
                     return informationalPath;
 
+                case AssetClassification.Embedded:
+                case AssetClassification.OutOfPath:
+                case AssetClassification.BadExtension:
                 default:
                     return null;
             }
@@ -55,7 +58,7 @@ namespace Nouns.Assets.Core
                 yield return Load<T>(assetPath);
         }
         
-        public AssetClassification Classify(object asset, out string informationalPath)
+        public AssetClassification Classify(object asset, out string? informationalPath)
         {
             var fullPath = owner.GetFullPathFor(asset);
             informationalPath = fullPath;
@@ -76,7 +79,7 @@ namespace Nouns.Assets.Core
 
             return owner.IsMissingAsset(asset) ? AssetClassification.Missing : AssetClassification.Managed;        }
 
-        public IEnumerable<AssetDetails> GetDetails(IHasReferencedAssets referencingAsset = null)
+        public IEnumerable<AssetDetails> GetDetails(IHasReferencedAssets? referencingAsset = null)
         {
             var assets = referencingAsset == null ? owner.GetAllAssets() : referencingAsset.GetReferencedAssets();
             foreach (var asset in assets)
@@ -84,7 +87,7 @@ namespace Nouns.Assets.Core
                 if (asset == null)
                     continue;
 
-                string informationalPath;
+                string? informationalPath;
 
                 var friendlyName = !(asset is IEditorNameProvider friendlyNameProvider) ? string.Empty : friendlyNameProvider.EditorName;
                 var classification = Classify(asset, out informationalPath);
