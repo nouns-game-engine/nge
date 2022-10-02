@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Nouns.Core;
 using Nouns.Editor;
 
-namespace Nouns.Assets.Snaps
+namespace Nouns.Assets.Core.Snaps
 {
     // ReSharper disable once UnusedMember.Global
     public class AssetDropHandler : IEditorDropHandler

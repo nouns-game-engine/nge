@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Nouns.Assets
+namespace Nouns.Assets.Core
 {
 	public interface IAssetProvider
 	{

@@ -1,4 +1,4 @@
-﻿namespace Nouns.Assets
+﻿namespace Nouns.Assets.Core
 {
 	public interface IAssetPathProvider
 	{

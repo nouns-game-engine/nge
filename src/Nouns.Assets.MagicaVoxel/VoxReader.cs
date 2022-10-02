@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.IO.MemoryMappedFiles;
+using Nouns.Assets.Core;
 
 namespace Nouns.Assets.MagicaVoxel
 {

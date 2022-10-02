@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using Nouns.Core;
 using Nouns.Editor;
 
-namespace Nouns.Assets.Snaps
+namespace Nouns.Assets.Core.Snaps
 {
     public sealed class AssetMenu : IEditorMenu
     {

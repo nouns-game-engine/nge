@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
-namespace Nouns.Assets
+namespace Nouns.Assets.Core
 {
 	public class AssetManager : IAssetProvider, IAssetPathProvider
 	{
