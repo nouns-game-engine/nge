@@ -29,10 +29,10 @@ namespace Nouns
 
         public NounsGame(IConfiguration configuration, params string[] args)
         {
-#if !WASM
             this.configuration = configuration;
-#endif
             this.args = args;
+
+            Services.AddService(typeof(IConfiguration), configuration);
 
             TargetElapsedTime = Constants.loadingScreenFrameTime;
 
@@ -57,7 +57,7 @@ namespace Nouns
             loadingScreen = new LoadingScreen(this);
 
 #if !WASM
-            InitializeEditor(Content.RootDirectory);
+            InitializeEditor();
 #endif
 
             game = new PlatformerGame(Content, this);

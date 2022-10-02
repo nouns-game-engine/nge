@@ -1,6 +1,6 @@
 ﻿namespace Nouns.Editor
 {
-    internal static class OrderExtensions
+    public static class OrderExtensions
     {
         public static int TrySortByOrder<T>(T x, T y)
         {

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
+﻿using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using ImGuiNET;
@@ -18,6 +15,8 @@ namespace Nouns.Editor
 {
     public abstract class EditableGame : Game, IEditingContext
     {
+        protected IConfiguration configuration = null!;
+
         protected IEditorWindow[] windows = null!;
         protected IEditorMenu[] menus = null!;
         protected IEditorDropHandler[] dropHandlers = null!;
@@ -29,12 +28,12 @@ namespace Nouns.Editor
         protected ImGuiRenderer imGui = null!;
         protected RenderTarget2D renderTarget = null!;
 
-        protected IConfiguration configuration;
-
         protected void ImGuiInit()
         {
             imGui = new ImGuiRenderer(this);
             imGui.RebuildFontAtlas();
+
+            Services.AddService(typeof(ImGuiRenderer), imGui);
 
             CreateRenderTarget();
 
@@ -257,23 +256,35 @@ namespace Nouns.Editor
 
         private EditorAssetManager editorAssetManager = null!;
 
-        protected void InitializeEditor(string rootDirectory)
+        protected void InitializeEditor()
         {
             editorAssetManager = new EditorAssetManager(Content.ServiceProvider);
+
+            Services.AddService(typeof(EditorAssetManager), editorAssetManager);
 
             SDL.SDL_AddEventWatch(dropFileEvent = DropFileEvent, IntPtr.Zero);
 
             ImGuiInit();
 
-            var windowList = new List<IEditorWindow>();
-            var menuList = new List<IEditorMenu>();
-            var dropHandlerList = new List<IEditorDropHandler>();
+            ScanForEditorComponents();
+        }
+
+        private void ScanForEditorComponents()
+        {
+            var editors = new Editors();
 
             var location = Assembly.GetExecutingAssembly().Location;
             var binDir = Path.GetDirectoryName(location) ?? location;
 
-            var visited = new HashSet<string> { typeof(EditableGame).Assembly.Location };
+            var self = Assembly.GetExecutingAssembly();
 
+            InitializeEditorComponents(self, editors);
+
+            var visited = new HashSet<string> { self.Location };
+
+            var loaded = AppDomain.CurrentDomain.GetAssemblies()
+                .ToDictionary(k => k.Location, v => v);
+            
             foreach (var dll in Directory.GetFiles(binDir, "*.dll"))
             {
                 if (!File.Exists(dll))
@@ -281,14 +292,15 @@ namespace Nouns.Editor
 
                 try
                 {
-                    var assembly = Assembly.LoadFile(dll);
+                    if(!loaded.TryGetValue(dll, out var assembly))
+                        assembly = Assembly.LoadFile(dll);
 
                     if (visited.Contains(assembly.Location))
                         continue;
 
                     visited.Add(assembly.Location);
 
-                    InitializeEditorComponents(assembly, windowList, menuList, dropHandlerList);
+                    InitializeEditorComponents(assembly, editors);
                 }
                 catch (Exception ex)
                 {
@@ -298,49 +310,69 @@ namespace Nouns.Editor
 
             //
             // Windows:
-            windowList.Add(new LogWindow());
-            windowList.Sort(OrderExtensions.TrySortByOrder);
-            windows = windowList.ToArray();
+            editors.windowList.Sort(OrderExtensions.TrySortByOrder);
+            windows = editors.windowList.ToArray();
             showWindows = new bool[windows.Length];
 
             // 
             // Menus:
-            menuList.Add(new Web3Menu(GraphicsDevice, imGui, configuration));
-            menuList.Sort(OrderExtensions.TrySortByOrder);
-            menus = menuList.ToArray();
+            editors.menuList.Sort(OrderExtensions.TrySortByOrder);
+            menus = editors.menuList.ToArray();
 
             //
             // Drops:
-            dropHandlerList.Add(new AssetDropHandler(editorAssetManager, rootDirectory));
-            dropHandlerList.Sort(OrderExtensions.TrySortByOrder);
-            dropHandlers = dropHandlerList.ToArray();
+            editors.dropHandlerList.Sort(OrderExtensions.TrySortByOrder);
+            dropHandlers = editors.dropHandlerList.ToArray();
         }
 
-        private void InitializeEditorComponents(Assembly assembly, List<IEditorWindow> windowList, List<IEditorMenu> menuList, List<IEditorDropHandler> dropHandlerList)
+        private void InitializeEditorComponents(Assembly assembly, Editors editors)
         {
-            var types = assembly.GetTypes();
-            foreach (var type in types)
+            foreach (var type in assembly.GetEditorTypes())
             {
-                ActivateWithConstructor(Type.EmptyTypes, windowList, menuList, dropHandlerList, type);
-                ActivateWithConstructor(new[] { typeof(IEditingContext) }, windowList, menuList, dropHandlerList, type, this);
-                ActivateWithConstructor(new[] { typeof(GraphicsDevice) }, windowList, menuList, dropHandlerList, type, GraphicsDevice);
+                // ctor(IServiceProvider)
+                if (ActivateWithConstructor(new[] {typeof(IServiceProvider)}, editors, type, Services))
+                    continue;
+
+                // ctor()
+                if (ActivateWithConstructor(Type.EmptyTypes, editors, type))
+                    continue;
+
+                if (type.Implements<IEditObject>())
+                    continue; // deferred
+
+                Trace.TraceError($"Editor component '{type.Name}' has no valid constructors");
             }
         }
 
-        private static void ActivateWithConstructor(Type[] parameterTypes, ICollection<IEditorWindow> windowList, ICollection<IEditorMenu> menuList, ICollection<IEditorDropHandler> dropHandlerList, Type type, params object[] parameters)
+        private static bool ActivateWithConstructor(Type[] parameterTypes, Editors editors, Type type, params object[] parameters)
         {
             var ctor = type.GetConstructor(parameterTypes);
             if (ctor == null)
-                return;
+                return false;
 
-            if (typeof(IEditorWindow).IsAssignableFrom(type) && Activator.CreateInstance(type, parameters) is IEditorWindow window)
-                windowList.Add(window);
+            if (type.Implements<IEditorWindow>() && Activator.CreateInstance(type, parameters) is IEditorWindow window)
+            {
+                editors.windowList.Add(window);
+                Trace.TraceInformation($"Adding window '{type.Name}'");
+                return true;
+            }
 
-            if (typeof(IEditorMenu).IsAssignableFrom(type) && Activator.CreateInstance(type, parameters) is IEditorMenu menu)
-                menuList.Add(menu);
+            if (type.Implements<IEditorMenu>() && Activator.CreateInstance(type, parameters) is IEditorMenu menu)
+            {
+                editors.menuList.Add(menu);
+                Trace.TraceInformation($"Adding menu '{type.Name}'");
+                return true;
+            }
 
-            if (typeof(IEditorDropHandler).IsAssignableFrom(type) && Activator.CreateInstance(type, parameters) is IEditorDropHandler dropHandler)
-                dropHandlerList.Add(dropHandler);
+            if (type.Implements<IEditorDropHandler>() &&
+                Activator.CreateInstance(type, parameters) is IEditorDropHandler dropHandler)
+            {
+                editors.dropHandlerList.Add(dropHandler);
+                Trace.TraceInformation($"Adding drop handler '{type.Name}'");
+                return true;
+            }
+
+            return false;
         }
 
         // ReSharper disable once UnusedMember.Global

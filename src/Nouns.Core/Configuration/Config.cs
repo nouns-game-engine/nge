@@ -45,15 +45,14 @@ namespace Nouns.Core.Configuration
                         Items =
                         {
                             {"Nouns", @"0x9c8ff314c9bc7f6e59a9d9225fb22946427edc03"},
-                            {"CrypToadz", @"0x1cb1a5e65610aeff2551a50f76a87a7d3fb649c6"},
-                            // {"Terraforms", @"0x4e1f41613c9084fdb9e34e11fae9412427480e56"}
+                            {"CrypToadz", @"0x1cb1a5e65610aeff2551a50f76a87a7d3fb649c6"}
                         }
                     },
                     new TableSyntax("locations")
                     {
                         Items =
                         {
-                            {"assetDirectory", Directory.GetCurrentDirectory()},
+                            {"assetDirectory", Path.Combine(Directory.GetCurrentDirectory(), "Content")}
                         }
                     }
                 }

@@ -1,25 +1,27 @@
-﻿using System.Text;
-using ImGuiNET;
+﻿using ImGuiNET;
 using Microsoft.Extensions.Configuration;
 using Nouns.Editor;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Nouns.Core;
 using Nouns.Graphics.Pipeline;
+
+using Color = Microsoft.Xna.Framework.Color;
 using Vector2 = System.Numerics.Vector2;
 
 namespace Nouns.Snaps
 {
-    internal sealed class Web3Menu : IEditorMenu
+    public sealed class Web3Menu : IEditorMenu
     {
         private readonly GraphicsDevice graphicsDevice;
         private readonly ImGuiRenderer imGui;
         private readonly IConfiguration configuration;
 
-        public Web3Menu(GraphicsDevice graphicsDevice, ImGuiRenderer imGui, IConfiguration configuration)
+        public Web3Menu(IServiceProvider serviceProvider)
         {
-            this.graphicsDevice = graphicsDevice;
-            this.imGui = imGui;
-            this.configuration = configuration;
+            graphicsDevice = serviceProvider.GraphicsDevice();
+            imGui = serviceProvider.GetRequiredService<ImGuiRenderer>();
+            configuration = serviceProvider.GetRequiredService<IConfiguration>();
         }
 
         public bool Enabled => true;

@@ -43,10 +43,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="..\..\assets\LondrinaSolid-Regular.ttf" Link="Content\LondrinaSolid-Regular.ttf">
+    <Content Include="..\..\docs\assets\LondrinaSolid-Regular.ttf" Link="Content\LondrinaSolid-Regular.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\assets\nountown.otf" Link="Content\nountown.otf">
+    <Content Include="..\..\docs\assets\nountown.otf" Link="Content\nountown.otf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
