@@ -12,6 +12,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  
+  <ItemGroup>
+    <Content Include="..\..\docs\assets\assets_png.zip" Link="external\assets_png.zip">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
@@ -29,12 +35,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Nouns.Assets.MagicaVoxel\Nouns.Assets.MagicaVoxel.csproj" />
     <ProjectReference Include="..\Nouns\Nouns.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="..\..\assets\assets_png.zip" Link="external\assets_png.zip">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
 
 </Project>

@@ -9,3 +9,5 @@ typechain-types
 cache
 artifacts
 
+# Nouns development config settings
+/src/Nouns/Properties/launchSettings.json
