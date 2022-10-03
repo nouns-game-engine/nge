@@ -9,7 +9,7 @@ public class AnimationSerializeContext
         this.Version = version;
         this.bw = bw;
         if (Version > FormatVersion)
-            throw new Exception("tried to save asset with a version that is too new");
+            throw new Exception("Tried to save asset with a version that is too new");
         bw.Write(Version);
     }
 

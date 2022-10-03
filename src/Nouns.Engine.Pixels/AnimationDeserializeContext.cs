@@ -11,7 +11,7 @@ namespace Nouns.Engine.Pixels
             Version = br.ReadInt32();
 
             if (Version > AnimationSerializeContext.FormatVersion)
-                throw new Exception("tried to save asset with a version that is too new");
+                throw new Exception("Tried to save asset with a version that is too new");
 
             GraphicsDevice = graphicsDevice;
         }

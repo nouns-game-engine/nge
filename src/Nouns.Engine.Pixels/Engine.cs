@@ -7,16 +7,17 @@ namespace Nouns.Engine.Pixels
 {
     public static class Engine
     {
-        public static void RegisterAssets()
+        public static void Initialize(params Assembly[] assemblies)
+        {
+            RegisterAssets();
+            StateProvider.Setup(assemblies);
+            CreateThingCache.Initialize(assemblies);
+        }
+
+        private static void RegisterAssets()
         {
             AssetReader.Add<AnimationSet>(".as",
                 (fullPath, _, services) => AnimationSet.ReadFromFile(fullPath, services.GraphicsDevice()));
-        }
-
-        public static void StartBackgroundLoading(params Assembly[] assemblies)
-        {
-            StateProvider.Setup(assemblies);
-            CreateThingCache.Initialize(assemblies);
         }
     }
 }

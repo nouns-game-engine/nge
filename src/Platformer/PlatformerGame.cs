@@ -28,7 +28,6 @@ namespace Platformer
 
         public void Initialize(GameServiceContainer services)
         {
-            Engine.RegisterAssets();
             definitions = new Definitions();
             gameState = new PlatformerGameState(definitions);
             assetManager = services.GetRequiredService<EditorAssetManager>();
@@ -55,7 +54,7 @@ namespace Platformer
         
         public Task[] StartBackgroundLoading()
         {
-            Engine.StartBackgroundLoading(typeof(Cloud).Assembly);
+            Engine.Initialize(typeof(Cloud).Assembly);
 
             // simulate background loading
             // var backgroundTasks = new List<Task>();
