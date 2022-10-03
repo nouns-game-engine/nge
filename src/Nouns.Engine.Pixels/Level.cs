@@ -4,7 +4,7 @@ namespace Nouns.Engine.Pixels;
 
 public class Level : IHasReferencedAssets
 {
-    private readonly List<Thing> things;
+    public readonly List<Thing> things;
 
     public Level()
     {

@@ -9,7 +9,7 @@ using Nouns.Editor;
 namespace Nouns.Assets.Core.Snaps;
 
 // ReSharper disable once UnusedMember.Global
-public sealed class AssetWindow : IEditorWindow
+public sealed class AssetListWindow : IEditorWindow
 {
     private readonly EditorAssetManager editorAssetManager;
     private readonly AssetView assetView;
@@ -21,7 +21,7 @@ public sealed class AssetWindow : IEditorWindow
     public int Width => 0;
     public int Height => 0;
 
-    public AssetWindow(IServiceProvider serviceProvider)
+    public AssetListWindow(IServiceProvider serviceProvider)
     {
         editorAssetManager = serviceProvider.GetRequiredService<EditorAssetManager>();
         assetView = new AssetView(editorAssetManager);

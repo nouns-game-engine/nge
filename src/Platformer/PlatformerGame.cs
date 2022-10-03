@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Nouns.Assets.Core;
 using Nouns.Core;
-using Nouns.Core.StateMachine;
 using Nouns.Editor;
 using Nouns.Engine.Pixels;
 
@@ -17,6 +16,7 @@ namespace Platformer
         private UpdateContext updateContext;
         private DrawContext drawContext;
         private EditorAssetManager assetManager;
+        private Definitions definitions;
 
         public ContentManager Content { get; }
 
@@ -29,7 +29,8 @@ namespace Platformer
         public void Initialize(GameServiceContainer services)
         {
             Engine.RegisterAssets();
-            gameState = new PlatformerGameState();
+            definitions = new Definitions();
+            gameState = new PlatformerGameState(definitions);
             assetManager = services.GetRequiredService<EditorAssetManager>();
         }
 
@@ -60,6 +61,7 @@ namespace Platformer
             // var backgroundTasks = new List<Task>();
             // backgroundTasks.Add(Task.Delay(TimeSpan.FromSeconds(10)));
             // return backgroundTasks.ToArray();
+
             
             var sprite = new Sprite(Content.Load<Texture2D>("cloud-large"));
             var cel = new Cel(sprite);
@@ -69,7 +71,13 @@ namespace Platformer
             animation.Frames.Add(frame);
             var animationSet = new AnimationSet();
             animationSet.animations.Add(animation);
+            
             var thing = new Thing(animationSet, new Position(100, 100), false);
+            
+            var level = new Level();
+            level.things.Add(thing);
+            definitions.levels.Add(level);
+
             var cloud = new Cloud(thing, updateContext);
             gameState.actors.Add(cloud);
 
@@ -88,7 +96,7 @@ namespace Platformer
 
         public void Reset()
         {
-            gameState = new PlatformerGameState();
+            gameState = new PlatformerGameState(definitions);
         }
     }
 }
