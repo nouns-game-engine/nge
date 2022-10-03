@@ -1,8 +1,6 @@
-﻿using Nouns.Engine.Pixels;
+﻿namespace Nouns.Engine.Pixels;
 
-namespace Platformer;
-
-public sealed class GameState
+public abstract class GameState
 {
     public readonly List<Actor> actors = new();
 

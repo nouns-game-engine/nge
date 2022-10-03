@@ -28,10 +28,8 @@ namespace Platformer
 
         public void Initialize(GameServiceContainer services)
         {
-            gameState = new GameState();
-
             Engine.RegisterAssets();
-
+            gameState = new PlatformerGameState();
             assetManager = services.GetRequiredService<EditorAssetManager>();
         }
 
@@ -56,13 +54,13 @@ namespace Platformer
         
         public Task[] StartBackgroundLoading()
         {
+            Engine.StartBackgroundLoading(typeof(Cloud).Assembly);
+
             // simulate background loading
             // var backgroundTasks = new List<Task>();
             // backgroundTasks.Add(Task.Delay(TimeSpan.FromSeconds(10)));
             // return backgroundTasks.ToArray();
-
-            StateProvider.Setup(new[] { typeof(Cloud).Assembly });
-
+            
             var sprite = new Sprite(Content.Load<Texture2D>("cloud-large"));
             var cel = new Cel(sprite);
             var frame = new AnimationFrame();
@@ -86,6 +84,11 @@ namespace Platformer
         {
             drawContext = new DrawContext(sb);
             updateContext = new UpdateContext();
+        }
+
+        public void Reset()
+        {
+            gameState = new PlatformerGameState();
         }
     }
 }

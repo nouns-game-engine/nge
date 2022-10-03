@@ -204,5 +204,11 @@ namespace Nouns
         }
 
 #endregion
+
+        public override void Reset()
+        {
+            game.Reset();
+            base.Reset();
+        }
     }
 }

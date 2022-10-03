@@ -1,5 +1,7 @@
-﻿using Nouns.Assets.Core;
+﻿using System.Reflection;
+using Nouns.Assets.Core;
 using Nouns.Core;
+using Nouns.Core.StateMachine;
 
 namespace Nouns.Engine.Pixels
 {
@@ -9,6 +11,12 @@ namespace Nouns.Engine.Pixels
         {
             AssetReader.Add<AnimationSet>(".as",
                 (fullPath, _, services) => AnimationSet.ReadFromFile(fullPath, services.GraphicsDevice()));
+        }
+
+        public static void StartBackgroundLoading(params Assembly[] assemblies)
+        {
+            StateProvider.Setup(assemblies);
+            CreateThingCache.Initialize(assemblies);
         }
     }
 }

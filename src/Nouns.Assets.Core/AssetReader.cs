@@ -30,7 +30,7 @@ namespace Nouns.Assets.Core
 		{
 			extensionRegistry.Add(typeof(T), extension);
 			readRegistry.Add(typeof(T), read);
-            Trace.TraceInformation($"added {extension} support for {typeof(T).Name}");
+            Trace.TraceInformation($"Added {extension} support for {typeof(T).Name}");
         }
 		
 		public static Type GetTypeForExtension(string extension)
@@ -38,13 +38,13 @@ namespace Nouns.Assets.Core
 			foreach (var registered in extensionRegistry)
 				if (registered.Value == extension)
 					return registered.Key;
-            throw new InvalidOperationException("unknown asset extension");
+            throw new InvalidOperationException("Unknown asset extension");
 		}
 		
 		public static string Extension(Type type)
 		{
 			if (!extensionRegistry.TryGetValue(type, out var extension))
-				throw new InvalidOperationException("unknown asset type");
+				throw new InvalidOperationException("Unknown asset type");
 			return extension;
 		}
 		
@@ -57,7 +57,7 @@ namespace Nouns.Assets.Core
 			where T : class
 		{
 			if (!readRegistry.TryGetValue(typeof(T), out var read))
-				throw new InvalidOperationException("unknown asset type");
+				throw new InvalidOperationException("Unknown asset type");
 
 			return (T) read(fullPath, assetProvider, services);
 		}
@@ -65,7 +65,7 @@ namespace Nouns.Assets.Core
 		public static object Read(Type assetType, IAssetProvider assetProvider, IServiceProvider services, string fullPath)
 		{
 			if (!readRegistry.TryGetValue(assetType, out var read))
-				throw new InvalidOperationException("unknown asset type");
+				throw new InvalidOperationException("Unknown asset type");
 
 			return read(fullPath, assetProvider, services);
 		}
