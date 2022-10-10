@@ -3,12 +3,13 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Nouns.Assets.Core;
 using Nouns.Core;
+using Nouns.Core.Configuration;
 using Nouns.Editor;
 using Nouns.Engine.Pixels;
 
 namespace Platformer
 {
-    public class PlatformerGame
+    public class PlatformerGame : IGame
     {
         private readonly IEditingContext editContext;
 
@@ -18,12 +19,10 @@ namespace Platformer
         private EditorAssetManager assetManager;
         private Definitions definitions;
 
-        public ContentManager Content { get; }
 
-        public PlatformerGame(ContentManager content, IEditingContext editContext)
+        public PlatformerGame(IEditingContext editContext)
         {
             this.editContext = editContext;
-            Content = content;
         }
 
         public void Initialize(GameServiceContainer services)
@@ -31,7 +30,10 @@ namespace Platformer
             definitions = new Definitions();
             gameState = new PlatformerGameState(definitions);
             assetManager = services.GetRequiredService<EditorAssetManager>();
+            Content = services.GetRequiredService<ContentManager>();
         }
+
+        public ContentManager Content { get; set; }
 
         public void Update()
         {
@@ -60,8 +62,7 @@ namespace Platformer
             // var backgroundTasks = new List<Task>();
             // backgroundTasks.Add(Task.Delay(TimeSpan.FromSeconds(10)));
             // return backgroundTasks.ToArray();
-
-            
+                        
             var sprite = new Sprite(Content.Load<Texture2D>("cloud-large"));
             var cel = new Cel(sprite);
             var frame = new AnimationFrame();
@@ -87,7 +88,7 @@ namespace Platformer
             return Array.Empty<Task>();
         }
 
-        public void OnFinishedLoading(SpriteBatch sb)
+        public void OnFinishedBackgroundLoading(SpriteBatch sb)
         {
             drawContext = new DrawContext(sb);
             updateContext = new UpdateContext();

@@ -1,15 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Nouns.Assets.MagicaVoxel;
 using Nouns.Core;
-using Platformer;
 using Nouns.Core.Configuration;
 using Nouns.Assets.Core;
+using System.Reflection;
+using Microsoft.Xna.Framework.Content;
 
 #if !WASM
 using Nouns.Editor;
@@ -49,7 +47,7 @@ namespace Nouns
         }
 
         private LoadingScreen loadingScreen = null!;
-        private PlatformerGame game = null!;
+        private IGame? currentGame;
 
         protected override void Initialize()
         {
@@ -58,14 +56,56 @@ namespace Nouns
             loadingScreen = new LoadingScreen(this);
 
 #if !WASM
+            // registers IEditingContext
             InitializeEditor();
 #endif
 
-            game = new PlatformerGame(Content, this);
-            game.Initialize(Services);
-            
+            Services.AddService(typeof(ContentManager), Content);
+
+            InitializeGame();
+
             // calls LoadContent
             base.Initialize();
+        }
+
+        private void InitializeGame()
+        {
+            var gameLocation = configuration.GetSection("games")["platformer"];
+            var gameAssembly = Assembly.LoadFile(gameLocation);
+
+            var referencesPath = Path.GetDirectoryName(gameLocation)!;
+            var referenceFiles = Directory.GetFiles(referencesPath, "*.dll",
+                SearchOption.AllDirectories);
+
+            AppDomain.CurrentDomain.AssemblyResolve += (_, e) =>
+            {
+                var name = $"{new AssemblyName(e.Name).Name}.dll";
+                var assemblyFile = referenceFiles.FirstOrDefault(x => x.EndsWith(name));
+                if (assemblyFile != null)
+                    return Assembly.LoadFrom(assemblyFile);
+                throw new Exception($"'{name}' Not found");
+            };
+
+            IGame? gameInstance = null;
+            var gameTypes = gameAssembly.GetTypes().Where(x => typeof(IGame).IsAssignableFrom(x));
+            foreach (var gameType in gameTypes)
+            {
+                gameInstance = (IGame?) Activator.CreateInstance(gameType, this);
+                if(gameInstance != null)
+                    break;
+            }
+
+            foreach (var contentItem in Directory.EnumerateFiles(Path.Combine(referencesPath, "Content")))
+            {
+                var destFileName = Path.Combine(Content.RootDirectory, Path.GetFileName(contentItem));
+                File.Copy(contentItem, destFileName, true);
+            }
+
+            if (gameInstance != null)
+            {
+                currentGame = gameInstance;
+                currentGame.Initialize(Services);
+            }
         }
 
         internal SpriteBatch sb = null!;
@@ -107,7 +147,7 @@ namespace Nouns
                 else if (Input.KeyWentDown(Keys.F1))
                     devMenuEnabled = !devMenuEnabled;
 
-                game.Update();
+                currentGame?.Update();
 #endif
             }
             else
@@ -127,7 +167,7 @@ namespace Nouns
             {
 #if !WASM
                 GraphicsDevice.SetRenderTarget(renderTarget);
-                game.Draw(renderTarget);
+                currentGame?.Draw(renderTarget);
 #endif
 
 #if !WASM
@@ -165,9 +205,9 @@ namespace Nouns
         private void StartBackgroundLoading()
         {
 #if !WASM
-            var backgroundTasks = game.StartBackgroundLoading();
+            var backgroundTasks = currentGame?.StartBackgroundLoading();
 
-            if (backgroundTasks.Length == 0)
+            if (backgroundTasks?.Length == 0)
             {
                 DidFinishLoading = true;
                 OnFinishedLoading();
@@ -191,7 +231,7 @@ namespace Nouns
         {
             DidFinishLoading = true;
             TargetElapsedTime = Constants.defaultFrameTime;
-            game.OnFinishedLoading(sb);
+            currentGame?.OnFinishedBackgroundLoading(sb);
         }
 
 #endregion
@@ -207,7 +247,7 @@ namespace Nouns
 
         public override void Reset()
         {
-            game.Reset();
+            currentGame?.Reset();
             base.Reset();
         }
     }

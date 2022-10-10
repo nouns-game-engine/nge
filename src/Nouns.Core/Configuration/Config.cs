@@ -54,6 +54,13 @@ namespace Nouns.Core.Configuration
                         {
                             {"assetDirectory", Path.Combine(Directory.GetCurrentDirectory(), "Content")}
                         }
+                    },
+                    new TableSyntax("games")
+                    {
+                        Items =
+                        {
+                            {"platformer", "C:\\src\\nounsgame\\src\\Platformer\\bin\\Debug\\net6.0\\platformer.dll"}
+                        }
                     }
                 }
             };

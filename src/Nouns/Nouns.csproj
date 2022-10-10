@@ -18,7 +18,6 @@
 		<ProjectReference Include="..\Nouns.Core\Nouns.Core.csproj" />
 		<ProjectReference Include="..\Nouns.Editor.Core\Nouns.Editor.Core.csproj" />
 		<ProjectReference Include="..\Nouns.Graphics.Pipeline\Nouns.Graphics.Pipeline.csproj" />
-		<ProjectReference Include="..\Platformer\Platformer.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
