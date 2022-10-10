@@ -198,7 +198,7 @@ namespace Nouns.Editor
                     ImGui.EndMenu();
                 }
 
-                foreach (var menu in menus)
+                foreach (var menu in menus.OrderBy(x => x.GetType().GetCustomAttribute<OrderAttribute>()?.Order ?? 0))
                 {
                     if (menu is ObjectEditingMenu && objects.Count == 0)
                         continue;

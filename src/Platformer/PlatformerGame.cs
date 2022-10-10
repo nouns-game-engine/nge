@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Reflection;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Nouns.Assets.Core;
@@ -25,6 +26,9 @@ namespace Platformer
             this.editContext = editContext;
         }
 
+        public string Name => "Platformer";
+        public Version? Version => Assembly.GetExecutingAssembly().GetName().Version;
+
         public void Initialize(GameServiceContainer services)
         {
             definitions = new Definitions();
@@ -47,13 +51,6 @@ namespace Platformer
             gameState.Draw(drawContext);
         }
 
-#if WASM
-        public void BackgroundLoad()
-        {
-
-        }
-#endif
-        
         public Task[] StartBackgroundLoading()
         {
             Engine.Initialize(typeof(Cloud).Assembly);

@@ -8,6 +8,7 @@ using Nouns.Core.Configuration;
 using Nouns.Assets.Core;
 using System.Reflection;
 using Microsoft.Xna.Framework.Content;
+using Nouns.Snaps;
 
 #if !WASM
 using Nouns.Editor;
@@ -106,6 +107,11 @@ namespace Nouns
 
             currentGame = game;
             currentGame.Initialize(Services);
+
+            if (!string.IsNullOrWhiteSpace(currentGame.Name))
+                Window.Title = currentGame.Name;
+
+            AddMenu(new GameMenu(currentGame));
         }
 
         internal SpriteBatch sb = null!;
@@ -219,11 +225,9 @@ namespace Nouns
             backgroundLoadTask = Task.Factory.ContinueWhenAll(backgroundTasks, tasks =>
             {
                 Task.WaitAll(tasks);
-                Trace.WriteLine($"background load completed, took: {sw.Elapsed}");
+                Trace.WriteLine($"Background load completed, took: {sw.Elapsed}");
                 OnFinishedLoading();
             });
-#else
-            game.BackgroundLoad();
 #endif
         }
 
