@@ -1,5 +1,6 @@
 ﻿using ImGuiNET;
 using Microsoft.Xna.Framework;
+using Nouns.Core.Configuration;
 using Nouns.Editor;
 
 namespace Nouns.Snaps
