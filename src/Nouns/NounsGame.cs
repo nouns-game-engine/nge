@@ -205,9 +205,9 @@ namespace Nouns
         private void StartBackgroundLoading()
         {
 #if !WASM
-            var backgroundTasks = currentGame?.StartBackgroundLoading();
+            var backgroundTasks = currentGame?.StartBackgroundLoading() ?? Array.Empty<Task>();
 
-            if (backgroundTasks?.Length == 0)
+            if (backgroundTasks.Length == 0)
             {
                 DidFinishLoading = true;
                 OnFinishedLoading();
