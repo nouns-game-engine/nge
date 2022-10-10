@@ -83,17 +83,20 @@ namespace Nouns
                 var assemblyFile = referenceFiles.FirstOrDefault(x => x.EndsWith(name));
                 if (assemblyFile != null)
                     return Assembly.LoadFrom(assemblyFile);
+
                 throw new Exception($"'{name}' Not found");
             };
 
-            IGame? gameInstance = null;
-            var gameTypes = gameAssembly.GetTypes().Where(x => typeof(IGame).IsAssignableFrom(x));
-            foreach (var gameType in gameTypes)
+            IGame? game = null;
+            foreach (var gameType in gameAssembly.GetTypes().Where(x => typeof(IGame).IsAssignableFrom(x)))
             {
-                gameInstance = (IGame?) Activator.CreateInstance(gameType, this);
-                if(gameInstance != null)
+                game = (IGame?) Activator.CreateInstance(gameType, this) ?? (IGame?)Activator.CreateInstance(gameType);
+                if (game != null)
                     break;
             }
+
+            if (game == null)
+                return;
 
             foreach (var contentItem in Directory.EnumerateFiles(Path.Combine(referencesPath, "Content")))
             {
@@ -101,11 +104,8 @@ namespace Nouns
                 File.Copy(contentItem, destFileName, true);
             }
 
-            if (gameInstance != null)
-            {
-                currentGame = gameInstance;
-                currentGame.Initialize(Services);
-            }
+            currentGame = game;
+            currentGame.Initialize(Services);
         }
 
         internal SpriteBatch sb = null!;
