@@ -13,11 +13,11 @@ namespace Platformer
     {
         private readonly IEditingContext editContext;
 
-        private GameState gameState;
-        private UpdateContext updateContext;
-        private DrawContext drawContext;
-        private EditorAssetManager assetManager;
-        private Definitions definitions;
+        private GameState gameState = null!;
+        private UpdateContext updateContext = null!;
+        private DrawContext drawContext = null!;
+        private EditorAssetManager assetManager = null!;
+        private Definitions definitions = null!;
 
 
         public PlatformerGame(IEditingContext editContext)
@@ -33,7 +33,7 @@ namespace Platformer
             Content = services.GetRequiredService<ContentManager>();
         }
 
-        public ContentManager Content { get; set; }
+        public ContentManager Content { get; set; } = null!;
 
         public void Update()
         {
