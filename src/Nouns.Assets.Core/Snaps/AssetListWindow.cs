@@ -25,7 +25,6 @@ public sealed class AssetListWindow : IEditorWindow
     {
         editorAssetManager = serviceProvider.GetRequiredService<EditorAssetManager>();
         assetView = new AssetView(editorAssetManager);
-
         var configuration = serviceProvider.GetRequiredService<IConfiguration>();
         assetView.rootDirectory = configuration.GetSection("locations")["assetDirectory"];
     }

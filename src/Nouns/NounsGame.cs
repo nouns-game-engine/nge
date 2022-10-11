@@ -85,7 +85,7 @@ namespace Nouns
                 if (assemblyFile != null)
                     return Assembly.LoadFrom(assemblyFile);
 
-                throw new Exception($"'{name}' Not found");
+                throw new Exception($"'{name}' not found");
             };
 
             IGame? game = null;

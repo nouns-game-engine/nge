@@ -34,8 +34,17 @@ namespace Nouns.Assets.Core.Snaps
         public void Layout(IEditingContext context, GameTime gameTime)
         {
             var assetDirectory = AssetDirectory;
+            
             if (ImGui.InputText("Asset Directory", ref assetDirectory, 1000))
                 AssetDirectory = assetDirectory;
+
+            if (ImGui.BeginMenu("Readers"))
+            {
+                foreach(var registration in AssetReader.RegisteredTypes)
+                    ImGui.TextDisabled($"{registration.Name} ({AssetReader.Extension(registration)})");
+
+                ImGui.EndMenu();
+            }
         }
     }
 }

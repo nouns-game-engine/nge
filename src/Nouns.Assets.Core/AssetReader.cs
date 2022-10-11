@@ -11,6 +11,8 @@ namespace Nouns.Assets.Core
         private static readonly Dictionary<Type, string> extensionRegistry = new();
 		private static readonly Dictionary<Type, ReadFromFile> readRegistry = new();
 
+        public static IEnumerable<Type> RegisteredTypes => extensionRegistry.Keys;
+
 		public static void Clear()
 		{
 			extensionRegistry.Clear();
