@@ -24,8 +24,10 @@
 ## NounsDAO Proposal
 
 * [Status](nounsdao-proposal/status.md)
+* [Scope](nounsdao-proposal/scope/README.md)
+  * [Year One](nounsdao-proposal/scope/year-one.md)
+  * [Year Two](nounsdao-proposal/scope/year-two.md)
 * [Risks](nounsdao-proposal/risks.md)
-* [Scope](nounsdao-proposal/scope.md)
 * [Staff](nounsdao-proposal/staff.md)
 * [History](nounsdao-proposal/previous-proposal.md)
 

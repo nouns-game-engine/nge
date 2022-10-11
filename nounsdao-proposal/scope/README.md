@@ -10,75 +10,21 @@ This document is a very rough draft and will change frequently based on feedback
 
 ## Term
 
-This proposal is expected to run for two years and funding is scoped for that timeframe. During the project funding window, we expect to deliver the key deliverables, and potentially additional deliverables based on status and any challenges or setbacks encountered.
+This proposal is expected to run for two years and funding is scoped for that timeframe, in one year iterations. During the project funding window, we expect to deliver the key deliverables, and potentially additional deliverables based on status and any challenges or setbacks encountered.
 
-### Key Deliverables
+### Component Deliverables
 
-Success of the project depends on these key deliverables, the absence of which blocks use of the engine as a public good.
-
-* **Engine Modes**
-  * Pixel 2D world w/ 1D inelastic physics
-  * Pixel 2.5D world w/ 1D/2D physics
-  * Voxel 3D world with 3D physics
-* **Camera Subsystem**
-  * UI overlay
-  * [Culling](https://en.wikipedia.org/wiki/Occlusion)/[Scissoring](https://www.khronos.org/opengl/wiki/Scissor\_Test)/[Stencils](https://en.wikipedia.org/wiki/Stencil\_buffer)
-  * Post-Production Hookups
-* **Audio Subsystem**
-  * Cues/Triggers
-  * Spatial Audio
-* **Input Subsystem**
-  * Keyboard
-  * Gamepads
-  * Mouse
-  * Input mapping
-* **Asset Pipeline**
-  * Live Asset Rebuild
-  * Asset Bundling (for First Time Experience (FTE) and startup speed)
-* **In-Game Editor (**[**IMGUI**](https://en.wikipedia.org/wiki/Immediate\_mode\_GUI)**-based)**
-  * Editing Snap-Ins
-  * Snapshots/Loop Recording
-  * Drag-And-Drop Importing
-  * Scene/Stage/Levels
-* **Configuration Subsystem**
-  * File-Based ([TOML](https://toml.io/en/))
-  * Two-Way Binding
-* **State Machine**
-  * Scripting
-* **Game State Serializer**
-  * Network Safety
-  * Rollups ([EIP-5050](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-5050.md) or equivalent)
-* **Localization Subsystem**
-  * Symbol Editor
-* **Crash Reporting**
-  * Stack Dumps
-  * Structured Logging
-  * Snapshots
-* **Runtime Subsystem**
-  * Level [Streaming](https://en.wikipedia.org/wiki/Streaming\_media)
-  * Audio Streaming
-* **Networking Subsystem**
-  * Network "Ready"
-  * Smoothing/Prediction Hookups
-* **Distribution Subsystem**
-  * _Auto-Generated Builds_
-    * Windows
-    * macOS
-    * Linux
-  * _EVM Deployment_
-    * Shared Contracts/Libraries
-    * Game Registry
-    * Front-End
+Success of the project depends on known component deliverables, the absence of which blocks use of the engine as a public good. The list of component deliverables is broken down in [year one](year-one.md) and [year two](year-two.md).
 
 ### Additional Deliverables
 
 The project is greatly enhanced with these deliverables, but they are not required for successful operation of the hyperstructure. These could be added to the scope based on the progress of the main delivery, and are low to moderate risk.
 
 * **Targeted GPU-Accelerated EVM rendering**
-  * Local EVM w/ render function detection
+  * Local EVM instance w/ render function detection
   * Offloading of EVM bytecode to runtime process for GPU preparation/caching
 * **Engine Modes**
-  * PBR 3D world w/ 3D physics
+  * [Physically-Based Rendering](https://en.wikipedia.org/wiki/Physically\_based\_rendering) (PBR) 3D world w/ 3D physics
 * **Integrated Network**
   * P2P "Couch Co-Op" Example
   * [Steam](https://store.steampowered.com/) Integration w/ Examples

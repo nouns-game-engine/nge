@@ -8,7 +8,7 @@ description: Library attributions for the project
 
 This project is built on the [FNA Game Framework](https://github.com/FNA-XNA/FNA) licensed under the [Microsoft Public License](https://github.com/FNA-XNA/FNA/blob/master/licenses/LICENSE).
 
-This project uses [ImGui.NET by mellinoe](https://github.com/mellinoe/ImGui.NET) for developer UI, licensed under [MIT](https://github.com/mellinoe/ImGui.NET/blob/master/LICENSE).
+This project uses [ImGui.NET by mellinoe](https://github.com/mellinoe/ImGui.NET) for developer UI, licensed under [MIT](https://github.com/mellinoe/ImGui.NET/blob/master/LICENSE). This project is an operability wrapper around [dearimgui](https://github.com/ocornut/imgui), licensed under [MIT](https://github.com/ocornut/imgui/blob/master/LICENSE.txt).
 
 This project uses code modified from [Pixel3D by Conatus Creative Inc.](https://github.com/conatuscreative/Pixel3D) for state and asset management, licensed under [Apache 2.0](https://github.com/conatuscreative/Pixel3D/blob/master/LICENSE).
 
@@ -56,9 +56,8 @@ A "contributor" is any person that distributes its contribution under this licen
 
 (E) The software is licensed "as-is." You bear the risk of using it. The contributors give no express warranties, guarantees or conditions. You may have additional consumer rights under your local laws which this license cannot change. To the extent permitted under your local laws, the contributors exclude the implied warranties of merchantability, fitness for a particular purpose and non-infringement.
 
-**https://github.com/mellinoe/ImGui.NET/blob/master/LICENSE**
-
-***
+****[**https://github.com/mellinoe/ImGui.NET/blob/master/LICENSE**](https://github.com/mellinoe/ImGui.NET/blob/master/LICENSE)****\
+****
 
 The MIT License (MIT)
 
@@ -70,9 +69,8 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-**https://github.com/mellinoe/ImGui.NET/blob/master/LICENSE**
-
-***
+****[**https://github.com/conatuscreative/Pixel3D/blob/master/LICENSE**](https://github.com/conatuscreative/Pixel3D/blob/master/LICENSE)****\
+****
 
 Copyright © 2014-2018 Conatus Creative Inc.
 
