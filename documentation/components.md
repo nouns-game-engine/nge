@@ -15,11 +15,3 @@ description: A list of projects and milestones that make up the NounsGame ecosys
 | [kohi-lang](https://github.com/kohiart/kohi-lang)         | An intermediate language for general-purpose graphics composition.                                                                                                                                                                                          | Necessary for minimizing the storage requirements for on-chain runtime graphics, namely, procedural, generative, and shader-based works.                                                                                                                                                   |
 | [kohi-composer](https://github.com/kohiart/kohi-composer) | An EVM-native software rasterizer.                                                                                                                                                                                                                          | Necessary for interpreting kohi-lang opcodes and scheduling them for EVM execution. Acts as a bridge between available graphics hyperstructures, and the intended output.                                                                                                                  |
 | kohi-santoku                                              | A C# to [Solidity](https://docs.soliditylang.org/) [transpiler](https://en.wikipedia.org/wiki/Source-to-source\_compiler).                                                                                                                                  | As C# is the common language used in Unity development and countless [indie games](https://en.wikipedia.org/wiki/Indie\_game). Creating a  bridge between C# and Solidity is a path to onboarding more game developers, and helps test code destined for the EVM that will run game logic. |
-
-## Milestones
-
-|   |   |   |
-| - | - | - |
-|   |   |   |
-|   |   |   |
-|   |   |   |
