@@ -280,6 +280,7 @@ namespace Nouns.Editor
             var self = Assembly.GetExecutingAssembly();
 
             InitializeEditorComponents(self, editors);
+            InitializeAssetReaders(self);
 
             var visited = new HashSet<string> { self.Location };
 
@@ -302,6 +303,7 @@ namespace Nouns.Editor
                     visited.Add(assembly.Location);
 
                     InitializeEditorComponents(assembly, editors);
+                    InitializeAssetReaders(assembly);
                 }
                 catch (Exception ex)
                 {
@@ -342,6 +344,18 @@ namespace Nouns.Editor
                     continue; // deferred
 
                 Trace.TraceError($"Editor component '{type.Name}' has no valid constructors");
+            }
+        }
+
+        private static void InitializeAssetReaders(Assembly assembly)
+        {
+            foreach (var type in assembly.GetAssetReaderTypes())
+            {
+                // ctor()
+                if (Activator.CreateInstance(type) is IAssetReader reader)
+                    reader.Load();
+
+                Trace.TraceError($"Asset reader '{type.Name}' has no valid constructors");
             }
         }
 

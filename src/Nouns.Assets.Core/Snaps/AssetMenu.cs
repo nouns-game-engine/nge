@@ -41,7 +41,7 @@ namespace Nouns.Assets.Core.Snaps
             if (ImGui.BeginMenu("Readers"))
             {
                 foreach(var registration in AssetReader.RegisteredTypes)
-                    ImGui.TextDisabled($"{registration.Name} ({AssetReader.Extension(registration)})");
+                    ImGui.Text($"{registration.Name} ({AssetReader.Extension(registration)})");
 
                 ImGui.EndMenu();
             }

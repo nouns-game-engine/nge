@@ -8,11 +8,11 @@ namespace Nouns.Tests.Assets.MagicaVoxel
 {
     public class VoxReaderTests
     {
-        private readonly ITestOutputHelper _output;
+        private readonly ITestOutputHelper console;
 
-        public VoxReaderTests(ITestOutputHelper output)
+        public VoxReaderTests(ITestOutputHelper console)
         {
-            _output = output;
+            this.console = console;
         }
 
         [Fact]
@@ -22,7 +22,7 @@ namespace Nouns.Tests.Assets.MagicaVoxel
             foreach (var path in paths)
             {
                 var vox = VoxReader.ReadFromFile(path);
-                _output.WriteLine("File: {0}, Header = {1}, Version = {2}, Chunks = {3}", Path.GetFileName(path),
+                console.WriteLine("File: {0}, Header = {1}, Version = {2}, Chunks = {3}", Path.GetFileName(path),
                     vox.Header?.Trim(), vox.Version, vox.Main?.Children.Count + 1);
             }
         }

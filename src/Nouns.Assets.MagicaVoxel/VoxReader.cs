@@ -5,13 +5,17 @@ using Nouns.Assets.Core;
 
 namespace Nouns.Assets.MagicaVoxel
 {
-    public static class VoxReader
+    public sealed class VoxReader : IAssetReader
     {
-        public static void Initialize()
+        public string Extension => ".vox";
+
+        public Type Type => typeof(VoxelModel);
+
+        public void Load()
         {
             AssetReader.Add<VoxelModel>(".vox", (fullPath, _, _) => ReadFromFile(fullPath).ToModel());
         }
-
+        
         public static VoxFile ReadFromFile(string path)
         {
             var fileInfo = new FileInfo(path);
