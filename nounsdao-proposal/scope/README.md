@@ -62,7 +62,7 @@ Some games need [lock-step](https://en.wikipedia.org/wiki/Lockstep\_protocol) mo
 
 ### So what will NounsGame provide for networking?
 
-What we can do, is help ensure games built with NounsGame are network-safe by default. We can do this by providing all the necessary integration points and support tooling for [client-side prediction and reconciliation](https://en.wikipedia.org/wiki/Client-side\_prediction), use network-stable serialization primitives by default, and provide common interfaces and tools desynchronization comparisons, latency simulation, and other [netcode ](https://en.wikipedia.org/wiki/Netcode)concerns.&#x20;
+What we can do, is help ensure games built with NounsGame are network-safe by default. We can do this by providing all the necessary integration points and support tooling for [client-side prediction and reconciliation](https://en.wikipedia.org/wiki/Client-side\_prediction), use network-stable serialization primitives by default, and provide common interfaces and tools for desynchronization comparisons, latency simulation, and other [netcode ](https://en.wikipedia.org/wiki/Netcode)concerns.&#x20;
 
 In other words, using NounsGame, it should be possible to avoid "_shooting yourself in the foot_", as the engine design and tools will work with you, sometimes with tough love, to ensure your game has a higher success rate when adding networking.
 
