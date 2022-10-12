@@ -6,7 +6,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Nouns.Assets;
 using Nouns.Assets.Core;
 using Nouns.Core;
 using Nouns.Snaps;
