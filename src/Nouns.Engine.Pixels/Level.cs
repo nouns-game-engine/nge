@@ -4,6 +4,8 @@ namespace Nouns.Engine.Pixels;
 
 public class Level : IHasReferencedAssets
 {
+    public readonly Dictionary<string, string> properties = new();
+
     public readonly List<Thing> things;
 
     public Level()

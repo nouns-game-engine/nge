@@ -6,7 +6,7 @@ namespace Nouns.Editor
     public interface IEditorWindow : IEditorEnabled
     {
         ImGuiWindowFlags Flags { get; }
-        string? Label { get; }
+        string? Label { get; } 
         string? Shortcut { get; }
         int Width { get; }
         int Height { get; }

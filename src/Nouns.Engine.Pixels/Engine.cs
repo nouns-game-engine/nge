@@ -9,6 +9,7 @@ namespace Nouns.Engine.Pixels
         {
             StateProvider.Setup(assemblies);
             CreateThingCache.Initialize(assemblies);
+            LevelBehaviorCache.Initialize(assemblies);
         }
     }
 }
