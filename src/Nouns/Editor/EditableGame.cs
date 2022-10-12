@@ -327,7 +327,7 @@ namespace Nouns.Editor
             dropHandlers = editors.dropHandlerList.ToArray();
         }
 
-        private void InitializeEditorComponents(Assembly assembly, Editors editors)
+        protected void InitializeEditorComponents(Assembly assembly, Editors editors)
         {
             foreach (var type in assembly.GetEditorTypes())
             {
@@ -389,8 +389,7 @@ namespace Nouns.Editor
             return false;
         }
 
-        // ReSharper disable once UnusedMember.Global
-        public void AddWindow(IEditorWindow window, bool isVisible = true)
+        public void AddWindow(IEditorWindow window, bool isVisible = false)
         {
             Array.Resize(ref windows, windows.Length + 1);
             Array.Resize(ref showWindows, showWindows.Length + 1);
@@ -470,7 +469,7 @@ namespace Nouns.Editor
                 return;
 
             objects.Add(instance);
-            AddWindow(new ObjectEditingWindow<T>(instance));
+            AddWindow(new ObjectEditingWindow<T>(instance), true);
         }
 
         public virtual void Reset()

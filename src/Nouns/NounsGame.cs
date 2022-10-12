@@ -78,14 +78,20 @@ namespace Nouns
             var referenceFiles = Directory.GetFiles(referencesPath, "*.dll",
                 SearchOption.AllDirectories);
 
+            var gameEditors = new Editors();
+
             AppDomain.CurrentDomain.AssemblyResolve += (_, e) =>
             {
-                var name = $"{new AssemblyName(e.Name).Name}.dll";
-                var assemblyFile = referenceFiles.FirstOrDefault(x => x.EndsWith(name));
+                var fileName = $"{new AssemblyName(e.Name).Name}.dll";
+                var assemblyFile = referenceFiles.FirstOrDefault(x => x.EndsWith(fileName));
                 if (assemblyFile != null)
-                    return Assembly.LoadFrom(assemblyFile);
+                {
+                    var loadedAssembly = Assembly.LoadFrom(assemblyFile);
+                    InitializeEditorComponents(loadedAssembly, gameEditors);
+                    return loadedAssembly;
+                }
 
-                throw new Exception($"'{name}' not found");
+                throw new Exception($"'{fileName}' not found");
             };
 
             IGame? game = null;
@@ -112,6 +118,15 @@ namespace Nouns
                 Window.Title = currentGame.Name;
 
             AddMenu(new GameMenu(currentGame));
+
+            foreach(var window in gameEditors.windowList)
+                AddWindow(window);
+
+            foreach (var menu in gameEditors.menuList)
+                AddMenu(menu);
+
+            foreach(var dropHandler in gameEditors.dropHandlerList)
+                AddDropHandler(dropHandler);
         }
 
         internal SpriteBatch sb = null!;

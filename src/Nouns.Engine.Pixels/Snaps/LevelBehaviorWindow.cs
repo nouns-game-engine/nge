@@ -21,14 +21,9 @@ namespace Nouns.Engine.Pixels.Snaps
 
         public void Layout(IEditingContext context, GameTime gameTime, ref bool opened)
         {
-            if (ImGui.BeginMenu("Readers"))
+            foreach (var levelBehaviorName in LevelBehaviorCache.LevelBehaviors)
             {
-                foreach (var levelBehaviorName in LevelBehaviorCache.LevelBehaviors)
-                {
-                    ImGui.Text(levelBehaviorName);
-                }
-
-                ImGui.EndMenu();
+                ImGui.Text(levelBehaviorName);
             }
         }
     }
