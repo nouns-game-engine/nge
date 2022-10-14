@@ -5,7 +5,7 @@ description: How to download and use the engine.
 # Getting Started
 
 {% hint style="warning" %}
-Nouns Game Engine is still in pre-production. The documentation here may be prospective, contain errors or very little information, or not work as intended.
+NounsGame is still in pre-production. The documentation here may be prospective, contain errors or very little information, or not work as intended.
 {% endhint %}
 
 ## Source Code

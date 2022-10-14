@@ -2,9 +2,9 @@
 description: Describing dependencies, and implementation details of the game engine.
 ---
 
-# Tools
+# Architecture
 
-Nouns Game Engine has chosen [C#](https://learn.microsoft.com/en-us/dotnet/csharp/), [.NET](https://dotnet.microsoft.com/en-us/), and [FNA](https://github.com/FNA-XNA/FNA)/[Veldrid ](https://github.com/mellinoe/veldrid)as its underlying development stack for the game engine, for the following reasons:
+NounsGame has chosen [C#](https://learn.microsoft.com/en-us/dotnet/csharp/), [.NET](https://dotnet.microsoft.com/en-us/), and [FNA](https://github.com/FNA-XNA/FNA)/[Veldrid ](https://github.com/mellinoe/veldrid)as its underlying development stack for the game engine, for the following reasons:
 
 * It's what the founding team knows best.
 * C# and .NET are open-source, can compile natively to multiple targets, and supports both [WebAssembly](https://webassembly.org/) (WASM) and [SIMD](https://en.wikipedia.org/wiki/Single\_instruction,\_multiple\_data).
