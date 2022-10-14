@@ -1,5 +1,5 @@
 ---
-description: Welcome to Nouns Game Engine!
+description: Welcome to NounsGame!
 ---
 
 # Welcome
