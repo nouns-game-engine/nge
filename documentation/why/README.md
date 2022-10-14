@@ -16,7 +16,7 @@ _We can do better._
 
 [Ethereum ](https://ethereum.org/)unlocks immutable, irrevocable, "unstoppable" gaming paradigms. [NounsDAO](https://nouns.wtf) is a pioneer of funding public goods.&#x20;
 
-NounsGame is a project to combine these two forces into a project that unlocks a better model for everyone, while providing fully-editable, [_Nounish_](https://twitter.com/nounish) __ example games that help proliferate the meme, on an Ethereum-native infrastructure that is free for everyone to play, create, and profit from.
+Nouns Game Engine is a project to combine these two forces into a project that unlocks a better model for everyone, while providing fully-editable, [_Nounish_](https://twitter.com/nounish) __ example games that help proliferate the meme, on an Ethereum-native infrastructure that is free for everyone to play, create, and profit from.
 
 ### A personal reason
 

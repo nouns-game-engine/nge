@@ -1,5 +1,7 @@
 ---
-description: A list of projects and milestones that make up the NounsGame ecosystem.
+description: >-
+  A list of projects and milestones that make up the Nouns Game Engine
+  ecosystem.
 ---
 
 # Components
