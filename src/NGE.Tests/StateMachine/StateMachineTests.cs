@@ -2,7 +2,7 @@
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Nouns.Tests.StateMachine
+namespace NGE.Tests.StateMachine
 {
     public class StateMachineTests
     {

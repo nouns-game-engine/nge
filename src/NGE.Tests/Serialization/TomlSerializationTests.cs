@@ -1,12 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Nouns.Engine.Pixel2D;
-using Xunit;
 using Nouns.Graphics.Core;
 using Tomlyn;
+using Xunit;
 using Xunit.Abstractions;
 
-namespace Nouns.Tests.Serialization
+namespace NGE.Tests.Serialization
 {
     public class TomlSerializationTests
     {

@@ -1,10 +1,10 @@
-using Nouns.Assets.MagicaVoxel;
 using System.IO;
 using System.Linq;
+using Nouns.Assets.MagicaVoxel;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Nouns.Tests.Assets.MagicaVoxel
+namespace NGE.Tests.Assets.MagicaVoxel
 {
     public class VoxReaderTests
     {

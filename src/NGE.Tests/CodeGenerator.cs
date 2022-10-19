@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
-using System.IO.Compression;
-using Xunit;
-using Xunit.Abstractions;
 using System.IO;
+using System.IO.Compression;
 using System.Text.Json;
 using Nouns.Graphics.Pipeline;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Png;
+using Xunit;
+using Xunit.Abstractions;
 
-namespace Nouns.Tests
+namespace NGE.Tests
 {
     public class CodeGenerator
     {
