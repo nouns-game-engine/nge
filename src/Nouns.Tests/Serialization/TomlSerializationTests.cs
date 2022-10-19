@@ -37,7 +37,7 @@ namespace Nouns.Tests.Serialization
             frame.layers.Add(cel);
             
             var animation = new Animation();
-            animation.Frames.Add(frame);
+            animation.frames.Add(frame);
 
             var animationSet = new AnimationSet();
             animationSet.friendlyName = "fake";
@@ -59,7 +59,7 @@ namespace Nouns.Tests.Serialization
 
         private static string ToToml(PixelsDefinitions definitions)
         {
-            var options = new TomlModelOptions {IgnoreMissingProperties = false};
+            var options = new TomlModelOptions { IgnoreMissingProperties = false, IncludeFields = true };
             Assert.True(Toml.TryFromModel(definitions, out var toml, out var diagnostics, options));
             Assert.False(diagnostics.HasErrors);
             return toml;
@@ -67,7 +67,7 @@ namespace Nouns.Tests.Serialization
 
         private static PixelsDefinitions FromToml(string toml)
         {
-            var options = new TomlModelOptions { IgnoreMissingProperties = false };
+            var options = new TomlModelOptions { IgnoreMissingProperties = false, IncludeFields = true };
             Assert.True(Toml.TryToModel<PixelsDefinitions>(toml, out var definitions, out var diagnostics, null, options));
             Assert.NotNull(diagnostics);
             Assert.False(diagnostics.HasErrors);

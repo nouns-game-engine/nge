@@ -66,7 +66,7 @@ namespace Platformer
             var frame = new AnimationFrame();
             frame.layers.Add(cel);
             var animation = new Animation();
-            animation.Frames.Add(frame);
+            animation.frames.Add(frame);
             var animationSet = new AnimationSet();
             animationSet.animations.Add(animation);
             

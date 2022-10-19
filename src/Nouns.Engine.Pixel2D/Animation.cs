@@ -2,13 +2,16 @@
 
 public class Animation
 {
-    private readonly bool isLooped;
+    public bool isLooped;
+    public List<AnimationFrame> frames = new();
+
+    public Animation()
+    {
+        this.isLooped = false;
+    }
 
     public Animation(bool isLooped = true)
     {
         this.isLooped = isLooped;
-        Frames = new List<AnimationFrame>();
     }
-
-    public List<AnimationFrame> Frames { get; set; }
 }

@@ -13,5 +13,5 @@ public struct AnimationPlayer
         this.tick = 0;
     }
 
-    public AnimationFrame CurrentFrame => animation.Frames[frame];
+    public AnimationFrame CurrentFrame => animation.frames[frame];
 }

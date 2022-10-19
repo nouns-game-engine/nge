@@ -6,6 +6,8 @@ public class Cel
 {
     private readonly Sprite sprite;
 
+    public Cel() { }
+
     public Cel(Sprite sprite)
     {
         this.sprite = sprite;

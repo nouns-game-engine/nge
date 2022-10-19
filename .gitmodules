@@ -4,3 +4,6 @@
 [submodule "lib/SharpGLTF"]
 	path = lib/SharpGLTF
 	url = https://github.com/wattsyart/SharpGLTF
+[submodule "lib/Tomlyn"]
+	path = lib/Tomlyn
+	url = https://github.com/wattsyart/Tomlyn
