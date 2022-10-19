@@ -29,7 +29,7 @@ public sealed class AssetListWindow : IEditorWindow
         assetView.rootDirectory = configuration.GetSection("locations")["assetDirectory"];
     }
 
-    public void Layout(IEditingContext context, GameTime gameTime, ref bool opened)
+    public void DrawLayout(IEditingContext context, GameTime gameTime, ref bool opened)
     {
         var assets = editorAssetManager.GetAllAssets().ToList();
 

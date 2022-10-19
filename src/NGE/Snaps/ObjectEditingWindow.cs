@@ -38,7 +38,7 @@ namespace NGE.Snaps
             type = objectUnderEdit?.GetType() ?? throw new NullReferenceException();
         }
 
-        public void Layout(IEditingContext context, GameTime gameTime, ref bool opened)
+        public void DrawLayout(IEditingContext context, GameTime gameTime, ref bool opened)
         {
             if (objectUnderEdit == null)
                 return;

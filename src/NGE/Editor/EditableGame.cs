@@ -152,16 +152,19 @@ namespace NGE.Editor
                     var shift = isShift;
 
                     if (control && !Input.Control)
-                        return;
+                        continue;
                     if (alt && !Input.Alt)
-                        return;
+                        continue;
                     if (shift && !Input.Shift)
-                        return;
+                        continue;
 
                     if (Input.KeyWentDown(keys))
                         showWindows[index] = !showWindows[index];
                 }
             }
+
+            foreach (var window in windows)
+                window.UpdateLayout(this, gameTime);
         }
 
         #endregion
@@ -249,7 +252,7 @@ namespace NGE.Editor
                 var window = windows[i];
                 ImGui.SetNextWindowSize(new System.Numerics.Vector2(window.Width, window.Height), ImGuiCond.FirstUseEver);
                 if (ImGui.Begin(window.Label, ref showWindows[i], window.Flags))
-                    windows[i].Layout(this, gameTime, ref showWindows[i]);
+                    windows[i].DrawLayout(this, gameTime, ref showWindows[i]);
                 ImGui.End();
             }
         }

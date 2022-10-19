@@ -19,7 +19,7 @@ namespace Nouns.Engine.Pixels.Snaps
             
         }
 
-        public void Layout(IEditingContext context, GameTime gameTime, ref bool opened)
+        public void DrawLayout(IEditingContext context, GameTime gameTime, ref bool opened)
         {
             foreach (var levelBehaviorName in LevelBehaviorCache.LevelBehaviors)
             {

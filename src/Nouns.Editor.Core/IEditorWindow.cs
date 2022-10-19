@@ -10,6 +10,8 @@ namespace Nouns.Editor
         string? Shortcut { get; }
         int Width { get; }
         int Height { get; }
-        void Layout(IEditingContext context, GameTime gameTime, ref bool opened);
+
+        void UpdateLayout(IEditingContext context, GameTime gameTime) { }
+        void DrawLayout(IEditingContext context, GameTime gameTime, ref bool opened);
     }
 }

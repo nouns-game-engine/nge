@@ -31,16 +31,29 @@ namespace NGE.Snaps
             buffer.Clear();
         }
 
-        public void Layout(IEditingContext context, GameTime gameTime, ref bool opened)
+        private bool queueBuffer;
+        private string cachedBuffer = "";
+
+        public void UpdateLayout(IEditingContext context, GameTime gameTime)
+        {
+            if (queueBuffer)
+            {
+                cachedBuffer = buffer.ToString();
+                queueBuffer = false;
+            }
+        }
+
+        public void DrawLayout(IEditingContext context, GameTime gameTime, ref bool opened)
         {
             if (ImGui.Button("Clear"))
                 Clear();
+            
             ImGui.Separator();
             ImGui.BeginChild("scrolling");
             ImGui.PushStyleVar(ImGuiStyleVar.ItemSpacing, new Vector2(0, 1));
             if (buffer.Length > 0)
             {
-                foreach (var line in buffer.ToString().Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries))
+                foreach (var line in cachedBuffer.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries))
                 {
                     DrawLine(line);
                 }
@@ -83,6 +96,7 @@ namespace NGE.Snaps
 
         private void AddLog(string? message, params object[] args)
         {
+            queueBuffer = true;
             if (message == null) return;
             buffer.AppendFormat(message, args);
             tail = true;
