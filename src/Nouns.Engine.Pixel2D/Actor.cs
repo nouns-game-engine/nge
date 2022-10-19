@@ -2,7 +2,7 @@
 using Nouns.Engine.Core;
 using Nouns.Engine.Core.StateMachine;
 
-namespace Nouns.Engine.Pixels
+namespace Nouns.Engine.Pixel2D
 {
     public class Actor : StateMachine<UpdateContext>
     {

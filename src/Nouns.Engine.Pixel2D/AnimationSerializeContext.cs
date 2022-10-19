@@ -1,4 +1,4 @@
-﻿namespace Nouns.Engine.Pixels;
+﻿namespace Nouns.Engine.Pixel2D;
 
 public class AnimationSerializeContext
 {

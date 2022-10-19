@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Nouns.Editor;
 
-namespace Nouns.Engine.Pixels.Snaps
+namespace Nouns.Engine.Pixel2D.Snaps
 {
     // ReSharper disable once UnusedMember.Global
     public sealed class LevelBehaviorWindow : IEditorWindow

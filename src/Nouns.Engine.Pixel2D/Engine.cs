@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using Nouns.Engine.Core.StateMachine;
 
-namespace Nouns.Engine.Pixels
+namespace Nouns.Engine.Pixel2D
 {
     public static class Engine
     {

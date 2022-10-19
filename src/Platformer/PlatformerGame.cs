@@ -6,8 +6,7 @@ using Nouns.Assets.Core;
 using Nouns.Core;
 using Nouns.Core.Configuration;
 using Nouns.Editor;
-using Nouns.Engine.Core;
-using Nouns.Engine.Pixels;
+using Nouns.Engine.Pixel2D;
 using Platformer.Actors;
 
 namespace Platformer

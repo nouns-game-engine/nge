@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Nouns.Engine.Pixels;
+namespace Nouns.Engine.Pixel2D;
 
 public static class SpriteExtensions
 {

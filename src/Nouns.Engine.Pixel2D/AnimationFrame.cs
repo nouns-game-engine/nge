@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using Nouns.Engine.Core;
 
-namespace Nouns.Engine.Pixels;
+namespace Nouns.Engine.Pixel2D;
 
 public class AnimationFrame
 {

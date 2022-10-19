@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Nouns.Editor;
 
-namespace Nouns.Engine.Pixels;
+namespace Nouns.Engine.Pixel2D;
 
 public struct Sprite
 {

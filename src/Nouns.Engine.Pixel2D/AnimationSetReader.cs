@@ -1,7 +1,7 @@
 ﻿using Nouns.Assets.Core;
 using Nouns.Core;
 
-namespace Nouns.Engine.Pixels;
+namespace Nouns.Engine.Pixel2D;
 
 // ReSharper disable once UnusedMember.Global
 public sealed class AnimationSetReader : IAssetReader

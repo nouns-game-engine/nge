@@ -16,7 +16,7 @@
     <ProjectReference Include="..\Nouns.Assets.Core\Nouns.Assets.Core.csproj" />
     <ProjectReference Include="..\Nouns.Core\Nouns.Core.csproj" />
     <ProjectReference Include="..\Nouns.Editor.Core\Nouns.Editor.Core.csproj" />
-    <ProjectReference Include="..\Nouns.Engine.Pixels\Nouns.Engine.Pixels.csproj" />
+    <ProjectReference Include="..\Nouns.Engine.Pixel2D\Nouns.Engine.Pixel2D.csproj" />
   </ItemGroup>
 
 </Project>

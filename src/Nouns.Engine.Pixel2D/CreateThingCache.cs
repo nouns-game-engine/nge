@@ -3,7 +3,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using Nouns.Engine.Core;
 
-namespace Nouns.Engine.Pixels;
+namespace Nouns.Engine.Pixel2D;
 
 public static class CreateThingCache
 {

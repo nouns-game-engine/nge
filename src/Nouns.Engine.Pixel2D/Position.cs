@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Nouns.Editor;
 
-namespace Nouns.Engine.Pixels
+namespace Nouns.Engine.Pixel2D
 {
     public struct Position
     {
