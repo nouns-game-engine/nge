@@ -1,6 +1,6 @@
-﻿namespace Nouns.Engine.Pixels;
+﻿namespace Nouns.Engine.Core;
 
-public sealed class UpdateContext
+public abstract class UpdateContext
 {
     public Definitions Definitions => GameState.definitions;
 

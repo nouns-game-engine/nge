@@ -1,5 +1,6 @@
 ﻿using Nouns.Core.StateMachine;
 using Nouns.Editor;
+using Nouns.Engine.Core;
 
 namespace Nouns.Engine.Pixels
 {
@@ -19,12 +20,12 @@ namespace Nouns.Engine.Pixels
             currentAnimation = new AnimationPlayer(animationSet.animations[0]);
         }
         
-        public void Update(UpdateContext updateContext)
+        public void Update(PixelsUpdateContext updateContext)
         {
             StateMethods.Update(this, updateContext);
         }
 
-        public void Draw(DrawContext drawContext)
+        public void Draw(PixelsDrawContext drawContext)
         {
             currentAnimation.CurrentFrame.Draw(drawContext, position, facingLeft);
         }

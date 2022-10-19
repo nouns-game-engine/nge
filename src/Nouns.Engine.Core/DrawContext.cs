@@ -1,15 +1,14 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 
-namespace Nouns.Engine.Pixels;
+namespace Nouns.Engine.Core;
 
-public sealed class DrawContext
+public abstract class DrawContext
 {
-    private readonly SpriteBatch sb;
+    protected readonly SpriteBatch sb;
     private readonly RasterizerState rasterizer;
     private readonly Effect effect;
 
-    public DrawContext(SpriteBatch spriteBatch)
+    protected DrawContext(SpriteBatch spriteBatch)
     {
         sb = spriteBatch;
 
@@ -18,11 +17,6 @@ public sealed class DrawContext
         {
             CullMode = CullMode.CullCounterClockwiseFace
         };
-    }
-
-    public void DrawWorldNoTransform(Sprite sprite, Position position, Color color, bool flipX)
-    {
-        sb.DrawWorldNoTransform(sprite, position, color, flipX);
     }
 
     public void Begin()

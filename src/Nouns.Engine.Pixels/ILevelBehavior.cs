@@ -1,4 +1,6 @@
-﻿namespace Nouns.Engine.Pixels;
+﻿using Nouns.Engine.Core;
+
+namespace Nouns.Engine.Pixels;
 
 public interface ILevelBehavior
 {

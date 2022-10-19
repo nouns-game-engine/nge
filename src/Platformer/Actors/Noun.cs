@@ -1,4 +1,5 @@
-﻿using Nouns.Engine.Pixels;
+﻿using Nouns.Engine.Core;
+using Nouns.Engine.Pixels;
 
 namespace Platformer.Actors;
 

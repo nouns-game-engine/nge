@@ -1,8 +1,9 @@
-﻿using Nouns.Engine.Pixels;
+﻿using Nouns.Engine.Core;
+using Nouns.Engine.Pixels;
 
 namespace Platformer;
 
-public class PlatformerGameState : GameState
+public class PlatformerGameState : PixelsGameState
 {
     public PlatformerGameState(Definitions definitions) : base(definitions)
     {

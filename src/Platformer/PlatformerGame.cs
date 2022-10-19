@@ -6,6 +6,7 @@ using Nouns.Assets.Core;
 using Nouns.Core;
 using Nouns.Core.Configuration;
 using Nouns.Editor;
+using Nouns.Engine.Core;
 using Nouns.Engine.Pixels;
 using Platformer.Actors;
 
@@ -15,11 +16,11 @@ namespace Platformer
     {
         private readonly IEditingContext editContext;
 
-        private GameState gameState = null!;
-        private UpdateContext updateContext = null!;
-        private DrawContext drawContext = null!;
+        private PixelsGameState gameState = null!;
+        private PixelsUpdateContext updateContext = null!;
+        private PixelsDrawContext drawContext = null!;
         private EditorAssetManager assetManager = null!;
-        private Definitions definitions = null!;
+        private PixelsDefinitions definitions = null!;
 
 
         public PlatformerGame(IEditingContext editContext)
@@ -32,7 +33,7 @@ namespace Platformer
 
         public void Initialize(GameServiceContainer services)
         {
-            definitions = new Definitions();
+            definitions = new PixelsDefinitions();
             gameState = new PlatformerGameState(definitions);
             assetManager = services.GetRequiredService<EditorAssetManager>();
             Content = services.GetRequiredService<ContentManager>();
@@ -88,8 +89,8 @@ namespace Platformer
 
         public void OnFinishedBackgroundLoading(SpriteBatch sb)
         {
-            drawContext = new DrawContext(sb);
-            updateContext = new UpdateContext();
+            drawContext = new PixelsDrawContext(sb);
+            updateContext = new PixelsUpdateContext();
         }
 
         public void Reset()

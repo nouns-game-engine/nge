@@ -18,6 +18,7 @@
 		<ProjectReference Include="..\Nouns.Assets.MagicaVoxel\Nouns.Assets.MagicaVoxel.csproj" />
 		<ProjectReference Include="..\Nouns.Core\Nouns.Core.csproj" />
 		<ProjectReference Include="..\Nouns.Editor.Core\Nouns.Editor.Core.csproj" />
+		<ProjectReference Include="..\Nouns.Engine.Core\Nouns.Engine.Core.csproj" />
 		<ProjectReference Include="..\Nouns.Graphics.Pipeline\Nouns.Graphics.Pipeline.csproj" />
 	</ItemGroup>
 

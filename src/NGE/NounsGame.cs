@@ -1,16 +1,22 @@
 ﻿using System.Diagnostics;
+using System.Numerics;
 using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using NBitcoin.Secp256k1;
+using Nethereum.Model;
 using NGE.Editor;
+using NGE.Screens;
 using NGE.Snaps;
 using Nouns.Assets.Core;
 using Nouns.Core;
 using Nouns.Core.Configuration;
 using Nouns.Editor;
+using Nouns.Engine.Core;
+using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace NGE
 {
@@ -169,6 +175,8 @@ namespace NGE
                     devMenuEnabled = !devMenuEnabled;
 
                 currentGame?.Update();
+
+                screenManager.Update();
 #endif
             }
             else
@@ -188,6 +196,10 @@ namespace NGE
             {
 #if !WASM
                 GraphicsDevice.SetRenderTarget(renderTarget);
+
+                var screenRender = screenManager.Render();
+                var screenBounds = Vector2.Zero;
+
                 currentGame?.Draw(renderTarget);
 #endif
 
@@ -197,6 +209,13 @@ namespace NGE
                 sb.Begin(SpriteSortMode.Immediate, BlendState.Opaque);
                 sb.Draw(renderTarget, Vector2.Zero, Color.White);
                 sb.End();
+
+                if (screenRender != null)
+                {
+                    sb.Begin(0, null, SamplerState.PointClamp, null, null);
+                    sb.Draw(screenRender, new Vector2(screenBounds.X, screenBounds.Y), null, Color.White, 0, Vector2.Zero, 1, 0, 0);
+                    sb.End();
+                }
 
                 if (devMenuEnabled)
                 {
@@ -246,16 +265,21 @@ namespace NGE
 #endif
         }
 
+        private ScreenContext screenContext;
+        private ScreenManager screenManager;
+
         public void OnFinishedLoading()
         {
             DidFinishLoading = true;
             TargetElapsedTime = Constants.defaultFrameTime;
             currentGame?.OnFinishedBackgroundLoading(sb);
+
+            screenContext = new ScreenContext();
+            screenManager = new ScreenManager(this, screenContext);
         }
 
-#endregion
-
-#region Command Line
+        #endregion
+        #region Command Line
 
         public void ProcessCommandLine()
         {
