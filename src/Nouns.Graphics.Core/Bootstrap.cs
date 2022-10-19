@@ -11,7 +11,7 @@ public static class Bootstrap
     [return: MarshalAs(UnmanagedType.Bool)]
     private static extern bool SetDllDirectory(string lpPathName);
 
-    private static int initialized = 0;
+    private static int initialized;
 
     public static void Init()
     {

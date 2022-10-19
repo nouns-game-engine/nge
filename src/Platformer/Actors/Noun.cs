@@ -5,7 +5,7 @@ namespace Platformer.Actors;
 
 public class Noun : Actor
 {
-    public Noun(Thing thing, UpdateContext updateContext) : base(thing, updateContext)
+    public Noun(LevelObject levelObject, UpdateContext updateContext) : base(levelObject, updateContext)
     {
 
     }

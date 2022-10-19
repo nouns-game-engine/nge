@@ -7,10 +7,10 @@ public class Animation
 
     public Animation()
     {
-        this.isLooped = false;
+        isLooped = true;
     }
 
-    public Animation(bool isLooped = true)
+    public Animation(bool isLooped)
     {
         this.isLooped = isLooped;
     }

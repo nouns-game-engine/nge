@@ -4,7 +4,7 @@ using System.Reflection.Emit;
 using Nouns.Engine.Core;
 using Nouns.Engine.Core.StateMachine;
 
-namespace Nouns.Engine.Pixel2D;
+namespace Nouns.Engine.Pixel2D.Caching;
 
 public class LevelBehaviorCache
 {
@@ -142,7 +142,7 @@ public class LevelBehaviorCache
 
     private static void InjectSubBehaviors(Level level, LevelBehavior levelBehavior, UpdateContext context)
     {
-        var hasGlobalSubBehaviors = globalSubCache is {Count: > 0};
+        var hasGlobalSubBehaviors = globalSubCache is { Count: > 0 };
 
         var subBehaviorString = level.properties.GetString(Constants.SubBehaviors);
         if (!hasGlobalSubBehaviors && subBehaviorString == null)

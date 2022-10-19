@@ -1,6 +1,7 @@
 ﻿using System.IO.Compression;
 using Microsoft.Xna.Framework.Graphics;
 using Nouns.Core;
+using Nouns.Engine.Pixel2D.Serialization;
 
 namespace Nouns.Engine.Pixel2D;
 

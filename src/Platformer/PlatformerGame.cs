@@ -70,10 +70,10 @@ namespace Platformer
             var animationSet = new AnimationSet();
             animationSet.animations.Add(animation);
             
-            var thing = new Thing(animationSet, new Position(100, 100), false);
+            var thing = new LevelObject(animationSet, new Position(100, 100), false);
             
             var level = new Level();
-            level.things.Add(thing);
+            level.levelObjects.Add(thing);
             definitions.levels.Add(level);
 
             var cloud = new Cloud(thing, updateContext);

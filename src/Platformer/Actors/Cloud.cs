@@ -5,7 +5,7 @@ namespace Platformer.Actors;
 
 public class Cloud : Actor
 {
-    public Cloud(Thing thing, UpdateContext updateContext) : base(thing, updateContext)
+    public Cloud(LevelObject levelObject, UpdateContext updateContext) : base(levelObject, updateContext)
     {
 
     }

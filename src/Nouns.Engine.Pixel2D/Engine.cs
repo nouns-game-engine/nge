@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using Nouns.Engine.Core.StateMachine;
+using Nouns.Engine.Pixel2D.Caching;
 
 namespace Nouns.Engine.Pixel2D
 {
@@ -8,7 +9,7 @@ namespace Nouns.Engine.Pixel2D
         public static void Initialize(params Assembly[] assemblies)
         {
             StateProvider.Setup(assemblies);
-            CreateThingCache.Initialize(assemblies);
+            LevelObjectCache.Initialize(assemblies);
             LevelBehaviorCache.Initialize(assemblies);
         }
     }

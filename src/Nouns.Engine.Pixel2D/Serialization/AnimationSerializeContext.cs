@@ -1,4 +1,4 @@
-﻿namespace Nouns.Engine.Pixel2D;
+﻿namespace Nouns.Engine.Pixel2D.Serialization;
 
 public class AnimationSerializeContext
 {
@@ -6,7 +6,7 @@ public class AnimationSerializeContext
 
     public AnimationSerializeContext(BinaryWriter bw, int version)
     {
-        this.Version = version;
+        Version = version;
         this.bw = bw;
         if (Version > FormatVersion)
             throw new Exception("Tried to save asset with a version that is too new");

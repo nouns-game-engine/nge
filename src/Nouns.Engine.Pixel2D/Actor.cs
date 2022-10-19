@@ -12,11 +12,11 @@ namespace Nouns.Engine.Pixel2D
 
         private readonly AnimationPlayer currentAnimation;
 
-        public Actor(Thing thing, UpdateContext updateContext)
+        public Actor(LevelObject levelObject, UpdateContext updateContext)
         {
-            animationSet = thing.AnimationSet;
-            position = thing.Position;
-            facingLeft = thing.FacingLeft;
+            animationSet = levelObject.AnimationSet;
+            position = levelObject.Position;
+            facingLeft = levelObject.FacingLeft;
             currentAnimation = new AnimationPlayer(animationSet.animations[0]);
         }
         

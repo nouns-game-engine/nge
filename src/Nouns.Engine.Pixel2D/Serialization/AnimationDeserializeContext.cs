@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
-namespace Nouns.Engine.Pixel2D
+namespace Nouns.Engine.Pixel2D.Serialization
 {
     public sealed class AnimationDeserializeContext
     {

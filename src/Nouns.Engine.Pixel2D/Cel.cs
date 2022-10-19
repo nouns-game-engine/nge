@@ -6,6 +6,7 @@ public class Cel
 {
     private readonly Sprite sprite;
 
+    // ReSharper disable once UnusedMember.Global (Serialization)
     public Cel() { }
 
     public Cel(Sprite sprite)

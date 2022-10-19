@@ -44,17 +44,17 @@ namespace Nouns.Tests.Serialization
             animationSet.animations.Add(animation);
 
             var position = new Position(100, 100);
-            var thing = new Thing(animationSet, position, false);
+            var thing = new LevelObject(animationSet, position, false);
 
             var level = new Level();
-            level.things.Add(thing);
+            level.levelObjects.Add(thing);
             definitions.levels.Add(level);
 
             var toml = ToToml(definitions);
             console.WriteLine(toml);
 
             var definitionsFromToml = FromToml(toml);
-            Assert.Equal(definitionsFromToml.levels[0].things[0].AnimationSet.friendlyName, animationSet.friendlyName);
+            Assert.Equal(definitionsFromToml.levels[0].levelObjects[0].AnimationSet.friendlyName, animationSet.friendlyName);
         }
 
         private static string ToToml(PixelsDefinitions definitions)
