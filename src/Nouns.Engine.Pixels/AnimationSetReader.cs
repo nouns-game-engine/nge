@@ -12,6 +12,6 @@ public sealed class AnimationSetReader : IAssetReader
     public void Load()
     {
         AssetReader.Add<AnimationSet>(".as",
-            (fullPath, _, services) => AnimationSet.ReadFromFile(fullPath, services.GraphicsDevice()));
+            (fullPath, _, services) => AnimationSet.ReadFromFile(fullPath, services.GetGraphicsDevice()));
     }
 }

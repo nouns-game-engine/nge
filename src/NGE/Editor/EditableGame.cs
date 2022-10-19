@@ -357,7 +357,10 @@ namespace NGE.Editor
             {
                 // ctor()
                 if (Activator.CreateInstance(type) is IAssetReader reader)
+                {
                     reader.Load();
+                    continue;
+                }
 
                 Trace.TraceError($"Asset reader '{type.Name}' has no valid constructors");
             }

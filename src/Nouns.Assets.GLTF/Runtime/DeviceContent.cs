@@ -4,12 +4,12 @@
     /// A wrapper that contains an object with disposable resources.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class FnaDeviceContent<T> : IDisposable
+    public class DeviceContent<T> : IDisposable
         where T:class
     {
         #region lifecycle
 
-        internal FnaDeviceContent(T instance, IDisposable[] disposables)
+        internal DeviceContent(T instance, IDisposable[] disposables)
         {
             _Instance = instance;
             _Disposables = disposables;
@@ -24,7 +24,7 @@
             _Disposables = null;
         }
 
-        ~FnaDeviceContent()
+        ~DeviceContent()
         {
             System.Diagnostics.Debug.Assert(_Disposables == null, "Not disposed correctly");
         }
@@ -47,7 +47,7 @@
 
         #region properties
 
-        public static implicit operator T(FnaDeviceContent<T> value) { return value?.Instance; }
+        public static implicit operator T(DeviceContent<T> value) { return value?.Instance; }
 
         public T Instance => _Instance;
 

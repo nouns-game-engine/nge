@@ -14,6 +14,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\lib\FNA\FNA.Core.csproj" />
 		<ProjectReference Include="..\Nouns.Assets.Core\Nouns.Assets.Core.csproj" />
+		<ProjectReference Include="..\Nouns.Assets.GLTF\Nouns.Assets.GLTF.csproj" />
 		<ProjectReference Include="..\Nouns.Assets.MagicaVoxel\Nouns.Assets.MagicaVoxel.csproj" />
 		<ProjectReference Include="..\Nouns.Core\Nouns.Core.csproj" />
 		<ProjectReference Include="..\Nouns.Editor.Core\Nouns.Editor.Core.csproj" />

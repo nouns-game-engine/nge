@@ -10,11 +10,11 @@ using SharpGLTF.Runtime;
 
 namespace Nouns.Assets.GLTF.Runtime
 {
-    public sealed class FnaModelInstance
+    public sealed class ModelInstance
     {
         #region lifecycle
 
-        internal FnaModelInstance(FnaModelTemplate template, SceneInstance instance)
+        internal ModelInstance(ModelTemplate template, SceneInstance instance)
         {
             _Template = template;
             _Controller = instance;
@@ -24,7 +24,7 @@ namespace Nouns.Assets.GLTF.Runtime
 
         #region data
 
-        private readonly FnaModelTemplate _Template;
+        private readonly ModelTemplate _Template;
         private readonly SceneInstance _Controller;
 
         #endregion
@@ -32,12 +32,12 @@ namespace Nouns.Assets.GLTF.Runtime
         #region properties
 
         /// <summary>
-        /// Gets a reference to the template used to create this <see cref="FnaModelInstance"/>.
+        /// Gets a reference to the template used to create this <see cref="ModelInstance"/>.
         /// </summary>
-        public FnaModelTemplate Template => _Template;
+        public ModelTemplate Template => _Template;
 
         /// <summary>
-        /// Gets a reference to the animation controller of this <see cref="FnaModelInstance"/>.
+        /// Gets a reference to the animation controller of this <see cref="ModelInstance"/>.
         /// </summary>
         public SceneInstance Controller => _Controller;
 
@@ -46,7 +46,7 @@ namespace Nouns.Assets.GLTF.Runtime
         #region API
 
         /// <summary>
-        /// Draws this <see cref="FnaModelInstance"/> into the current <see cref="GraphicsDevice"/>.
+        /// Draws this <see cref="ModelInstance"/> into the current <see cref="GraphicsDevice"/>.
         /// </summary>
         /// <param name="projection">The projection matrix.</param>
         /// <param name="view">The view matrix.</param>

@@ -142,7 +142,7 @@ namespace NGE
             }
             
             // for testing only, should be removed
-            AssetReader.Add<Texture2D>(".png", (fullPath, _, services) => Texture2D.FromStream(services.GraphicsDevice(), File.OpenRead(fullPath)));
+            AssetReader.Add<Texture2D>(".png", (fullPath, _, services) => Texture2D.FromStream(services.GetGraphicsDevice(), File.OpenRead(fullPath)));
         }
 
         protected override void UnloadContent()

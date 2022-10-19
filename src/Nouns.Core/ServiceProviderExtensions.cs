@@ -4,7 +4,7 @@ namespace Nouns.Core
 {
     public static class ServiceProviderExtensions
     {
-        public static GraphicsDevice GraphicsDevice(this IServiceProvider serviceProvider)
+        public static GraphicsDevice GetGraphicsDevice(this IServiceProvider serviceProvider)
         {
             return serviceProvider.GetRequiredService<IGraphicsDeviceService>().GraphicsDevice;
         }

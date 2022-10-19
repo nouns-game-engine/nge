@@ -19,7 +19,7 @@ namespace NGE.Snaps
 
         public Web3Menu(IServiceProvider serviceProvider)
         {
-            graphicsDevice = serviceProvider.GraphicsDevice();
+            graphicsDevice = serviceProvider.GetGraphicsDevice();
             imGui = serviceProvider.GetRequiredService<ImGuiRenderer>();
             configuration = serviceProvider.GetRequiredService<IConfiguration>();
         }

@@ -10,18 +10,18 @@ using SharpGLTF.Runtime;
 
 namespace Nouns.Assets.GLTF.Runtime
 {
-    public class FnaModelTemplate
+    public class ModelTemplate
     {
         #region lifecycle
 
-        public static FnaDeviceContent<FnaModelTemplate> LoadDeviceModel(GraphicsDevice device, string filePath, LoaderContext context = null)
+        public static DeviceContent<ModelTemplate> LoadDeviceModel(GraphicsDevice device, string filePath, LoaderContext context = null)
         {
             var model = SharpGLTF.Schema2.ModelRoot.Load(filePath, SharpGLTF.Validation.ValidationMode.TryFix);
 
             return CreateDeviceModel(device, model, context);
         }
 
-        public static FnaDeviceContent<FnaModelTemplate> CreateDeviceModel(GraphicsDevice device, SharpGLTF.Schema2.ModelRoot srcModel, LoaderContext context = null)
+        public static DeviceContent<ModelTemplate> CreateDeviceModel(GraphicsDevice device, SharpGLTF.Schema2.ModelRoot srcModel, LoaderContext context = null)
         {
             if (context == null) context = new BasicEffectsLoaderContext(device);
 
@@ -45,12 +45,12 @@ namespace Nouns.Assets.GLTF.Runtime
 
             var dstMeshes = context.CreateRuntimeModels();
 
-            var mdl = new FnaModelTemplate(templates,srcModel.DefaultScene.LogicalIndex, dstMeshes);
+            var mdl = new ModelTemplate(templates,srcModel.DefaultScene.LogicalIndex, dstMeshes);
 
-            return new FnaDeviceContent<FnaModelTemplate>(mdl, context.Disposables.ToArray());
+            return new DeviceContent<ModelTemplate>(mdl, context.Disposables.ToArray());
         }
         
-        internal FnaModelTemplate(SceneTemplate[] scenes, int defaultSceneIndex, IReadOnlyDictionary<int, MODELMESH> meshes)
+        internal ModelTemplate(SceneTemplate[] scenes, int defaultSceneIndex, IReadOnlyDictionary<int, MODELMESH> meshes)
         {
             _Meshes = meshes;
             _Effects = _Meshes.Values
@@ -103,11 +103,11 @@ namespace Nouns.Assets.GLTF.Runtime
 
         public BoundingSphere GetBounds(int sceneIndex) => _Bounds[sceneIndex];        
 
-        public FnaModelInstance CreateInstance() => CreateInstance(_DefaultSceneIndex);
+        public ModelInstance CreateInstance() => CreateInstance(_DefaultSceneIndex);
 
-        public FnaModelInstance CreateInstance(int sceneIndex)
+        public ModelInstance CreateInstance(int sceneIndex)
         {
-            return new FnaModelInstance(this, _Scenes[sceneIndex].CreateInstance());
+            return new ModelInstance(this, _Scenes[sceneIndex].CreateInstance());
         }
 
         private BoundingSphere CalculateBounds(SceneTemplate scene)
