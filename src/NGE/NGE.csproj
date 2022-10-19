@@ -7,7 +7,7 @@
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<ApplicationIcon>game.ico</ApplicationIcon>
 		<Platforms>AnyCPU;x64</Platforms>
-		<StartupObject>Nouns.Program</StartupObject>
+		<StartupObject>NGE.Program</StartupObject>
 		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
 

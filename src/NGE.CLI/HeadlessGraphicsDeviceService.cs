@@ -1,7 +1,7 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using System;
+﻿using System;
+using Microsoft.Xna.Framework.Graphics;
 
-namespace Nouns.CLI
+namespace NGE.CLI
 {
     internal sealed class HeadlessGraphicsDeviceService : IGraphicsDeviceService
     {

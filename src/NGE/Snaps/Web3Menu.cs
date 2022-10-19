@@ -1,16 +1,16 @@
 ﻿using ImGuiNET;
 using Microsoft.Extensions.Configuration;
-using Nouns.Editor;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Nouns.Core;
+using Nouns.Editor;
 using Nouns.Graphics.Pipeline;
-
 using Color = Microsoft.Xna.Framework.Color;
 using Vector2 = System.Numerics.Vector2;
 
-namespace Nouns.Snaps
+namespace NGE.Snaps
 {
+    // ReSharper disable once UnusedMember.Global
     public sealed class Web3Menu : IEditorMenu
     {
         private readonly GraphicsDevice graphicsDevice;

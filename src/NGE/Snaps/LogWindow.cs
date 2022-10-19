@@ -3,12 +3,12 @@ using System.Text;
 using ImGuiNET;
 using Microsoft.Xna.Framework;
 using Nouns.Editor;
-
 using Vector2 = System.Numerics.Vector2;
 using Vector4 = System.Numerics.Vector4;
 
-namespace Nouns.Snaps
+namespace NGE.Snaps
 {
+    // ReSharper disable once UnusedMember.Global
     public class LogWindow : TraceListener, IEditorWindow
     {
         private readonly StringBuilder buffer = new();
@@ -57,19 +57,19 @@ namespace Nouns.Snaps
             Vector4 lineColor;
             string lineText;
 
-            if (line.StartsWith("Nouns Information: 0 : "))
+            if (line.StartsWith("NGE Information: 0 : "))
             {
-                lineText = line.Replace("Nouns Information: 0 : ", "info: ");
+                lineText = line.Replace("NGE Information: 0 : ", "info: ");
                 lineColor = Color.LightBlue.ToImGuiVector4();
             }
-            else if(line.StartsWith("Nouns Warning: 0 : "))
+            else if(line.StartsWith("NGE Warning: 0 : "))
             {
-                lineText = line.Replace("Nouns Warning: 0 : ", "warn: ");
+                lineText = line.Replace("NGE Warning: 0 : ", "warn: ");
                 lineColor = Color.LightYellow.ToImGuiVector4();
             }
-            else if (line.StartsWith("Nouns Error: 0 : "))
+            else if (line.StartsWith("NGE Error: 0 : "))
             {
-                lineText = line.Replace("Nouns Error: 0 : ", " err: ");
+                lineText = line.Replace("NGE Error: 0 : ", " err: ");
                 lineColor = Color.Red.ToImGuiVector4();
             }
             else

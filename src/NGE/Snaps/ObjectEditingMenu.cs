@@ -2,8 +2,9 @@
 using Microsoft.Xna.Framework;
 using Nouns.Editor;
 
-namespace Nouns.Snaps
+namespace NGE.Snaps
 {
+    // ReSharper disable once UnusedMember.Global
     public class ObjectEditingMenu : IEditorMenu
     {
         public bool Enabled => true;

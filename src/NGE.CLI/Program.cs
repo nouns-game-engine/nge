@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Nouns.Core.Configuration;
 
-namespace Nouns.CLI
+namespace NGE.CLI
 {
     internal static class Program
     {

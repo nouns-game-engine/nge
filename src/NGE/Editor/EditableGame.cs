@@ -6,13 +6,15 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using NGE.Snaps;
 using Nouns.Assets.Core;
 using Nouns.Core;
-using Nouns.Snaps;
+using Nouns.Editor;
 using SDL2;
 
-namespace Nouns.Editor
+namespace NGE.Editor
 {
+    // ReSharper disable once UnusedMember.Global
     public abstract class EditableGame : Game, IEditingContext
     {
         protected IConfiguration configuration = null!;

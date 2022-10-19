@@ -3,8 +3,9 @@ using Microsoft.Xna.Framework;
 using Nouns.Core.Configuration;
 using Nouns.Editor;
 
-namespace Nouns.Snaps
+namespace NGE.Snaps
 {
+    // ReSharper disable once UnusedMember.Global
     [Order(-1)]
     internal class GameMenu : IEditorMenu
     {

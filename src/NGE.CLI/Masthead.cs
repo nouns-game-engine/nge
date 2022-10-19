@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Nouns.CLI
+namespace NGE.CLI
 {
     internal static class Masthead
     {

@@ -1,8 +1,9 @@
-﻿using Nouns.Core.Configuration;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
+using Nouns.Core.Configuration;
 
-namespace Nouns
+namespace NGE
 {
+    // ReSharper disable once UnusedMember.Global
     internal static class Program
     {
         [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]

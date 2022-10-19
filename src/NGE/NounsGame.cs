@@ -1,20 +1,18 @@
 ﻿using System.Diagnostics;
+using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using NGE.Editor;
+using NGE.Snaps;
+using Nouns.Assets.Core;
 using Nouns.Core;
 using Nouns.Core.Configuration;
-using Nouns.Assets.Core;
-using System.Reflection;
-using Microsoft.Xna.Framework.Content;
-using Nouns.Snaps;
-
-#if !WASM
 using Nouns.Editor;
-#endif
 
-namespace Nouns
+namespace NGE
 {
     internal class NounsGame :
 #if !WASM

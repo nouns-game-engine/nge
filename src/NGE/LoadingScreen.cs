@@ -1,8 +1,7 @@
-﻿using System.IO;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Nouns;
+namespace NGE;
 
 internal sealed class LoadingScreen
 {

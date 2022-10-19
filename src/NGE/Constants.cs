@@ -1,4 +1,4 @@
-﻿namespace Nouns;
+﻿namespace NGE;
 
 internal class Constants
 {

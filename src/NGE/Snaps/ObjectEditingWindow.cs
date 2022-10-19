@@ -5,8 +5,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Nouns.Editor;
 
-namespace Nouns.Snaps
+namespace NGE.Snaps
 {
+    // ReSharper disable once UnusedMember.Global
     public class ObjectEditingWindow<T> : IEditorWindow, IEditObject
     {
         public bool Enabled => objectUnderEdit != null;
