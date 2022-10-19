@@ -4,7 +4,7 @@ namespace Nouns.Assets.Core;
 
 public interface IAssetReader
 {
-    string Extension { get; }
+    string[] Extensions { get; }
     Type Type { get; }
     void Load();
 }

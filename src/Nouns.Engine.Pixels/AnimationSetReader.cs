@@ -6,12 +6,14 @@ namespace Nouns.Engine.Pixels;
 // ReSharper disable once UnusedMember.Global
 public sealed class AnimationSetReader : IAssetReader
 {
-    public string Extension => ".as";
+    private static readonly string[] extensions = { ".as" };
+    public string[] Extensions => extensions;
+
     public Type Type => typeof(AnimationSet);
 
     public void Load()
     {
-        AssetReader.Add<AnimationSet>(".as",
-            (fullPath, _, services) => AnimationSet.ReadFromFile(fullPath, services.GetGraphicsDevice()));
+        foreach(var extension in Extensions)
+            AssetReader.Add<AnimationSet>(extension, (fullPath, _, services) => AnimationSet.ReadFromFile(fullPath, services.GetGraphicsDevice()));
     }
 }

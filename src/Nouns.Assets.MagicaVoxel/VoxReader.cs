@@ -7,13 +7,15 @@ namespace Nouns.Assets.MagicaVoxel
 {
     public sealed class VoxReader : IAssetReader
     {
-        public string Extension => ".vox";
+        private static readonly string[] extensions = { ".vox" };
+        public string[] Extensions => extensions;
 
         public Type Type => typeof(VoxelModel);
 
         public void Load()
         {
-            AssetReader.Add<VoxelModel>(Extension, (fullPath, _, _) => ReadFromFile(fullPath).ToModel());
+            foreach(var extension in Extensions) 
+                AssetReader.Add<VoxelModel>(extension, (fullPath, _, _) => ReadFromFile(fullPath).ToModel());
         }
         
         public static VoxFile ReadFromFile(string path)

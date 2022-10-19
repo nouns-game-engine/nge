@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using ImGuiNET;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Xna.Framework;
@@ -31,7 +33,29 @@ namespace Nouns.Assets.Core.Snaps
             configuration = serviceProvider.GetRequiredService<IConfiguration>();
         }
 
-        public void Layout(IEditingContext context, GameTime gameTime)
+        private bool queueUpdate = true;
+        private readonly Dictionary<Type, string[]> registrations = new();
+
+        public void UpdateLayout(IEditingContext context, GameTime gameTime)
+        {
+            if (queueUpdate)
+            {
+                registrations.Clear();
+
+                foreach (var registration in AssetReader.RegisteredTypes)
+                {
+                    if (!registrations.TryGetValue(registration, out _))
+                    {
+                        var extensions = AssetReader.Extensions(registration).ToArray();
+                        registrations.Add(registration, extensions);
+                    }
+                }
+
+                queueUpdate = false;
+            }
+        }
+
+        public void DrawLayout(IEditingContext context, GameTime gameTime)
         {
             var assetDirectory = AssetDirectory;
             
@@ -40,8 +64,13 @@ namespace Nouns.Assets.Core.Snaps
 
             if (ImGui.BeginMenu("Readers"))
             {
-                foreach(var registration in AssetReader.RegisteredTypes)
-                    ImGui.Text($"{registration.Name} ({AssetReader.Extension(registration)})");
+                foreach (var registration in registrations)
+                {
+                    foreach (var extension in registration.Value)
+                    {
+                        ImGui.Text($"{registration.Key.Name} ({extension})");
+                    }
+                }
 
                 ImGui.EndMenu();
             }

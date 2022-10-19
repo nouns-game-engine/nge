@@ -163,6 +163,9 @@ namespace NGE.Editor
                 }
             }
 
+            foreach(var menu in menus)
+                menu.UpdateLayout(this, gameTime);
+
             foreach (var window in windows)
                 window.UpdateLayout(this, gameTime);
         }
@@ -209,7 +212,7 @@ namespace NGE.Editor
 
                     if (ImGui.BeginMenu(menu.Label, menu.Enabled))
                     {
-                        menu.Layout(this, gameTime);
+                        menu.DrawLayout(this, gameTime);
                         ImGui.EndMenu();
                     }
                 }

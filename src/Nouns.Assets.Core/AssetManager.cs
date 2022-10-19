@@ -18,7 +18,7 @@ namespace Nouns.Assets.Core
 
 		#region IAssetPathProvider
 
-		public string GetAssetPath<T>(T asset) where T : class
+		public string? GetAssetPath<T>(T asset) where T : class
 		{
 			loadedAssetPaths.TryGetValue(asset, out var assetPath);
 			return assetPath;
@@ -28,7 +28,7 @@ namespace Nouns.Assets.Core
 
 		#region Asset Root Directory
 
-		private string rootDirectory;
+		private string? rootDirectory;
 
 		public string? RootDirectory
 		{
@@ -68,43 +68,36 @@ namespace Nouns.Assets.Core
 			loadedAssetPaths.Add(asset, assetPath);
 		}
 
-		public T Load<T>(string assetPath) where T : class
+		public T? Load<T>(string assetPath) where T : class
 		{
-			assetPath = NormalizeAssetPath(assetPath);
+            var normalized = NormalizeAssetPath(assetPath);
 
-			if (loadedAssets.TryGetValue(assetPath, out var asset))
+            assetPath = normalized ?? throw new InvalidOperationException("Uninitialized asset path");
+
+            if (loadedAssets.TryGetValue(assetPath, out var asset))
 				return (T) asset;
 
 			if (Locked)
 				throw new InvalidOperationException("Asset manager has been locked, cannot load from disk.");
 
-			var fullPath = Path.Combine(rootDirectory, assetPath + AssetReader.Extension<T>());
+            Debug.Assert(rootDirectory != null);
 
-			Debug.Assert(!fullPath.Contains("\\\\"));
-			var typedAsset = AssetReader.Read<T>(this, Services, fullPath);
-			loadedAssets.Add(assetPath, typedAsset);
-			loadedAssetPaths.Add(typedAsset, assetPath);
-			return typedAsset;
-		}
+            foreach (var extension in AssetReader.Extensions<T>())
+            {
+                
+                var fullPath = Path.Combine(rootDirectory, assetPath + extension);
+                Debug.Assert(!fullPath.Contains("\\\\"));
+                if (!File.Exists(fullPath))
+                    continue;
 
-		public object Load(Type assetType, string assetPath)
-		{
-			assetPath = NormalizeAssetPath(assetPath);
+                var typedAsset = AssetReader.Read<T>(this, Services, fullPath);
+                loadedAssets.Add(assetPath, typedAsset);
+                loadedAssetPaths.Add(typedAsset, assetPath);
+                return typedAsset;
+            }
 
-			if (loadedAssets.TryGetValue(assetPath, out var asset))
-				return asset;
-
-			if (Locked)
-				throw new InvalidOperationException("Asset manager has been locked, cannot load from disk.");
-
-			var fullPath = Path.Combine(rootDirectory, assetPath + AssetReader.Extension(assetType));
-
-			Debug.Assert(!fullPath.Contains("\\\\"));
-			var typedAsset = AssetReader.Read(assetType, this, Services, fullPath);
-			loadedAssets.Add(assetPath, typedAsset);
-			loadedAssetPaths.Add(typedAsset, assetPath);
-			return typedAsset;
-		}
+            return null;
+        }
 
 		public ICollection<T> LoadAll<T>() where T : class
 		{
@@ -125,13 +118,22 @@ namespace Nouns.Assets.Core
 				yield break;
 			}
 
-			var starDotExtension = "*" + AssetReader.Extension<T>();
-			var filePaths = Directory.GetFiles(rootDirectory, starDotExtension, SearchOption.AllDirectories);
-			var assetPaths = filePaths.Select(filePath => filePath.Replace(RootDirectory, "").Replace(Path.GetFileName(filePath), Path.GetFileNameWithoutExtension(filePath)));
+            foreach (var extension in AssetReader.Extensions<T>())
+            {
+                var starDotExtension = "*" + extension;
+                var filePaths = Directory.GetFiles(rootDirectory, starDotExtension, SearchOption.AllDirectories);
 
-			foreach (var assetPath in assetPaths)
-				yield return Load<T>(assetPath);
-		}
+                Debug.Assert(rootDirectory != null);
+                var assetPaths = filePaths.Select(filePath => filePath.Replace(rootDirectory, "").Replace(Path.GetFileName(filePath), Path.GetFileNameWithoutExtension(filePath)));
+
+                foreach (var assetPath in assetPaths)
+                {
+                    var asset = Load<T>(assetPath);
+                    if (asset != null)
+                        yield return asset;
+                }
+            }
+        }
 
 		#endregion
 

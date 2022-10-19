@@ -45,7 +45,7 @@ namespace NGE.Snaps
 
         private int index = 0;
 
-        public void Layout(IEditingContext context, GameTime gameTime)
+        public void DrawLayout(IEditingContext context, GameTime gameTime)
         {
             var url = RpcUrl ?? "http://localhost:8545";
             var valid = true;

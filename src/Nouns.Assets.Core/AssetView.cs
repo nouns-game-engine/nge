@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
@@ -32,13 +33,18 @@ namespace Nouns.Assets.Core
             }
         }
 
-        public T Load<T>(string assetPath) where T : class
+        public T? Load<T>(string assetPath) where T : class
         {
             if (rootDirectory == null)
                 throw new InvalidOperationException();
 
-            var fullPath = Path.Combine(rootDirectory, assetPath + AssetReader.Extension<T>());
-            return owner.Load<T>(this, fullPath);
+            foreach (var extension in AssetReader.Extensions<T>())
+            {
+                var fullPath = Path.Combine(rootDirectory, assetPath + extension);
+                return owner.Load<T>(this, fullPath);
+            }
+
+            return null;
         }
 
         public ICollection<T> LoadAll<T>() where T : class
@@ -48,14 +54,26 @@ namespace Nouns.Assets.Core
 
         private IEnumerable<T> YieldAssetsOfType<T>() where T : class
         {
-            var starDotExtensions = "*" + AssetReader.Extension<T>();
-            var filePaths = Directory.GetFiles(rootDirectory, starDotExtensions, SearchOption.AllDirectories);
-            var assetPaths = filePaths.Select(filePath =>
-                filePath
-                    .Replace(Path.GetPathRoot(rootDirectory), string.Empty)
+            Debug.Assert(rootDirectory != null);
+
+            var pathRoot = Path.GetPathRoot(rootDirectory);
+            Debug.Assert(pathRoot != null);
+
+            foreach (var extension in AssetReader.Extensions<T>())
+            {
+                var starDotExtension = "*" + extension;
+                var filePaths = Directory.GetFiles(rootDirectory, starDotExtension, SearchOption.AllDirectories);
+                var assetPaths = filePaths.Select(filePath => filePath
+                    .Replace(pathRoot, string.Empty)
                     .Replace(Path.GetFileName(filePath), Path.GetFileNameWithoutExtension(filePath)));
-            foreach (var assetPath in assetPaths)
-                yield return Load<T>(assetPath);
+
+                foreach (var assetPath in assetPaths)
+                {
+                    var asset = Load<T>(assetPath);
+                    if (asset != null)
+                        yield return asset;
+                }
+            }
         }
         
         public AssetClassification Classify(object asset, out string? informationalPath)
@@ -69,15 +87,22 @@ namespace Nouns.Assets.Core
             if (!fullPath.StartsWith(rootDirectory))
                 return AssetClassification.OutOfPath;
 
-            var extension = AssetReader.Extension(asset.GetType());
-            if (!fullPath.EndsWith(extension))
-                return AssetClassification.BadExtension;
+            foreach (var extension in AssetReader.Extensions(asset.GetType()))
+            {
+                if (!File.Exists(fullPath))
+                    continue;
 
-            var rootLength = rootDirectory.Length + (rootDirectory.EndsWith("\\") ? 0 : 1);
-            var assetPath = fullPath.Substring(rootLength, fullPath.Length - rootLength - extension.Length);
-            informationalPath = assetPath;
+                if (!fullPath.EndsWith(extension))
+                    return AssetClassification.BadExtension;
 
-            return owner.IsMissingAsset(asset) ? AssetClassification.Missing : AssetClassification.Managed;        }
+                var rootLength = rootDirectory.Length + (rootDirectory.EndsWith("\\") ? 0 : 1);
+                var assetPath = fullPath.Substring(rootLength, fullPath.Length - rootLength - extension.Length);
+                informationalPath = assetPath;
+                break;
+            }
+
+            return owner.IsMissingAsset(asset) ? AssetClassification.Missing : AssetClassification.Managed;
+        }
 
         public IEnumerable<AssetDetails> GetDetails(IHasReferencedAssets? referencingAsset = null)
         {

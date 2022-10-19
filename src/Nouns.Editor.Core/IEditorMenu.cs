@@ -6,6 +6,7 @@ namespace Nouns.Editor
     public interface IEditorMenu : IEditorEnabled
     {
         string Label { get; }
-        void Layout(IEditingContext context, GameTime gameTime);
+        void UpdateLayout(IEditingContext context, GameTime gameTime) { }
+        void DrawLayout(IEditingContext context, GameTime gameTime);
     }
 }

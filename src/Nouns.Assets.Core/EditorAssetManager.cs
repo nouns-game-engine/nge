@@ -116,7 +116,7 @@ namespace Nouns.Assets.Core
 		}
 
 		public static bool ReadOrCreateMissing(Type assetType, AssetView assetView, IServiceProvider services, string fullPath,
-			out object asset)
+			out object? asset)
 		{
 			if (!File.Exists(fullPath))
 			{
@@ -135,8 +135,20 @@ namespace Nouns.Assets.Core
 				Debug.WriteLine(e);
 				Debug.WriteLine("");
 
-				asset = MissingAssetFactory.Create(assetType, services, fullPath);
-				return false;
+                try
+                {
+                    asset = MissingAssetFactory.Create(assetType, services, fullPath);
+                    return false;
+                }
+                catch (Exception me)
+                {
+                    Debug.WriteLine($"Error while loading missing asset from factory for type {assetType.Name}");
+                    Debug.WriteLine(me);
+                    Debug.WriteLine("");
+
+                    asset = null;
+                    return false;
+                }
 			}
 		}
 		
@@ -211,7 +223,7 @@ namespace Nouns.Assets.Core
 			return pathToAssetLookup.TryGetValue(fullPath, out var asset) ? IsMissingAsset(asset) ? null : asset : null;
 		}
 		
-		public T? UserLoadAndRevert<T>(AssetView assetView, string fullPath) where T : class
+		public T UserLoadAndRevert<T>(AssetView assetView, string fullPath) where T : class
 		{
 			var newAssetWasFound = ReadOrCreateMissing(assetView, Services, fullPath, out T newAsset);
 			Debug.Assert(newAssetWasFound);

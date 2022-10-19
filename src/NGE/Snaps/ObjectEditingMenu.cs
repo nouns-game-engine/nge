@@ -10,7 +10,7 @@ namespace NGE.Snaps
         public bool Enabled => true;
         public string Label => "Objects";
 
-        public void Layout(IEditingContext context, GameTime gameTime)
+        public void DrawLayout(IEditingContext context, GameTime gameTime)
         {
             if (context.Objects.Count == 0)
                 return;

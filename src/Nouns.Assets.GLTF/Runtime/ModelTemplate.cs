@@ -60,7 +60,7 @@ namespace Nouns.Assets.GLTF.Runtime
 
             _Scenes = scenes;
             _Bounds = scenes
-                .Select(item => CalculateBounds(item))
+                .Select(CalculateBounds)
                 .ToArray();
 
             _DefaultSceneIndex = defaultSceneIndex;
@@ -118,6 +118,9 @@ namespace Nouns.Assets.GLTF.Runtime
 
             foreach (var inst in instances)
             {
+                if (!_Meshes.ContainsKey(inst.Template.LogicalMeshIndex))
+                    continue;
+
                 var b = _Meshes[inst.Template.LogicalMeshIndex].BoundingSphere;
 
                 if (inst.Transform is SharpGLTF.Transforms.RigidTransform statXform) b = b.Transform(statXform.WorldMatrix.ToXna());

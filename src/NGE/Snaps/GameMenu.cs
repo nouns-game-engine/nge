@@ -19,7 +19,7 @@ namespace NGE.Snaps
             this.game = game;
         }
 
-        public void Layout(IEditingContext context, GameTime gameTime)
+        public void DrawLayout(IEditingContext context, GameTime gameTime)
         {
             if (game?.Version != null)
             {
