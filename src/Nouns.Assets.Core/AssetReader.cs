@@ -6,7 +6,7 @@ namespace Nouns.Assets.Core
 {
 	public static class AssetReader
 	{
-		public delegate object ReadFromFile(string fullPath, IAssetProvider assetProvider, IServiceProvider services);
+		public delegate object ReadFromFile(string fullPath, IAssetProvider assetProvider, IServiceProvider serviceProvider);
 
         private static readonly Dictionary<Type, string> extensionRegistry = new();
 		private static readonly Dictionary<Type, ReadFromFile> readRegistry = new();

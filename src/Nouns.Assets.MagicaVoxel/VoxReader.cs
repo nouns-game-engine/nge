@@ -13,7 +13,7 @@ namespace Nouns.Assets.MagicaVoxel
 
         public void Load()
         {
-            AssetReader.Add<VoxelModel>(".vox", (fullPath, _, _) => ReadFromFile(fullPath).ToModel());
+            AssetReader.Add<VoxelModel>(Extension, (fullPath, _, _) => ReadFromFile(fullPath).ToModel());
         }
         
         public static VoxFile ReadFromFile(string path)

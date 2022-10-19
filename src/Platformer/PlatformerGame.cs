@@ -7,6 +7,7 @@ using Nouns.Core;
 using Nouns.Core.Configuration;
 using Nouns.Editor;
 using Nouns.Engine.Pixels;
+using Platformer.Actors;
 
 namespace Platformer
 {

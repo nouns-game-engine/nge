@@ -1,6 +1,6 @@
 ﻿using Nouns.Engine.Pixels;
 
-namespace Platformer;
+namespace Platformer.Actors;
 
 public class Cloud : Actor
 {
