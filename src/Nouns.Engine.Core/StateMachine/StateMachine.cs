@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Nouns.Editor;
 
-namespace Nouns.Core.StateMachine
+namespace Nouns.Engine.Core.StateMachine
 {
     public class StateMachine<TUpdateContext> : StateProvider
     {

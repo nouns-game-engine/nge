@@ -1,4 +1,4 @@
-﻿namespace Nouns.Core.StateMachine
+﻿namespace Nouns.Engine.Core.StateMachine
 {
 	/// <summary> Wrapper around a list for a read-only list that doesn't allocate. </summary>
 	/// <typeparam name="T"></typeparam>

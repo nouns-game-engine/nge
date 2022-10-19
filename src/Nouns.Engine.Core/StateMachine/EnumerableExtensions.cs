@@ -1,4 +1,4 @@
-﻿namespace Nouns.Core.StateMachine
+﻿namespace Nouns.Engine.Core.StateMachine
 {
 	internal static class EnumerableExtensions
 	{

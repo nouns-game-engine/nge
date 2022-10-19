@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
 using System.Reflection;
 using System.Reflection.Emit;
-using Nouns.Core.StateMachine;
 using Nouns.Engine.Core;
+using Nouns.Engine.Core.StateMachine;
 
 namespace Nouns.Engine.Pixels;
 
