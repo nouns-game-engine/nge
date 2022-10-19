@@ -4,6 +4,9 @@ using ImGuiNET;
 using Microsoft.Xna.Framework;
 using Nouns.Editor;
 
+using Vector2 = System.Numerics.Vector2;
+using Vector4 = System.Numerics.Vector4;
+
 namespace Nouns.Snaps
 {
     public class LogWindow : TraceListener, IEditorWindow
@@ -34,14 +37,48 @@ namespace Nouns.Snaps
                 Clear();
             ImGui.Separator();
             ImGui.BeginChild("scrolling");
-            ImGui.PushStyleVar(ImGuiStyleVar.ItemSpacing, new System.Numerics.Vector2(0, 1));
+            ImGui.PushStyleVar(ImGuiStyleVar.ItemSpacing, new Vector2(0, 1));
             if (buffer.Length > 0)
-                ImGui.TextUnformatted(buffer.ToString());
+            {
+                foreach (var line in buffer.ToString().Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    DrawLine(line);
+                }
+            }
             if (tail)
                 ImGui.SetScrollHereY(1.0f);
             tail = false;
             ImGui.PopStyleVar();
             ImGui.EndChild();
+        }
+
+        private static void DrawLine(string line)
+        {
+            Vector4 lineColor;
+            string lineText;
+
+            if (line.StartsWith("Nouns Information: 0 : "))
+            {
+                lineText = line.Replace("Nouns Information: 0 : ", "info: ");
+                lineColor = Color.LightBlue.ToImGuiVector4();
+            }
+            else if(line.StartsWith("Nouns Warning: 0 : "))
+            {
+                lineText = line.Replace("Nouns Warning: 0 : ", "warn: ");
+                lineColor = Color.LightYellow.ToImGuiVector4();
+            }
+            else if (line.StartsWith("Nouns Error: 0 : "))
+            {
+                lineText = line.Replace("Nouns Error: 0 : ", " err: ");
+                lineColor = Color.Red.ToImGuiVector4();
+            }
+            else
+            {
+                lineText = "dbug: " + line;
+                lineColor = Color.Gray.ToImGuiVector4();
+            }
+
+            ImGui.TextColored(lineColor, lineText);
         }
 
         private void AddLog(string? message, params object[] args)

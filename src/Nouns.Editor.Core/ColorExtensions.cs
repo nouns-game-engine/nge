@@ -6,7 +6,7 @@ namespace Nouns.Editor
     {
         public static System.Numerics.Vector4 ToImGuiVector4(this Color color)
         {
-            return new System.Numerics.Vector4(color.A, color.B, color.G, color.R);
+            return new System.Numerics.Vector4(color.R / 255f, color.G / 255f, color.B / 255f, color.A / 255f);
         }
     }
 }

@@ -105,6 +105,8 @@ namespace Nouns
             if (game == null)
                 return;
 
+            Trace.WriteLine($"found game {game.Name} v{game.Version}");
+
             foreach (var contentItem in Directory.EnumerateFiles(Path.Combine(referencesPath, "Content")))
             {
                 var destFileName = Path.Combine(Content.RootDirectory, Path.GetFileName(contentItem));
