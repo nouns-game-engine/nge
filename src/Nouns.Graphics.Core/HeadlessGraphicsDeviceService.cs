@@ -1,9 +1,10 @@
 ﻿using System;
+using System.ComponentModel.Design;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace NGE.CLI
+namespace Nouns.Graphics.Core
 {
-    internal sealed class HeadlessGraphicsDeviceService : IGraphicsDeviceService
+    public sealed class HeadlessGraphicsDeviceService : IGraphicsDeviceService
     {
         public GraphicsDevice GraphicsDevice { get; }
 
@@ -15,6 +16,15 @@ namespace NGE.CLI
         public HeadlessGraphicsDeviceService(GraphicsDevice graphicsDevice)
         {
             GraphicsDevice = graphicsDevice;
+        }
+
+        public static GraphicsDevice AcquireGraphicsDevice(out ServiceContainer serviceContainer)
+        {
+            var game = new NoGame();
+            game.RunOneFrame();
+            serviceContainer = new ServiceContainer();
+            serviceContainer.AddService(typeof(IGraphicsDeviceService), new HeadlessGraphicsDeviceService(game.GraphicsDevice));
+            return game.GraphicsDevice;
         }
     }
 }

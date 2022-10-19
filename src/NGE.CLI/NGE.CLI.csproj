@@ -10,6 +10,7 @@
     <ProjectReference Include="..\..\lib\FNA\FNA.Core.csproj" />
     <ProjectReference Include="..\Nouns.Assets.Core\Nouns.Assets.Core.csproj" />
     <ProjectReference Include="..\Nouns.Core\Nouns.Core.csproj" />
+    <ProjectReference Include="..\Nouns.Graphics.Core\Nouns.Graphics.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
