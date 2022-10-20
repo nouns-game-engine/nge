@@ -54,8 +54,4 @@
 	  <PackageReference Include="ImGui.NET" Version="1.87.3" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Properties\" />
-	</ItemGroup>
-
 </Project>
