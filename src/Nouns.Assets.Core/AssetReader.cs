@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using NGE.Strings;
 
 namespace Nouns.Assets.Core
 {
@@ -41,7 +42,7 @@ namespace Nouns.Assets.Core
 			foreach (var registered in extensionRegistry)
 				if (registered.Key == extension)
 					return registered.Value;
-            throw new InvalidOperationException("Unknown asset extension");
+            throw new InvalidOperationException(Strings.UnknownAssetExtension);
 		}
 		
 		public static IEnumerable<string> Extensions(Type type)
@@ -66,7 +67,7 @@ namespace Nouns.Assets.Core
             var extension = Path.GetExtension(fullPath);
 
             if (!readRegistry.TryGetValue(extension, out var read))
-				throw new InvalidOperationException("Unknown asset type");
+				throw new InvalidOperationException(Strings.UnknownAssetType);
 
 			return (T) read(fullPath, assetProvider, services);
 		}
@@ -78,7 +79,7 @@ namespace Nouns.Assets.Core
             var extension = Path.GetExtension(fullPath);
 
             if (!readRegistry.TryGetValue(extension, out var read))
-				throw new InvalidOperationException("Unknown asset type");
+				throw new InvalidOperationException(Strings.UnknownAssetType);
 
 			return read(fullPath, assetProvider, services);
 		}
@@ -94,7 +95,7 @@ namespace Nouns.Assets.Core
             }
 
             if (registered == null)
-                throw new InvalidOperationException("Unknown asset type");
+                throw new InvalidOperationException(Strings.UnknownAssetType);
         }
     }
 }

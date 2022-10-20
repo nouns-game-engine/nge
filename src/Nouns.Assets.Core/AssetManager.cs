@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using NGE.Strings;
 
 namespace Nouns.Assets.Core
 {
@@ -38,7 +39,7 @@ namespace Nouns.Assets.Core
 				if (loadedAssets.Count == 0)
 					rootDirectory = NormalizeAssetPath(value);
 				else
-					throw new InvalidOperationException("Cannot change the asset root directory after loading assets");
+					throw new InvalidOperationException(Strings.CannotChangeAssetRootDirectoryAfterLoadingAssets);
 			}
 		}
 
@@ -72,13 +73,13 @@ namespace Nouns.Assets.Core
 		{
             var normalized = NormalizeAssetPath(assetPath);
 
-            assetPath = normalized ?? throw new InvalidOperationException("Uninitialized asset path");
+            assetPath = normalized ?? throw new InvalidOperationException(Strings.UninitializedAssetPath);
 
             if (loadedAssets.TryGetValue(assetPath, out var asset))
 				return (T) asset;
 
 			if (Locked)
-				throw new InvalidOperationException("Asset manager has been locked, cannot load from disk.");
+				throw new InvalidOperationException(Strings.AssetManagerIsLocked);
 
             Debug.Assert(rootDirectory != null);
 

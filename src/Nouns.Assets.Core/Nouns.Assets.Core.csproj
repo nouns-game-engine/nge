@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NGE.Core\NGE.Core.csproj" />
+    <ProjectReference Include="..\NGE.Strings\NGE.Strings.csproj" />
     <ProjectReference Include="..\Nouns.Editor.Core\Nouns.Editor.Core.csproj" />
   </ItemGroup>
 

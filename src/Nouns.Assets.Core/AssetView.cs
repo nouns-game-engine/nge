@@ -109,18 +109,14 @@ namespace Nouns.Assets.Core
             var assets = referencingAsset == null ? owner.GetAllAssets() : referencingAsset.GetReferencedAssets();
             foreach (var asset in assets)
             {
-                if (asset == null)
-                    continue;
-
-                string? informationalPath;
-
-                var friendlyName = !(asset is IEditorNameProvider friendlyNameProvider) ? string.Empty : friendlyNameProvider.EditorName;
-                var classification = Classify(asset, out informationalPath);
+                var friendlyName = asset is not IEditorNameProvider friendlyNameProvider ? string.Empty : friendlyNameProvider.EditorName;
+                var classification = Classify(asset, out var informationalPath);
 
                 var details = new AssetDetails
                 {
                     Classification = classification,
                     Path = GetAssetPath(asset),
+                    InformationalPath = informationalPath,
                     FriendlyName = friendlyName,
                     Asset = asset
                 };

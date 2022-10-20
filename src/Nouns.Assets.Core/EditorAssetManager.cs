@@ -14,38 +14,28 @@ namespace Nouns.Assets.Core
 		}
 
 		public IServiceProvider Services { get; }
-		
-		#region Asset Replacement
 
-		private void ReplaceAssetReferences(object search, object replace)
-		{
-			foreach (var cachedAsset in assetToPathLookup.Keys)
-			{
+        private void ReplaceAssetReferences(object search, object replace)
+        {
+            foreach (var cachedAsset in assetToPathLookup.Keys)
+            {
                 if (cachedAsset is IHasReferencedAssets hasReferencedAssets)
-					hasReferencedAssets.ReplaceAsset(search, replace);
-			}
-		}
+                    hasReferencedAssets.ReplaceAsset(search, replace);
+            }
+        }
 
-		#endregion
-		
-		#region Path
+        public static string? GuessAssetDirectoryFrom(string fullPath)
+        {
+            var assetsFolderName = $"{Path.DirectorySeparatorChar}assets{Path.DirectorySeparatorChar}";
 
-		public static string GuessAssetDirectoryFrom(string fullPath)
-		{
-			var assetsFolderName = $"{Path.DirectorySeparatorChar}assets{Path.DirectorySeparatorChar}";
-
-			fullPath = Path.GetFullPath(fullPath);
-			var index = fullPath.IndexOf(assetsFolderName, StringComparison.InvariantCultureIgnoreCase);
-			if (index == -1)
-				return null;
-			return fullPath.Substring(0, index + assetsFolderName.Length);
-		}
-
-		#endregion
+            fullPath = Path.GetFullPath(fullPath);
+            var index = fullPath.IndexOf(assetsFolderName, StringComparison.InvariantCultureIgnoreCase);
+            return index == -1 ? null : fullPath[..(index + assetsFolderName.Length)];
+        }
 
         #region Private Asset Lookups
 
-		private readonly HashSet<object> missingAssets = new(ReferenceEqualityComparer.Instance);
+        private readonly HashSet<object> missingAssets = new(ReferenceEqualityComparer.Instance);
         private Dictionary<string, object> pathToAssetLookup = new();
 		private readonly Dictionary<object, string> assetToPathLookup = new(ReferenceEqualityComparer.Instance);
 
@@ -106,7 +96,7 @@ namespace Nouns.Assets.Core
 			}
 			catch (Exception e)
 			{
-				Debug.WriteLine("Error while loading asset of type " + typeof(T).Name + " from \"" + fullPath + "\"");
+				Debug.WriteLine($"Error while loading asset of type {typeof(T).Name} from \"{fullPath}\"");
 				Debug.WriteLine(e);
 				Debug.WriteLine("");
 
@@ -169,13 +159,14 @@ namespace Nouns.Assets.Core
 			return typedAsset;
 		}
 
-		public object Load(Type assetType, AssetView assetView, string fullPath)
+		public object? Load(Type assetType, AssetView assetView, string fullPath)
 		{
 			fullPath = NormalizePath(fullPath);
 			if (pathToAssetLookup.TryGetValue(fullPath, out var asset))
 				return asset;
 			var missing = !ReadOrCreateMissing(assetType, assetView, Services, fullPath, out asset);
-			AddAsset(fullPath, asset, missing);
+			if(asset != null)
+			    AddAsset(fullPath, asset, missing);
 			return asset;
 		}
 
@@ -239,23 +230,24 @@ namespace Nouns.Assets.Core
 			return newAsset;
 		}
 		
-		public object UserLoadAndRevert(Type assetType, AssetView assetView, string fullPath)
+		public object? UserLoadAndRevert(Type assetType, AssetView assetView, string fullPath)
 		{
 			var newAssetWasFound = ReadOrCreateMissing(assetType, assetView, Services, fullPath, out var newAsset);
 			Debug.Assert(newAssetWasFound);
 
 			if (pathToAssetLookup.TryGetValue(fullPath, out var oldAsset))
 			{
-				ReplaceAssetReferences(oldAsset, newAsset);
+				ReplaceAssetReferences(oldAsset, newAsset!);
 				RemoveAsset(oldAsset);
 			}
 
-			AddAsset(fullPath, newAsset, !newAssetWasFound);
+			if(newAsset != null)
+			    AddAsset(fullPath, newAsset, !newAssetWasFound);
 
 			return newAsset;
 		}
 
-        public void UserSaveRename<T>(T asset, string newFullPath) where T : class
+        public void UserSaveRename<T>(T asset, string? newFullPath) where T : class
 		{
 			assetToPathLookup.TryGetValue(asset, out var oldFullPath);
 			if (oldFullPath != null)
@@ -263,12 +255,12 @@ namespace Nouns.Assets.Core
 
 			if (newFullPath != null)
 				pathToAssetLookup[newFullPath] = asset;
-			assetToPathLookup[asset] = newFullPath;
 
-			missingAssets.Remove(asset);
+			assetToPathLookup[asset] = newFullPath!;
+            missingAssets.Remove(asset);
 		}
 
-		public void UserSaveRename(object asset, string newFullPath)
+		public void UserSaveRename(object asset, string? newFullPath)
 		{
 			assetToPathLookup.TryGetValue(asset, out var oldFullPath);
 			if (oldFullPath != null)
@@ -276,7 +268,7 @@ namespace Nouns.Assets.Core
 
 			if (newFullPath != null)
 				pathToAssetLookup[newFullPath] = asset;
-			assetToPathLookup[asset] = newFullPath;
+			assetToPathLookup[asset] = newFullPath!;
 
 			missingAssets.Remove(asset);
 		}
@@ -306,7 +298,7 @@ namespace Nouns.Assets.Core
 			var inUse = assetToPathLookup.Keys
 				.Select(a => a as IHasReferencedAssets)
 				.Where(a => a != null)
-				.SelectMany(a => a.GetReferencedAssets())
+				.SelectMany(a => a!.GetReferencedAssets())
 				.Any(a => ReferenceEquals(a, asset));
 
 			if (inUse)
@@ -328,25 +320,23 @@ namespace Nouns.Assets.Core
 				UserCompactCacheRecursiveHelper(asset, assetsToKeep);
 
 			var assetsToRemove = new HashSet<object>(ReferenceEqualityComparer.Instance);
-			foreach (var asset in assetToPathLookup.Keys)
-				if (!assetsToKeep.Contains(asset))
-					assetsToRemove.Add(asset);
+			foreach (var asset in assetToPathLookup.Keys.Where(asset => !assetsToKeep.Contains(asset)))
+                assetsToRemove.Add(asset);
 			
 			foreach (var asset in assetsToRemove)
 				assetToPathLookup.Remove(asset);
-			missingAssets.ExceptWith(assetsToRemove);
-
-			pathToAssetLookup = assetToPathLookup.Where(kvp => kvp.Value != null)
-				.ToDictionary(kvp => kvp.Value, kvp => kvp.Key);
 			
-			GC.Collect();
+            missingAssets.ExceptWith(assetsToRemove);
+            pathToAssetLookup = assetToPathLookup.ToDictionary(kvp => kvp.Value, kvp => kvp.Key);
+			
+            GC.Collect();
 		}
 
 		private static void UserCompactCacheRecursiveHelper(object asset, ISet<object> assetsToKeep)
 		{
 			if (assetsToKeep.Add(asset))
 			{
-				if (!(asset is IHasReferencedAssets referencing))
+				if (asset is not IHasReferencedAssets referencing)
 					return;
 
 				foreach (var reference in referencing.GetReferencedAssets())
