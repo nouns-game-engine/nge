@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Nouns.Graphics.Pipeline;
+using NGE.Pipeline;
 
 namespace VisualTests
 {

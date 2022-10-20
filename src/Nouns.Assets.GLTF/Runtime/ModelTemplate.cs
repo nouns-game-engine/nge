@@ -27,7 +27,7 @@ namespace Nouns.Assets.GLTF.Runtime
 
             context.Reset();
 
-            var options = new SharpGLTF.Runtime.RuntimeOptions { IsolateMemory = true };
+            var options = new RuntimeOptions { IsolateMemory = true };
 
             var templates = srcModel.LogicalScenes
                 .Select(item => SceneTemplate.Create(item, options))

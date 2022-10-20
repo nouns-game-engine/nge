@@ -2,7 +2,7 @@
 using System.Text;
 using Svg;
 
-namespace Nouns.Graphics.Pipeline
+namespace NGE.Pipeline
 {
     public static class SvgFunctions
     {

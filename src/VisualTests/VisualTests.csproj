@@ -10,7 +10,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\lib\FNA\FNA.Core.csproj" />
     <ProjectReference Include="..\NGE.Core\NGE.Core.csproj" />
-    <ProjectReference Include="..\Nouns.Graphics.Pipeline\Nouns.Graphics.Pipeline.csproj" />
+    <ProjectReference Include="..\NGE.Pipeline\NGE.Pipeline.csproj" />
   </ItemGroup>
 
   <ItemGroup>

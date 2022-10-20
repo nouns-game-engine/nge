@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using NGE.Core;
-using Nouns.Graphics.Pipeline;
+using NGE.Pipeline;
 using Velentr.Font;
 using Text = Velentr.Font.Text;
 

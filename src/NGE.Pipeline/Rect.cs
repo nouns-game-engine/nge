@@ -1,4 +1,4 @@
-﻿namespace Nouns.Graphics.Pipeline
+﻿namespace NGE.Pipeline
 {
     public struct Rect
     {

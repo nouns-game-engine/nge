@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using NGE.Core;
 using NGE.Editor;
-using Nouns.Graphics.Pipeline;
+using NGE.Pipeline;
 using Color = Microsoft.Xna.Framework.Color;
 using Vector2 = System.Numerics.Vector2;
 

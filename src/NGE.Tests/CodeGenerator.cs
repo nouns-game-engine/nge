@@ -2,7 +2,7 @@
 using System.IO;
 using System.IO.Compression;
 using System.Text.Json;
-using Nouns.Graphics.Pipeline;
+using NGE.Pipeline;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Png;
 using Xunit;

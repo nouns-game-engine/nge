@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using NGE.Core.Web3;
 
-namespace Nouns.Graphics.Pipeline
+namespace NGE.Pipeline
 {
     public static class Web3Functions
     {
