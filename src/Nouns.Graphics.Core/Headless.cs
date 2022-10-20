@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.Design;
 using Microsoft.Xna.Framework.Graphics;
-using Nouns.Assets.Core;
+using NGE.Assets;
 
 namespace Nouns.Graphics.Core
 {

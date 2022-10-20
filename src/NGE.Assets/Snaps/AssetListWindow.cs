@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using NGE.Core;
 using Nouns.Editor;
 
-namespace Nouns.Assets.Core.Snaps;
+namespace NGE.Assets.Snaps;
 
 // ReSharper disable once UnusedMember.Global
 public sealed class AssetListWindow : IEditorWindow

@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\lib\FNA\FNA.Core.csproj" />
-    <ProjectReference Include="..\Nouns.Assets.Core\Nouns.Assets.Core.csproj" />
+    <ProjectReference Include="..\NGE.Assets\NGE.Assets.csproj" />
   </ItemGroup>
 
 </Project>

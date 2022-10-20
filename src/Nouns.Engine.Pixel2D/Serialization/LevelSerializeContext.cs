@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
+using NGE.Assets;
 using NGE.Core.Serialization;
-using Nouns.Assets.Core;
 
 namespace Nouns.Engine.Pixel2D.Serialization;
 

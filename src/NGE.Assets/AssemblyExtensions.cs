@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using Nouns.Editor;
 
-namespace Nouns.Assets.Core;
+namespace NGE.Assets;
 
 public static class AssemblyExtensions
 {

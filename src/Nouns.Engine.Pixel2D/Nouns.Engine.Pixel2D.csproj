@@ -8,9 +8,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\lib\FNA\FNA.Core.csproj" />
+    <ProjectReference Include="..\NGE.Assets\NGE.Assets.csproj" />
     <ProjectReference Include="..\NGE.Core\NGE.Core.csproj" />
     <ProjectReference Include="..\NGE.Engine\NGE.Engine.csproj" />
-    <ProjectReference Include="..\Nouns.Assets.Core\Nouns.Assets.Core.csproj" />
     <ProjectReference Include="..\Nouns.Editor.Core\Nouns.Editor.Core.csproj" />
   </ItemGroup>
 

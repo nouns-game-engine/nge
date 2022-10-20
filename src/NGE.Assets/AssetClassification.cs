@@ -1,4 +1,4 @@
-﻿namespace Nouns.Assets.Core
+﻿namespace NGE.Assets
 {
 	public enum AssetClassification
 	{

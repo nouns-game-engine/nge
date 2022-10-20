@@ -1,5 +1,4 @@
-﻿using NGE.Core;
-using Nouns.Assets.Core;
+﻿using NGE.Assets;
 
 namespace Nouns.Engine.Pixel2D.Assets;
 

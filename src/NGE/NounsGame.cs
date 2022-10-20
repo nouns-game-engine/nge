@@ -5,12 +5,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using NGE.Assets;
 using NGE.Core;
 using NGE.Core.Configuration;
 using NGE.Editor;
 using NGE.Screens;
 using NGE.Snaps;
-using Nouns.Assets.Core;
 using Nouns.Editor;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 

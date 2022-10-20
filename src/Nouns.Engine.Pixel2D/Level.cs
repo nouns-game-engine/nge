@@ -1,7 +1,7 @@
-﻿using Nouns.Assets.Core;
-using Nouns.Engine.Pixel2D.Serialization;
+﻿using Nouns.Engine.Pixel2D.Serialization;
 using System.IO.Compression;
 using Microsoft.Xna.Framework.Graphics;
+using NGE.Assets;
 using NGE.Core;
 using NGE.Core.Serialization;
 

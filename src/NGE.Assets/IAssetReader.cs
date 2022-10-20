@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Nouns.Assets.Core;
+namespace NGE.Assets;
 
 public interface IAssetReader
 {

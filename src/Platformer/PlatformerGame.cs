@@ -2,9 +2,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using NGE.Assets;
 using NGE.Core;
 using NGE.Core.Configuration;
-using Nouns.Assets.Core;
 using Nouns.Editor;
 using Nouns.Engine.Pixel2D;
 using Platformer.Actors;

@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using NGE.Strings;
 
-namespace Nouns.Assets.Core
+namespace NGE.Assets
 {
 	public static class AssetReader
 	{
@@ -42,7 +41,7 @@ namespace Nouns.Assets.Core
 			foreach (var registered in extensionRegistry)
 				if (registered.Key == extension)
 					return registered.Value;
-            throw new InvalidOperationException(Strings.UnknownAssetExtension);
+            throw new InvalidOperationException(Strings.Strings.UnknownAssetExtension);
 		}
 		
 		public static IEnumerable<string> Extensions(Type type)
@@ -67,7 +66,7 @@ namespace Nouns.Assets.Core
             var extension = Path.GetExtension(fullPath);
 
             if (!readRegistry.TryGetValue(extension, out var read))
-				throw new InvalidOperationException(Strings.UnknownAssetType);
+				throw new InvalidOperationException(Strings.Strings.UnknownAssetType);
 
 			return (T) read(fullPath, assetProvider, services);
 		}
@@ -79,7 +78,7 @@ namespace Nouns.Assets.Core
             var extension = Path.GetExtension(fullPath);
 
             if (!readRegistry.TryGetValue(extension, out var read))
-				throw new InvalidOperationException(Strings.UnknownAssetType);
+				throw new InvalidOperationException(Strings.Strings.UnknownAssetType);
 
 			return read(fullPath, assetProvider, services);
 		}
@@ -95,7 +94,7 @@ namespace Nouns.Assets.Core
             }
 
             if (registered == null)
-                throw new InvalidOperationException(Strings.UnknownAssetType);
+                throw new InvalidOperationException(Strings.Strings.UnknownAssetType);
         }
     }
 }

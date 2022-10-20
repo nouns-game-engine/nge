@@ -1,5 +1,5 @@
-﻿using NGE.Core;
-using Nouns.Assets.Core;
+﻿using NGE.Assets;
+using NGE.Core;
 using Nouns.Assets.GLTF.Runtime;
 
 namespace Nouns.Assets.GLTF;

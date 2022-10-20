@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using NGE.Strings;
 
-namespace Nouns.Assets.Core
+namespace NGE.Assets
 {
 	public class AssetManager : IAssetProvider, IAssetPathProvider
 	{
@@ -39,7 +38,7 @@ namespace Nouns.Assets.Core
 				if (loadedAssets.Count == 0)
 					rootDirectory = NormalizeAssetPath(value);
 				else
-					throw new InvalidOperationException(Strings.CannotChangeAssetRootDirectoryAfterLoadingAssets);
+					throw new InvalidOperationException(Strings.Strings.CannotChangeAssetRootDirectoryAfterLoadingAssets);
 			}
 		}
 
@@ -73,13 +72,13 @@ namespace Nouns.Assets.Core
 		{
             var normalized = NormalizeAssetPath(assetPath);
 
-            assetPath = normalized ?? throw new InvalidOperationException(Strings.UninitializedAssetPath);
+            assetPath = normalized ?? throw new InvalidOperationException(Strings.Strings.UninitializedAssetPath);
 
             if (loadedAssets.TryGetValue(assetPath, out var asset))
 				return (T) asset;
 
 			if (Locked)
-				throw new InvalidOperationException(Strings.AssetManagerIsLocked);
+				throw new InvalidOperationException(Strings.Strings.AssetManagerIsLocked);
 
             Debug.Assert(rootDirectory != null);
 
