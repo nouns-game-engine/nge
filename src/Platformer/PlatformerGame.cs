@@ -6,7 +6,7 @@ using NGE.Assets;
 using NGE.Core;
 using NGE.Core.Configuration;
 using NGE.Editor;
-using Nouns.Engine.Pixel2D;
+using NGE.Engine.Pixel2D;
 using Platformer.Actors;
 
 namespace Platformer

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using NGE.Engine.Pixel2D;
 using NGE.Graphics;
-using Nouns.Engine.Pixel2D;
 
 namespace NGE.Tests.Serialization;
 

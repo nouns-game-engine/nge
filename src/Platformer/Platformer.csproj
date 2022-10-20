@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Nouns.Engine.Pixel2D\Nouns.Engine.Pixel2D.csproj" />
+    <ProjectReference Include="..\NGE.Engine.Pixel2D\NGE.Engine.Pixel2D.csproj" />
   </ItemGroup>
 
 </Project>

@@ -34,8 +34,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\lib\Tomlyn\src\Tomlyn\Tomlyn.csproj" />
+    <ProjectReference Include="..\NGE.Engine.Pixel2D\NGE.Engine.Pixel2D.csproj" />
+    <ProjectReference Include="..\NGE.Engine\NGE.Engine.csproj" />
     <ProjectReference Include="..\Nouns.Assets.MagicaVoxel\Nouns.Assets.MagicaVoxel.csproj" />
-    <ProjectReference Include="..\Nouns.Engine.Pixel2D\Nouns.Engine.Pixel2D.csproj" />
     <ProjectReference Include="..\Nouns.Graphics.Pipeline\Nouns.Graphics.Pipeline.csproj" />
   </ItemGroup>
 

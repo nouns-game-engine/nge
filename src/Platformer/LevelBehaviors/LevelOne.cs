@@ -1,4 +1,4 @@
-﻿using Nouns.Engine.Pixel2D;
+﻿using NGE.Engine.Pixel2D;
 
 namespace Platformer.LevelBehaviors;
 
