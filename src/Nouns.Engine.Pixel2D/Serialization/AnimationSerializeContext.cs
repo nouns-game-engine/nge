@@ -1,6 +1,8 @@
-﻿namespace Nouns.Engine.Pixel2D.Serialization;
+﻿using NGE.Core.Serialization;
 
-public class AnimationSerializeContext
+namespace Nouns.Engine.Pixel2D.Serialization;
+
+public class AnimationSerializeContext : ISerializeContext
 {
     public AnimationSerializeContext(BinaryWriter bw) : this(bw, FormatVersion) { }
 

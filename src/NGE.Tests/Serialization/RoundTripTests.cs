@@ -1,8 +1,7 @@
-﻿using System;
-using Nouns.Engine.Pixel2D.Serialization;
+﻿using Nouns.Engine.Pixel2D.Serialization;
 using Nouns.Engine.Pixel2D;
 using System.IO;
-using Nouns.Assets.Core;
+using NGE.Core.Serialization;
 using Nouns.Graphics.Core;
 using Xunit;
 

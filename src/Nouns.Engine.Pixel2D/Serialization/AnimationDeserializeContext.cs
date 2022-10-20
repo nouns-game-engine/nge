@@ -1,8 +1,9 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using NGE.Core.Serialization;
 
 namespace Nouns.Engine.Pixel2D.Serialization
 {
-    public sealed class AnimationDeserializeContext
+    public sealed class AnimationDeserializeContext : IDeserializeContext
     {
         public int Version { get; }
         public GraphicsDevice GraphicsDevice { get; }

@@ -1,8 +1,6 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
+﻿using System.Diagnostics;
 
-namespace NGE.Tests.Serialization;
+namespace NGE.Core.Serialization;
 
 public class MemoryCompareStream : Stream
 {

@@ -1,9 +1,10 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using NGE.Core.Serialization;
 using Nouns.Assets.Core;
 
 namespace Nouns.Engine.Pixel2D.Serialization;
 
-public sealed class LevelDeserializeContext
+public sealed class LevelDeserializeContext : IDeserializeContext
 {
     public int Version { get; }
 

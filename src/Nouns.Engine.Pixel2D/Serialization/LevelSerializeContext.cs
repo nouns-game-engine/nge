@@ -1,9 +1,10 @@
 ﻿using System.Diagnostics;
+using NGE.Core.Serialization;
 using Nouns.Assets.Core;
 
 namespace Nouns.Engine.Pixel2D.Serialization;
 
-public sealed class LevelSerializeContext
+public sealed class LevelSerializeContext : ISerializeContext
 {
     public const int FormatVersion = 1;
 
