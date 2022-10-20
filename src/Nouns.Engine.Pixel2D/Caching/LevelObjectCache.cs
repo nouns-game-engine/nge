@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Reflection;
 using System.Reflection.Emit;
-using Nouns.Engine.Core;
+using NGE.Engine;
 
 namespace Nouns.Engine.Pixel2D.Caching;
 

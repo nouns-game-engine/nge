@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
 using System.Reflection;
 using System.Reflection.Emit;
-using Nouns.Engine.Core;
-using Nouns.Engine.Core.StateMachine;
+using NGE.Engine;
+using NGE.Engine.StateMachine;
 
 namespace Nouns.Engine.Pixel2D.Caching;
 

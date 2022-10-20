@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using Nouns.Engine.Core.StateMachine;
+using NGE.Engine.StateMachine;
 using Nouns.Engine.Pixel2D.Caching;
 
 namespace Nouns.Engine.Pixel2D

@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Reflection.Emit;
 
-namespace Nouns.Engine.Core.StateMachine
+namespace NGE.Engine.StateMachine
 {
 	/// <summary>Provides state infrastructure for implementing finite state machines with stateful methods.</summary>
 	/// <remarks>

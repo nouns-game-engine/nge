@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
-namespace Nouns.Engine.Core;
+namespace NGE.Engine;
 
 public abstract class DrawContext
 {

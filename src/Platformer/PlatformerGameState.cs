@@ -1,4 +1,4 @@
-﻿using Nouns.Engine.Core;
+﻿using NGE.Engine;
 using Nouns.Engine.Pixel2D;
 
 namespace Platformer;
