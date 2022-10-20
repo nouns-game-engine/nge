@@ -64,11 +64,6 @@
     <PackageReference Include="Velentr.Font.FNA" Version="1.2.9" />
 	</ItemGroup>
 
-  <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
-    <Message Text="Restoring dotnet tools" Importance="High" />
-    <Exec Command="dotnet tool restore" />
-  </Target>
-
   <Import Project="..\..\build\BuildShaders.targets" />
   <Import Project="..\..\build\ContentRebuilder.targets" />
 
