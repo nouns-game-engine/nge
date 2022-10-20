@@ -10,6 +10,7 @@ using NGE.Core.Configuration;
 using NGE.Editor;
 using NGE.Screens;
 using NGE.Snaps;
+using Velentr.Font;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace NGE
@@ -131,10 +132,12 @@ namespace NGE
         }
 
         internal SpriteBatch sb = null!;
+        internal FontManager fontManager = null!;
 
         protected override void LoadContent()
         {
             sb = new SpriteBatch(GraphicsDevice);
+            fontManager = new FontManager(GraphicsDevice);
 
             if (!oneTimeBackgroundLoad)
             {
@@ -150,6 +153,7 @@ namespace NGE
             currentGame?.UnloadContent();
             Content.Unload();
             sb.Dispose();
+            // fontManager.Dispose(); // bugged
         }
 
         protected override void Update(GameTime gameTime)
@@ -181,6 +185,10 @@ namespace NGE
                     if (!DidFinishLoading)
                         backgroundLoadTask.Wait();
                     OnFinishedLoading();
+                }
+                else
+                {
+                    loadingScreen.Update();
                 }
             }
         }
@@ -222,7 +230,7 @@ namespace NGE
             }
             else
             {
-                loadingScreen.Draw();
+                loadingScreen.Draw(gameTime);
             }
 
             // calls component draw
@@ -274,6 +282,7 @@ namespace NGE
         }
 
         #endregion
+
         #region Command Line
 
         public void ProcessCommandLine()
@@ -288,5 +297,12 @@ namespace NGE
             currentGame?.Reset();
             base.Reset();
         }
+
+        #region Uptime
+
+        private readonly DateTime startedAt = DateTime.UtcNow;
+        internal TimeSpan RunningFor => DateTime.UtcNow - startedAt;
+
+        #endregion
     }
 }

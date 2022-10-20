@@ -42,11 +42,6 @@ namespace Platformer
             definitions = new PixelsDefinitions();
             gameState = new PlatformerGameState(definitions);
 
-            // simulate background loading
-            // var backgroundTasks = new List<Task>();
-            // backgroundTasks.Add(Task.Delay(TimeSpan.FromSeconds(10)));
-            // return backgroundTasks.ToArray();
-
             var sprite = new Sprite(Content.Load<Texture2D>("cloud-large"));
             var cel = new Cel(sprite);
             var frame = new AnimationFrame();
@@ -94,7 +89,10 @@ namespace Platformer
         {
             Engine.Initialize(typeof(Cloud).Assembly);
 
-            return Array.Empty<Task>();
+            // simulate background loading (to test loading screen)
+            var backgroundTasks = new List<Task>();
+            backgroundTasks.Add(Task.Delay(TimeSpan.FromSeconds(10)));
+            return backgroundTasks.ToArray();
         }
 
         public void OnFinishedBackgroundLoading(SpriteBatch? sb)

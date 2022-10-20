@@ -26,6 +26,9 @@
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>
     <CompileShader Include="Content\shaders\*.fx" />
+    <Content Include="..\..\docs\assets\LondrinaSolid-Regular.ttf" Link="Content\LondrinaSolid-Regular.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
 	  <Content Include="game.ico" />
 	</ItemGroup>
 
@@ -55,6 +58,8 @@
 	<ItemGroup>
 	  <PackageReference Include="ImGui.NET" Version="1.87.3" />
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303" />
+    <PackageReference Include="SharpFont.NetStandard" Version="1.0.5" />
+    <PackageReference Include="Velentr.Font.FNA" Version="1.2.9" />
 	</ItemGroup>
 
   <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
