@@ -6,7 +6,7 @@ namespace NGE.Editor
     public interface IEditingContext
     {
         GraphicsDevice GraphicsDevice { get; }
-        ICollection<object> Objects { get; }
+        ICollection<object> ObjectsUnderEdit { get; }
         void EditObject<T>(T instance);
         void ToggleEditorsFor(object instance);
         void Reset();

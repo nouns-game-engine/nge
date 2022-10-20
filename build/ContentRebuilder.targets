@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-	<!-- Allow fast rebuild of MonoGame content. Expects MonoGame.Content.Builder.targets to have been included. -->
-	<Target Name="BuildContentOnly" DependsOnTargets="BuildContent;BuildShaders;_CopySourceItemsToOutputDirectory" />
+	<!-- Allow fast rebuild of MonoGame content. Expects MonoGame.Content.Builder.Task.targets to have been included. -->
+	<Target Name="BuildContentOnly" DependsOnTargets="IncludeContent;BuildShaders;_CopySourceItemsToOutputDirectory" />
 	
 	<!-- So what we call at runtime matches what we're building now... -->
 	<Target Name="WriteAssetRebuildInfo" BeforeTargets="Compile"

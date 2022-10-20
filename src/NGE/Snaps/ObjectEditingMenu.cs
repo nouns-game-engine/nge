@@ -12,10 +12,10 @@ namespace NGE.Snaps
 
         public void DrawLayout(IEditingContext context, GameTime gameTime)
         {
-            if (context.Objects.Count == 0)
+            if (context.ObjectsUnderEdit.Count == 0)
                 return;
 
-            foreach (var item in context.Objects)
+            foreach (var item in context.ObjectsUnderEdit)
             {
                 if (ImGui.MenuItem(item.GetType().Name))
                     context.ToggleEditorsFor(item);

@@ -136,8 +136,11 @@ namespace NGE
 
         protected override void LoadContent()
         {
-            sb = new SpriteBatch(GraphicsDevice);
-            fontManager = new FontManager(GraphicsDevice);
+            if (!assetRebuildQueued)
+            {
+                sb = new SpriteBatch(GraphicsDevice);
+                fontManager = new FontManager(GraphicsDevice);
+            }
 
             if (!oneTimeBackgroundLoad)
             {
@@ -145,15 +148,19 @@ namespace NGE
                 oneTimeBackgroundLoad = true;
             }
 
-            currentGame?.LoadContent();
+            currentGame?.LoadContent(assetRebuildQueued);
         }
 
         protected override void UnloadContent()
         {
-            currentGame?.UnloadContent();
+            currentGame?.UnloadContent(assetRebuildQueued);
             Content.Unload();
-            sb.Dispose();
-            // fontManager.Dispose(); // bugged
+
+            if (!assetRebuildQueued)
+            {
+                sb.Dispose();
+                fontManager.Dispose();
+            }
         }
 
         protected override void Update(GameTime gameTime)

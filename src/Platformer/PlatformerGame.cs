@@ -37,35 +37,12 @@ namespace Platformer
             Content = services.GetRequiredService<ContentManager>();
         }
 
-        public void LoadContent()
+        public void LoadContent(bool isAssetRebuild)
         {
-            definitions = new PixelsDefinitions();
-            gameState = new PlatformerGameState(definitions);
-
-            var sprite = new Sprite(Content.Load<Texture2D>("cloud-large"));
-            var cel = new Cel(sprite);
-            var frame = new AnimationFrame();
-            frame.layers.Add(cel);
-            var animation = new Animation();
-            animation.frames.Add(frame);
-            var animationSet = new AnimationSet();
-            animationSet.animations.Add(animation);
-
-            var thing = new LevelObject(animationSet, new Position(100, 100), false);
-
-            var level = new Level();
-            level.levelObjects.Add(thing);
-            definitions.levels.Add(level);
-
-            var cloud = new Cloud(thing, updateContext);
-            gameState.actors.Add(cloud);
-
-            editContext.EditObject(cloud);
-
-            assetManager.UserStartTracking(animationSet);
+           Reset();
         }
 
-        public void UnloadContent()
+        public void UnloadContent(bool isAssetRebuild)
         {
             definitions = null!;
             gameState = null!;
@@ -103,7 +80,30 @@ namespace Platformer
 
         public void Reset()
         {
+            definitions = new PixelsDefinitions();
             gameState = new PlatformerGameState(definitions);
+
+            var sprite = new Sprite(Content.Load<Texture2D>("cloud-large"));
+            var cel = new Cel(sprite);
+            var frame = new AnimationFrame();
+            frame.layers.Add(cel);
+            var animation = new Animation();
+            animation.frames.Add(frame);
+            var animationSet = new AnimationSet();
+            animationSet.animations.Add(animation);
+
+            var thing = new LevelObject(animationSet, new Position(100, 100), false);
+
+            var level = new Level();
+            level.levelObjects.Add(thing);
+            definitions.levels.Add(level);
+
+            var cloud = new Cloud(thing, updateContext);
+            gameState.actors.Add(cloud);
+
+            editContext.EditObject(cloud);
+
+            assetManager.UserStartTracking(animationSet);
         }
     }
 }

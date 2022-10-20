@@ -11,10 +11,12 @@ public static class AssetRebuild
     {
         try
         {
+            var sw = Stopwatch.StartNew();
+
             if (!RebuildGameAssets())
                 return false;
 
-            Trace.WriteLine("AssetRebuild: Completed");
+            Trace.WriteLine($"AssetRebuild: Completed, took {sw.Elapsed}");
             return true;
         }
         catch (Exception e)
@@ -58,13 +60,20 @@ public static class AssetRebuild
         var msBuildPath = Environment.OSVersion.Platform == PlatformID.Win32NT
             ? Path.Combine(msBuildDirectory, "MSBuild")
             : "msbuild";
-
+        
         try
         {
+            var workingDir = Path.GetDirectoryName(projectPath);
+            var arguments = "/t:BuildContentOnly /p:Platform=x64";
+
+            Trace.TraceInformation($"AssetRebuild: MSBuild path is '{msBuildPath}'");
+            Trace.TraceInformation($"AssetRebuild: Working directory is '{workingDir}'");
+            Trace.TraceInformation($"AssetRebuild: Arguments are '{arguments}'");
+
             var process = new Process();
             process.StartInfo.FileName = msBuildPath;
-            process.StartInfo.Arguments = @"/t:BuildContentOnly";
-            process.StartInfo.WorkingDirectory = Path.GetDirectoryName(projectPath);
+            process.StartInfo.Arguments = arguments;
+            process.StartInfo.WorkingDirectory = workingDir;
             process.Start();
             process.WaitForExit();
         }
@@ -126,6 +135,7 @@ public static class AssetRebuild
             while (IsFileLocked(new FileInfo(e.FullPath)))
                 Thread.Sleep(10);
 
+            Trace.WriteLine($"AssetRebuild: {Path.GetFileName(e.FullPath)} changed");
             receiver.ShouldRebuildAssets();
         };
         assetWatcher.EnableRaisingEvents = true;
@@ -143,7 +153,7 @@ public static class AssetRebuild
 
     private static bool IsFileLocked(FileInfo file)
     {
-        FileStream stream = null!;
+        FileStream? stream = null;
         try
         {
             stream = file.Open(FileMode.Open, FileAccess.ReadWrite, FileShare.None);
@@ -154,7 +164,7 @@ public static class AssetRebuild
         }
         finally
         {
-            stream.Close();
+            stream?.Close();
         }
 
         return false;

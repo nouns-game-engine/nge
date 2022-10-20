@@ -8,7 +8,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using NGE.Assets;
 using NGE.Core;
-using NGE.Core.Configuration;
 using NGE.Snaps;
 using SDL2;
 
@@ -81,6 +80,7 @@ namespace NGE.Editor
             {
                 if (Input.KeyWentDown(Keys.F5) || assetRebuildQueued)
                 {
+                    assetRebuildQueued = true;
                     TryRebuildAssets();
                 }
             }
@@ -229,7 +229,10 @@ namespace NGE.Editor
                     if (!IsNetworkGame)
                     {
                         if (ImGui.MenuItem("Rebuild Assets", "F5"))
+                        {
+                            assetRebuildQueued = true;
                             TryRebuildAssets();
+                        }
                     }
 
                     if (ImGui.MenuItem("Quit"))
@@ -510,7 +513,7 @@ namespace NGE.Editor
 
         private readonly List<object> objects = new();
 
-        public ICollection<object> Objects => objects;
+        public ICollection<object> ObjectsUnderEdit => objects;
 
         public void ToggleEditorsFor(object instance)
         {
@@ -534,6 +537,11 @@ namespace NGE.Editor
 
         public virtual void Reset()
         {
+            ClearRetainedObjectEditors();
+        }
+
+        private void ClearRetainedObjectEditors()
+        {
             for (var i = windows.Length - 1; i >= 0; i--)
             {
                 if (windows[i] is not IEditObject)
@@ -541,6 +549,8 @@ namespace NGE.Editor
                 Array.Resize(ref windows, windows.Length - 1);
                 Array.Resize(ref showWindows, showWindows.Length - 1);
             }
+
+            ObjectsUnderEdit.Clear();
         }
 
         #endregion
@@ -558,6 +568,10 @@ namespace NGE.Editor
         {
             try
             {
+                // Remove any retained editor objects
+                // This is likely a design smell and generic object editing should be tossed?
+                ClearRetainedObjectEditors();
+
                 if (!AssetRebuild.Run())
                     return;
 
