@@ -63,17 +63,12 @@ public static class AssetRebuild
         
         try
         {
-            var workingDir = Path.GetDirectoryName(projectPath);
-            var arguments = "/t:BuildContentOnly /p:Platform=x64";
-
-            Trace.TraceInformation($"AssetRebuild: MSBuild path is '{msBuildPath}'");
-            Trace.TraceInformation($"AssetRebuild: Working directory is '{workingDir}'");
-            Trace.TraceInformation($"AssetRebuild: Arguments are '{arguments}'");
-
             var process = new Process();
             process.StartInfo.FileName = msBuildPath;
-            process.StartInfo.Arguments = arguments;
-            process.StartInfo.WorkingDirectory = workingDir;
+            process.StartInfo.Arguments = "/t:BuildContentOnly /p:Platform=x64";
+            process.StartInfo.WorkingDirectory = Path.GetDirectoryName(projectPath);
+            process.StartInfo.UseShellExecute = true;
+            process.StartInfo.CreateNoWindow = true;
             process.Start();
             process.WaitForExit();
         }
