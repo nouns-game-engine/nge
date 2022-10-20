@@ -37,7 +37,7 @@ namespace NGE.Tests.Serialization
         public void Levels()
         {
             var graphicsDevice = Headless.AcquireGraphicsDevice();
-            var assetPathProvider = new AssetManager(Headless.AcquireServices(), Environment.CurrentDirectory);
+            var assetPathProvider = Headless.AcquireAssetPathProvider();
 
             var firstMemoryStream = new MemoryStream();
             var firstBinaryWriter = new BinaryWriter(firstMemoryStream);

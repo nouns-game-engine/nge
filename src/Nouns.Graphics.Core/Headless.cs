@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.Design;
 using Microsoft.Xna.Framework.Graphics;
+using Nouns.Assets.Core;
 
 namespace Nouns.Graphics.Core
 {
@@ -18,8 +19,25 @@ namespace Nouns.Graphics.Core
             GraphicsDevice = graphicsDevice;
         }
 
-        public static GraphicsDevice graphicsDevice;
-        public static IServiceContainer services;
+        private static string rootDirectory;
+        private static GraphicsDevice graphicsDevice;
+        private static IServiceContainer services;
+        private static IAssetProvider assetPathProvider;
+
+        public static IAssetProvider AcquireAssetPathProvider(string directory = null)
+        {
+            directory ??= Environment.CurrentDirectory;
+
+            if (rootDirectory != directory)
+                assetPathProvider = null;
+
+            if (assetPathProvider != null)
+                return assetPathProvider;
+
+            assetPathProvider = new AssetManager(AcquireServices(), directory);
+            rootDirectory = directory;
+            return assetPathProvider;
+        }
 
         public static IServiceContainer AcquireServices()
         {
