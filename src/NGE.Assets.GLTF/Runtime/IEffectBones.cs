@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Nouns.Assets.GLTF.Runtime;
+namespace NGE.Assets.GLTF.Runtime;
 
 public interface IEffectBones // it could be great if SkinnedEffect implemented this.
 {

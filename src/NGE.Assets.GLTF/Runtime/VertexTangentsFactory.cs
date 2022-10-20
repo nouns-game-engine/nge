@@ -1,6 +1,6 @@
 ﻿using System.Numerics;
 
-namespace Nouns.Assets.GLTF.Runtime;
+namespace NGE.Assets.GLTF.Runtime;
 
 static class VertexTangentsFactory
 {

@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using GLTFMATERIAL = SharpGLTF.Schema2.Material;
 
-namespace Nouns.Assets.GLTF.Runtime
+namespace NGE.Assets.GLTF.Runtime
 {
     class BasicEffectsLoaderContext : LoaderContext
     {

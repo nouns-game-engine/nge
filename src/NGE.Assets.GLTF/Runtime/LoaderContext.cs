@@ -1,13 +1,12 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using SharpGLTF.Runtime;
 using SharpGLTF.Schema2;
 using SRCMESH = SharpGLTF.Schema2.Mesh;
 using SRCPRIM = SharpGLTF.Schema2.MeshPrimitive;
 using SRCMATERIAL = SharpGLTF.Schema2.Material;
 
-using MODELMESH = Nouns.Assets.GLTF.Runtime.RuntimeModelMesh;
+using MODELMESH = NGE.Assets.GLTF.Runtime.RuntimeModelMesh;
 
-namespace Nouns.Assets.GLTF.Runtime
+namespace NGE.Assets.GLTF.Runtime
 {
     /// <summary>
     /// Helper class used to import a glTF meshes and materials into MonoGame

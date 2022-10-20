@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
-namespace Nouns.Assets.GLTF.Runtime;
+namespace NGE.Assets.GLTF.Runtime;
 
 class TextureFactory
 {

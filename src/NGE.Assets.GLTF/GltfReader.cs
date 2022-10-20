@@ -1,8 +1,7 @@
-﻿using NGE.Assets;
+﻿using NGE.Assets.GLTF.Runtime;
 using NGE.Core;
-using Nouns.Assets.GLTF.Runtime;
 
-namespace Nouns.Assets.GLTF;
+namespace NGE.Assets.GLTF;
 
 // ReSharper disable once UnusedMember.Global
 public class GltfReader : IAssetReader

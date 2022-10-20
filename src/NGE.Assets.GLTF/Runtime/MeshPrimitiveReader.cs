@@ -1,11 +1,10 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using SharpGLTF.Runtime;
 using SharpGLTF.Schema2;
 using XY = System.Numerics.Vector2;
 using XYZ = System.Numerics.Vector3;
 using XYZW = System.Numerics.Vector4;
 
-namespace Nouns.Assets.GLTF.Runtime
+namespace NGE.Assets.GLTF.Runtime
 {
     /// <summary>
     /// Reads the content of a glTF <see cref="MeshPrimitive"/> object into a structure that's easier to consume by MonoGame.

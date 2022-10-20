@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
-namespace Nouns.Assets.GLTF.Runtime
+namespace NGE.Assets.GLTF.Runtime
 {
     // tracks all the disposable objects of a model;
     // vertex buffers, index buffers, effects and textures.

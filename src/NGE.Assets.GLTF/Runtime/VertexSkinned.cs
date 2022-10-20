@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Nouns.Assets.GLTF.Runtime
+namespace NGE.Assets.GLTF.Runtime
 {
     struct VertexSkinned : IVertexType
     {

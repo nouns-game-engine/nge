@@ -1,4 +1,4 @@
-﻿namespace Nouns.Assets.GLTF.Runtime
+﻿namespace NGE.Assets.GLTF.Runtime
 {
     /// <summary>
     /// A wrapper that contains an object with disposable resources.

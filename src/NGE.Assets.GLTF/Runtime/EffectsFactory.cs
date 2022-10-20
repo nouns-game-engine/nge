@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using SharpGLTF.Schema2;
 
-namespace Nouns.Assets.GLTF.Runtime;
+namespace NGE.Assets.GLTF.Runtime;
 
 class EffectsFactory
 {
