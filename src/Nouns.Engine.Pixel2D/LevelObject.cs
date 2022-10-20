@@ -1,8 +1,9 @@
-﻿using Nouns.Engine.Pixel2D.Serialization;
+﻿using NGE.Core.Serialization;
+using Nouns.Engine.Pixel2D.Serialization;
 
 namespace Nouns.Engine.Pixel2D;
 
-public class LevelObject
+public class LevelObject : ISerialize<LevelSerializeContext>, IDeserialize<LevelDeserializeContext>
 {
     public AnimationSet AnimationSet { get; set; } = null!;
     public Position Position { get; set; }
@@ -21,6 +22,11 @@ public class LevelObject
     }
 
     public LevelObject(LevelDeserializeContext context)
+    {
+        Deserialize(context);
+    }
+
+    public void Deserialize(LevelDeserializeContext context)
     {
         AnimationSet = context.ReadAnimationSet();
         Position = context.br.ReadPosition();

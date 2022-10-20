@@ -2,23 +2,27 @@
 using Nouns.Engine.Pixel2D.Serialization;
 using System.IO.Compression;
 using NGE.Core;
+using NGE.Core.Serialization;
 
 namespace Nouns.Engine.Pixel2D;
 
-public class Level : IHasReferencedAssets
+public class Level : IHasReferencedAssets, ISerialize<LevelSerializeContext>, IDeserialize<LevelDeserializeContext>
 {
     public string? friendlyName;
     public string? behaviorName;
 
     public readonly Dictionary<string, string> properties = new();
-    public readonly List<LevelObject> levelObjects;
+    public List<LevelObject> levelObjects = new();
 
-    public Level()
-    {
-        levelObjects = new List<LevelObject>();
-    }
+    // ReSharper disable once UnusedMember.Global (Serialization)
+    public Level() { }
 
     public Level(LevelDeserializeContext context)
+    {
+        Deserialize(context);
+    }
+
+    public void Deserialize(LevelDeserializeContext context)
     {
         friendlyName = context.br.ReadNullableString();
         behaviorName = context.br.ReadNullableString();
@@ -29,19 +33,10 @@ public class Level : IHasReferencedAssets
             properties.Add(context.br.ReadString(), context.br.ReadString());
         }
 
-        int thingsCount = context.br.ReadInt32();
+        var thingsCount = context.br.ReadInt32();
         levelObjects = new List<LevelObject>(thingsCount);
-        for (int i = 0; i < thingsCount; i++)
+        for (var i = 0; i < thingsCount; i++)
             levelObjects.Add(new LevelObject(context));
-    }
-
-    public void WriteToFile(string path, IAssetPathProvider assetPathProvider)
-    {
-        using var stream = File.Create(path);
-        using var zip = new GZipStream(stream, CompressionMode.Compress, true);
-        using var bw = new BinaryWriter(zip);
-
-        Serialize(new LevelSerializeContext(bw, assetPathProvider));
     }
 
     public void Serialize(LevelSerializeContext context)
@@ -59,6 +54,15 @@ public class Level : IHasReferencedAssets
         context.bw.Write(levelObjects.Count);
         foreach (var thing in levelObjects)
             thing.Serialize(context);
+    }
+
+    public void WriteToFile(string path, IServiceProvider serviceProvider)
+    {
+        using var stream = File.Create(path);
+        using var zip = new GZipStream(stream, CompressionMode.Compress, true);
+        using var bw = new BinaryWriter(zip);
+
+        Serialize(new LevelSerializeContext(bw, serviceProvider.GetRequiredService<IAssetPathProvider>()));
     }
 
     #region IHasReferencedAssets Members
