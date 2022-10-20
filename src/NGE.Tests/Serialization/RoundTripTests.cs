@@ -12,7 +12,14 @@ namespace NGE.Tests.Serialization
         [Fact]
         public void AnimationSets()
         {
-            var graphicsDevice = Headless.AcquireGraphicsDevice();
+            var services = Headless.AcquireServices();
+            var animationSet = ManualRoundTripAnimationSet();
+            RoundTrip.Check<AnimationSet, AnimationSerializeContext, AnimationDeserializeContext>(animationSet, services);
+        }
+
+        private static AnimationSet ManualRoundTripAnimationSet()
+        {
+            var services = Headless.AcquireServices();
 
             var firstMemoryStream = new MemoryStream();
             var firstBinaryWriter = new BinaryWriter(firstMemoryStream);
@@ -23,19 +30,20 @@ namespace NGE.Tests.Serialization
             var originalData = firstMemoryStream.ToArray();
 
             var br = new BinaryReader(new MemoryStream(originalData));
-            var deserializeContext = new AnimationDeserializeContext(br, graphicsDevice);
+            var deserializeContext = new AnimationDeserializeContext(br, services);
             var deserialized = new AnimationSet(deserializeContext);
 
             var secondMemoryStream = new MemoryCompareStream(originalData);
             var secondBinaryWriter = new BinaryWriter(secondMemoryStream);
             var secondSerializeContext = new AnimationSerializeContext(secondBinaryWriter);
             deserialized.Serialize(secondSerializeContext);
+            return animationSet;
         }
 
         [Fact]
         public void Levels()
         {
-            var graphicsDevice = Headless.AcquireGraphicsDevice();
+            var services = Headless.AcquireServices();
             var assetPathProvider = Headless.AcquireAssetManager();
 
             var firstMemoryStream = new MemoryStream();
@@ -47,7 +55,7 @@ namespace NGE.Tests.Serialization
             var originalData = firstMemoryStream.ToArray();
 
             var br = new BinaryReader(new MemoryStream(originalData));
-            var deserializeContext = new LevelDeserializeContext(br, assetPathProvider, graphicsDevice);
+            var deserializeContext = new LevelDeserializeContext(br, services);
             var deserialized = new Level(deserializeContext);
 
             var secondMemoryStream = new MemoryCompareStream(originalData);

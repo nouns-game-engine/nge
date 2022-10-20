@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using NGE.Core;
 using NGE.Core.Serialization;
 
 namespace NGE.Engine.Pixel2D.Serialization
@@ -10,7 +11,7 @@ namespace NGE.Engine.Pixel2D.Serialization
 
         public readonly BinaryReader br;
 
-        public AnimationDeserializeContext(BinaryReader br, GraphicsDevice graphicsDevice)
+        public AnimationDeserializeContext(BinaryReader br, IServiceProvider serviceProvider)
         {
             this.br = br;
 
@@ -19,7 +20,7 @@ namespace NGE.Engine.Pixel2D.Serialization
             if (Version > AnimationSerializeContext.FormatVersion)
                 throw new Exception("Tried to save asset with a version that is too new");
 
-            GraphicsDevice = graphicsDevice;
+            GraphicsDevice = serviceProvider.GetGraphicsDevice();
         }
     }
 }

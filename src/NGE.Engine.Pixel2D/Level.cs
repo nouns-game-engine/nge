@@ -72,7 +72,7 @@ public class Level : IHasReferencedAssets, ISerialize<LevelSerializeContext>, ID
         using var unzip = new GZipStream(stream, CompressionMode.Decompress, true);
         using var br = new BinaryReader(unzip);
 
-        Deserialize(new LevelDeserializeContext(br, serviceProvider.GetRequiredService<IAssetProvider>(), serviceProvider.GetGraphicsDevice()));
+        Deserialize(new LevelDeserializeContext(br, serviceProvider));
     }
     
     #region IHasReferencedAssets Members

@@ -47,6 +47,6 @@ public class AnimationSet : ISerialize<AnimationSerializeContext>, IDeserialize<
         using var unzip = new GZipStream(stream, CompressionMode.Decompress, true);
         using var br = new BinaryReader(unzip);
 
-        Deserialize(new AnimationDeserializeContext(br, serviceProvider.GetGraphicsDevice()));
+        Deserialize(new AnimationDeserializeContext(br, serviceProvider));
     }
 }
