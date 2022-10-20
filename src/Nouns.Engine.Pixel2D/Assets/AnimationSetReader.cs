@@ -1,9 +1,9 @@
 ﻿using NGE.Core;
 using Nouns.Assets.Core;
 
-namespace Nouns.Engine.Pixel2D;
+namespace Nouns.Engine.Pixel2D.Assets;
 
-// ReSharper disable once UnusedMember.Global
+// ReSharper disable once UnusedMember.Global (Reflection)
 public sealed class AnimationSetReader : IAssetReader
 {
     private static readonly string[] extensions = { ".as" };
@@ -13,7 +13,7 @@ public sealed class AnimationSetReader : IAssetReader
 
     public void Load()
     {
-        foreach(var extension in Extensions)
-            AssetReader.Add<AnimationSet>(extension, (fullPath, _, services) => AnimationSet.ReadFromFile(fullPath, services.GetGraphicsDevice()));
+        foreach (var extension in Extensions)
+            AssetReader.Add<AnimationSet>(extension, (fullPath, _, serviceProvider) => AnimationSet.ReadFromFile(fullPath, serviceProvider));
     }
 }

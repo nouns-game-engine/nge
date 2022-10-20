@@ -1,5 +1,4 @@
 ﻿using System.IO.Compression;
-using Microsoft.Xna.Framework.Graphics;
 using NGE.Core;
 using NGE.Core.Serialization;
 using Nouns.Engine.Pixel2D.Serialization;

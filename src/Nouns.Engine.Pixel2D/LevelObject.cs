@@ -53,4 +53,9 @@ public class LevelObject : ISerialize<LevelSerializeContext>, IDeserialize<Level
             context.bw.Write(kvp.Value);
         }
     }
+
+    public void WriteToFile(string path, IServiceProvider serviceProvider)
+    {
+        throw new NotImplementedException();
+    }
 }

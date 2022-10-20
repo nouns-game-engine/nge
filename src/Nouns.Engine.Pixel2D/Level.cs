@@ -1,6 +1,7 @@
 ﻿using Nouns.Assets.Core;
 using Nouns.Engine.Pixel2D.Serialization;
 using System.IO.Compression;
+using Microsoft.Xna.Framework.Graphics;
 using NGE.Core;
 using NGE.Core.Serialization;
 
@@ -63,6 +64,15 @@ public class Level : IHasReferencedAssets, ISerialize<LevelSerializeContext>, ID
         using var bw = new BinaryWriter(zip);
 
         Serialize(new LevelSerializeContext(bw, serviceProvider.GetRequiredService<IAssetPathProvider>()));
+    }
+
+    public static Level ReadFromFile(string path, IAssetProvider assetProvider, GraphicsDevice graphicsDevice)
+    {
+        using var stream = File.OpenRead(path);
+        using var unzip = new GZipStream(stream, CompressionMode.Decompress, true);
+        using var br = new BinaryReader(unzip);
+        var deserializeContext = new LevelDeserializeContext(br, assetProvider, graphicsDevice);
+        return new Level(deserializeContext);
     }
 
     #region IHasReferencedAssets Members
