@@ -277,6 +277,8 @@ namespace NGE.Editor
             ScanForEditorComponents();
         }
 
+        protected EditorExcludes excludes = null!;
+
         private void ScanForEditorComponents()
         {
             var editors = new Editors();
@@ -291,22 +293,8 @@ namespace NGE.Editor
 
             var visited = new HashSet<string> { self.Location };
 
-            var excludedAssembliesString = configuration.GetSection("editor")["excludeAssemblies"];
-            var excludeNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-            var excludeWildcards = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-
-            if (!string.IsNullOrWhiteSpace(excludedAssembliesString))
-            {
-                var assemblyStrings = excludedAssembliesString.Split(";", StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-                foreach (var assemblyString in assemblyStrings)
-                {
-                    if (assemblyString.EndsWith("*"))
-                        excludeWildcards.Add(assemblyString[..^1]);
-                    else
-                        excludeNames.Add(assemblyString);
-                }
-            }
-
+            excludes = EditorExcludes.FromConfiguration(configuration);
+            
             var loaded = AppDomain.CurrentDomain.GetAssemblies()
                 .ToDictionary(k => k.Location, v => v);
             
@@ -317,21 +305,7 @@ namespace NGE.Editor
 
                 var dllName = Path.GetFileNameWithoutExtension(dll);
 
-                var excluded = excludeNames.Contains(dllName);
-
-                if (!excluded)
-                {
-                    foreach (var excludeWildcard in excludeWildcards)
-                    {
-                        if (!dllName.StartsWith(excludeWildcard, StringComparison.OrdinalIgnoreCase))
-                            continue;
-                        visited.Add(dll);
-                        excluded = true;
-                        break;
-                    }
-                }
-
-                if (excluded)
+                if (excludes.IsExcluded(dllName))
                 {
                     visited.Add(dll);
                     continue;

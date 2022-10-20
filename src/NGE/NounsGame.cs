@@ -84,15 +84,15 @@ namespace NGE
             {
                 var fileName = $"{new AssemblyName(e.Name).Name}.dll";
                 var assemblyFile = referenceFiles.FirstOrDefault(x => x.EndsWith(fileName));
-                if (assemblyFile != null)
-                {
-                    var loadedAssembly = Assembly.LoadFrom(assemblyFile);
-                    InitializeEditorComponents(loadedAssembly, gameEditors);
-                    InitializeAssetReaders(loadedAssembly);
-                    return loadedAssembly;
-                }
+                if (assemblyFile == null) throw new Exception($"'{fileName}' not found");
 
-                throw new Exception($"'{fileName}' not found");
+                var loadedAssembly = Assembly.LoadFrom(assemblyFile);
+                if (excludes.IsExcluded(Path.GetFileName(assemblyFile)))
+                    return loadedAssembly;
+
+                InitializeEditorComponents(loadedAssembly, gameEditors);
+                InitializeAssetReaders(loadedAssembly);
+                return loadedAssembly;
             };
 
             IGame? game = null;
