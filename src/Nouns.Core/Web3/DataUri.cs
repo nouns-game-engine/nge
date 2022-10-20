@@ -6,9 +6,6 @@ namespace Nouns.Core.Web3;
 
 public static class DataUri
 {
-    public const string Base64 = ";base64";
-    public const string ApplicationJsonBase64 = $"data:application/json{Base64},";
-    
     public class Format
     {
         public bool IsBase64 { get; set; }
