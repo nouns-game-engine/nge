@@ -34,7 +34,13 @@ namespace NGE.Graphics
             if (assetPathProvider != null)
                 return assetPathProvider;
 
-            assetPathProvider = new AssetManager(AcquireServices(), directory);
+            AcquireServices();
+            
+            assetPathProvider = new AssetManager(services, directory);
+
+            services.AddService(typeof(IAssetProvider), assetPathProvider);
+            services.AddService(typeof(IAssetPathProvider), assetPathProvider);
+
             rootDirectory = directory;
             return assetPathProvider;
         }
@@ -42,7 +48,10 @@ namespace NGE.Graphics
         public static IServiceContainer AcquireServices()
         {
             if (services == null)
+            {
                 AcquireGraphicsDevice();
+                AcquireAssetManager();
+            }
 
             return services;
         }

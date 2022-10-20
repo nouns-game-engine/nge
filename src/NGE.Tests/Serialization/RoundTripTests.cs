@@ -12,9 +12,17 @@ namespace NGE.Tests.Serialization
         [Fact]
         public void AnimationSets()
         {
-            var services = Headless.AcquireServices();
             var animationSet = ManualRoundTripAnimationSet();
-            RoundTrip.Check<AnimationSet, AnimationSerializeContext, AnimationDeserializeContext>(animationSet, services);
+
+            RoundTrip.Check<AnimationSet, AnimationSerializeContext, AnimationDeserializeContext>(animationSet, Headless.AcquireServices());
+        }
+
+        [Fact]
+        public void Levels()
+        {
+            var level = ManualRoundTripLevel();
+
+            RoundTrip.Check<Level, LevelSerializeContext, LevelDeserializeContext>(level, Headless.AcquireServices());
         }
 
         private static AnimationSet ManualRoundTripAnimationSet()
@@ -23,7 +31,7 @@ namespace NGE.Tests.Serialization
 
             var firstMemoryStream = new MemoryStream();
             var firstBinaryWriter = new BinaryWriter(firstMemoryStream);
-            var firstSerializeContext = new AnimationSerializeContext(firstBinaryWriter);
+            var firstSerializeContext = new AnimationSerializeContext(firstBinaryWriter, services);
 
             var animationSet = SerializationTestFactory.CreateFakeAnimationSet();
             animationSet.Serialize(firstSerializeContext);
@@ -35,20 +43,18 @@ namespace NGE.Tests.Serialization
 
             var secondMemoryStream = new MemoryCompareStream(originalData);
             var secondBinaryWriter = new BinaryWriter(secondMemoryStream);
-            var secondSerializeContext = new AnimationSerializeContext(secondBinaryWriter);
+            var secondSerializeContext = new AnimationSerializeContext(secondBinaryWriter, services);
             deserialized.Serialize(secondSerializeContext);
             return animationSet;
         }
 
-        [Fact]
-        public void Levels()
+        private static Level ManualRoundTripLevel()
         {
             var services = Headless.AcquireServices();
-            var assetPathProvider = Headless.AcquireAssetManager();
 
             var firstMemoryStream = new MemoryStream();
             var firstBinaryWriter = new BinaryWriter(firstMemoryStream);
-            var firstSerializeContext = new LevelSerializeContext(firstBinaryWriter, assetPathProvider);
+            var firstSerializeContext = new LevelSerializeContext(firstBinaryWriter, services);
 
             var level = SerializationTestFactory.CreateFakeLevel();
             level.Serialize(firstSerializeContext);
@@ -60,8 +66,10 @@ namespace NGE.Tests.Serialization
 
             var secondMemoryStream = new MemoryCompareStream(originalData);
             var secondBinaryWriter = new BinaryWriter(secondMemoryStream);
-            var secondSerializeContext = new LevelSerializeContext(secondBinaryWriter, assetPathProvider);
+            var secondSerializeContext = new LevelSerializeContext(secondBinaryWriter, services);
             deserialized.Serialize(secondSerializeContext);
+
+            return level;
         }
     }
 }

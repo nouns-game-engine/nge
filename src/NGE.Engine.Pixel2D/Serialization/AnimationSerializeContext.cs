@@ -4,9 +4,9 @@ namespace NGE.Engine.Pixel2D.Serialization;
 
 public class AnimationSerializeContext : ISerializeContext
 {
-    public AnimationSerializeContext(BinaryWriter bw) : this(bw, FormatVersion) { }
+    public AnimationSerializeContext(BinaryWriter bw, IServiceProvider serviceProvider) : this(bw, serviceProvider, FormatVersion) { }
 
-    public AnimationSerializeContext(BinaryWriter bw, int version)
+    public AnimationSerializeContext(BinaryWriter bw, IServiceProvider serviceProvider, int version)
     {
         Version = version;
         this.bw = bw;

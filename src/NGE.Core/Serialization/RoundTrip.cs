@@ -9,7 +9,7 @@
         {
             var firstMemoryStream = new MemoryStream();
             var firstBinaryWriter = new BinaryWriter(firstMemoryStream);
-            var firstSerializeContext = (TSerializeContext) Activator.CreateInstance(typeof(TSerializeContext), firstBinaryWriter)!;
+            var firstSerializeContext = (TSerializeContext) Activator.CreateInstance(typeof(TSerializeContext), firstBinaryWriter, serviceProvider)!;
 
             toSerialize.Serialize(firstSerializeContext);
             var originalData = firstMemoryStream.ToArray();
@@ -21,7 +21,7 @@
 
             var secondMemoryStream = new MemoryCompareStream(originalData);
             var secondBinaryWriter = new BinaryWriter(secondMemoryStream);
-            var secondSerializeContext = (TSerializeContext)Activator.CreateInstance(typeof(TSerializeContext), secondBinaryWriter)!;
+            var secondSerializeContext = (TSerializeContext)Activator.CreateInstance(typeof(TSerializeContext), secondBinaryWriter, serviceProvider)!;
             deserialized.Serialize(secondSerializeContext);
         }
     }

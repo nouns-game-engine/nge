@@ -63,7 +63,7 @@ public class Level : IHasReferencedAssets, ISerialize<LevelSerializeContext>, ID
         using var zip = new GZipStream(stream, CompressionMode.Compress, true);
         using var bw = new BinaryWriter(zip);
 
-        Serialize(new LevelSerializeContext(bw, serviceProvider.GetRequiredService<IAssetPathProvider>()));
+        Serialize(new LevelSerializeContext(bw, serviceProvider));
     }
 
     public void ReadFromFile(string path, IServiceProvider serviceProvider)

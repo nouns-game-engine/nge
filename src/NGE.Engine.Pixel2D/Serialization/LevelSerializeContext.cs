@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using NGE.Assets;
+using NGE.Core;
 using NGE.Core.Serialization;
 
 namespace NGE.Engine.Pixel2D.Serialization;
@@ -14,19 +15,19 @@ public sealed class LevelSerializeContext : ISerializeContext
     private readonly AnimationSerializeContext animationSerializeContext;
     private readonly IAssetPathProvider assetPathProvider;
 
-    public LevelSerializeContext(BinaryWriter bw, IAssetPathProvider assetPathProvider) : this(bw, assetPathProvider, FormatVersion) { }
+    public LevelSerializeContext(BinaryWriter bw, IServiceProvider serviceProvider) : this(bw, serviceProvider, FormatVersion) { }
 
-    public LevelSerializeContext(BinaryWriter bw, IAssetPathProvider assetPathProvider, int version)
+    public LevelSerializeContext(BinaryWriter bw, IServiceProvider serviceProvider, int version)
     {
         this.bw = bw;
-        this.assetPathProvider = assetPathProvider;
+        this.assetPathProvider = serviceProvider.GetRequiredService<IAssetPathProvider>();
 
         Version = version;
         if (Version > FormatVersion)
             throw new Exception("Tried to save asset with a version that is too new");
 
         bw.Write(Version);
-        animationSerializeContext = new AnimationSerializeContext(bw);
+        animationSerializeContext = new AnimationSerializeContext(bw, serviceProvider);
     }
 
     public void WriteAnimationSet(AnimationSet animationSet)
