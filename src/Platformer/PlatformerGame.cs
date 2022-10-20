@@ -11,6 +11,7 @@ using Platformer.Actors;
 
 namespace Platformer
 {
+    // ReSharper disable once UnusedMember.Global (Reflection)
     public class PlatformerGame : IGame
     {
         private readonly IEditingContext editContext;

@@ -3,7 +3,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
 
-namespace Nouns.Graphics.Core;
+namespace NGE.Graphics;
 
 public static class Bootstrap
 {

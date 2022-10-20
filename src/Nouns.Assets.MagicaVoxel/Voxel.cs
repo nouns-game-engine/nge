@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
-using Nouns.Graphics;
-using Nouns.Graphics.Core;
+using NGE.Graphics;
 
 namespace Nouns.Assets.MagicaVoxel
 {

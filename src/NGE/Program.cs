@@ -1,5 +1,5 @@
 ﻿using NGE.Core.Configuration;
-using Nouns.Graphics.Core;
+using NGE.Graphics;
 
 namespace NGE
 {

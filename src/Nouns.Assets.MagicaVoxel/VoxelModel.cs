@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Nouns.Graphics.Core;
+using NGE.Graphics;
 
 namespace Nouns.Assets.MagicaVoxel
 {

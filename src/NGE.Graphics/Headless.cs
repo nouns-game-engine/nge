@@ -3,7 +3,7 @@ using System.ComponentModel.Design;
 using Microsoft.Xna.Framework.Graphics;
 using NGE.Assets;
 
-namespace Nouns.Graphics.Core
+namespace NGE.Graphics
 {
     public sealed class Headless : IGraphicsDeviceService
     {

@@ -10,7 +10,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\lib\FNA\FNA.Core.csproj" />
     <ProjectReference Include="..\NGE.Assets\NGE.Assets.csproj" />
-    <ProjectReference Include="..\Nouns.Graphics.Core\Nouns.Graphics.Core.csproj" />
+    <ProjectReference Include="..\NGE.Graphics\NGE.Graphics.csproj" />
   </ItemGroup>
 
 </Project>

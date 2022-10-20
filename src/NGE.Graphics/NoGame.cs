@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Nouns.Graphics.Core;
+namespace NGE.Graphics;
 
 public sealed class NoGame : Game
 {

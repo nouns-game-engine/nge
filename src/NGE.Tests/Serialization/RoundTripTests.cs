@@ -2,7 +2,7 @@
 using Nouns.Engine.Pixel2D;
 using System.IO;
 using NGE.Core.Serialization;
-using Nouns.Graphics.Core;
+using NGE.Graphics;
 using Xunit;
 
 namespace NGE.Tests.Serialization

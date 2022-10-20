@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.Design;
 using Microsoft.Xna.Framework.Graphics;
 using NGE.Core.Configuration;
-using Nouns.Graphics.Core;
+using NGE.Graphics;
 
 namespace NGE.CLI
 {
