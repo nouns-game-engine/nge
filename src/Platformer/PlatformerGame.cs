@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using NGE.Assets;
 using NGE.Core;
 using NGE.Core.Configuration;
-using Nouns.Editor;
+using NGE.Editor;
 using Nouns.Engine.Pixel2D;
 using Platformer.Actors;
 

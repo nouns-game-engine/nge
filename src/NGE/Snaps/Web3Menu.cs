@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using NGE.Core;
-using Nouns.Editor;
+using NGE.Editor;
 using Nouns.Graphics.Pipeline;
 using Color = Microsoft.Xna.Framework.Color;
 using Vector2 = System.Numerics.Vector2;

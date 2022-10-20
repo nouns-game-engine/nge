@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using Microsoft.Extensions.Configuration;
 using NGE.Core;
-using Nouns.Editor;
+using NGE.Editor;
 
 namespace NGE.Assets.Snaps
 {

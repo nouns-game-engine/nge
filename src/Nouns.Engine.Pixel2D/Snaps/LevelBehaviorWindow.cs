@@ -1,6 +1,6 @@
 ﻿using ImGuiNET;
 using Microsoft.Xna.Framework;
-using Nouns.Editor;
+using NGE.Editor;
 using Nouns.Engine.Pixel2D.Caching;
 
 namespace Nouns.Engine.Pixel2D.Snaps

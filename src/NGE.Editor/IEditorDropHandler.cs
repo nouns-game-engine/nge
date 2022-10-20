@@ -1,4 +1,4 @@
-﻿namespace Nouns.Editor
+﻿namespace NGE.Editor
 {
     public interface IEditorDropHandler : IEditorEnabled
     {

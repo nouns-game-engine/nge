@@ -1,6 +1,6 @@
-﻿using NGE.Engine;
+﻿using NGE.Editor;
+using NGE.Engine;
 using NGE.Engine.StateMachine;
-using Nouns.Editor;
 
 namespace Nouns.Engine.Pixel2D
 {

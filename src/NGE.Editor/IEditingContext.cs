@@ -1,7 +1,7 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework.Graphics;
 
-namespace Nouns.Editor
+namespace NGE.Editor
 {
     public interface IEditingContext
     {

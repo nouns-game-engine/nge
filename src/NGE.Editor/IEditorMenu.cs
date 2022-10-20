@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Nouns.Editor
+namespace NGE.Editor
 {
 
     public interface IEditorMenu : IEditorEnabled

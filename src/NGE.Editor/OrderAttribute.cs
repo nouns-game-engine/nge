@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Nouns.Editor
+namespace NGE.Editor
 {
     [AttributeUsage(AttributeTargets.Class)]
     public sealed class OrderAttribute : Attribute

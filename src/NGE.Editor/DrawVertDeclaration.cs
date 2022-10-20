@@ -1,7 +1,7 @@
 ﻿using ImGuiNET;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Nouns.Editor
+namespace NGE.Editor
 {
     public static class DrawVertDeclaration
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Nouns.Editor
+namespace NGE.Editor
 {
     public sealed class Editors
     {

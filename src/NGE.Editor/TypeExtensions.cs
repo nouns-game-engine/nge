@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Nouns.Editor
+namespace NGE.Editor
 {
     public static class TypeExtensions
     {

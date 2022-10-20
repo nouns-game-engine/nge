@@ -9,7 +9,6 @@ using Microsoft.Xna.Framework.Input;
 using NGE.Assets;
 using NGE.Core;
 using NGE.Snaps;
-using Nouns.Editor;
 using SDL2;
 
 namespace NGE.Editor

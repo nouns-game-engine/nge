@@ -1,6 +1,6 @@
 ﻿using ImGuiNET;
 using Microsoft.Xna.Framework;
-using Nouns.Editor;
+using NGE.Editor;
 
 namespace NGE.Snaps
 {

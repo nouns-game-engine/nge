@@ -2,7 +2,7 @@
 using System.Text;
 using ImGuiNET;
 using Microsoft.Xna.Framework;
-using Nouns.Editor;
+using NGE.Editor;
 using Vector2 = System.Numerics.Vector2;
 using Vector4 = System.Numerics.Vector4;
 

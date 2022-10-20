@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 
-namespace Nouns.Editor;
+namespace NGE.Editor;
 
 public sealed class EditorExcludes
 {

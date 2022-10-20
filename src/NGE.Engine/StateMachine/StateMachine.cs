@@ -1,5 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using Nouns.Editor;
+using NGE.Editor;
 
 namespace NGE.Engine.StateMachine
 {

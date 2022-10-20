@@ -1,7 +1,7 @@
 ﻿using ImGuiNET;
 using Microsoft.Xna.Framework;
 
-namespace Nouns.Editor
+namespace NGE.Editor
 {
     public interface IEditorWindow : IEditorEnabled
     {

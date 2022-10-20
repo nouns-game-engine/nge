@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Nouns.Editor;
+using NGE.Editor;
 
 namespace NGE.Assets;
 

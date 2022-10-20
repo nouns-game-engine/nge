@@ -11,7 +11,6 @@ using NGE.Core.Configuration;
 using NGE.Editor;
 using NGE.Screens;
 using NGE.Snaps;
-using Nouns.Editor;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace NGE

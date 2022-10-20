@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Nouns.Editor;
+using NGE.Editor;
 
 namespace Nouns.Engine.Pixel2D;
 
