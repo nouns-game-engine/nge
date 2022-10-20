@@ -4,6 +4,11 @@ namespace Nouns.Engine.Pixel2D.Serialization
 {
     public sealed class AnimationDeserializeContext
     {
+        public int Version { get; }
+        public GraphicsDevice GraphicsDevice { get; }
+
+        public readonly BinaryReader br;
+
         public AnimationDeserializeContext(BinaryReader br, GraphicsDevice graphicsDevice)
         {
             this.br = br;
@@ -15,11 +20,5 @@ namespace Nouns.Engine.Pixel2D.Serialization
 
             GraphicsDevice = graphicsDevice;
         }
-
-        public readonly BinaryReader br;
-
-        public int Version { get; }
-
-        public GraphicsDevice GraphicsDevice { get; }
     }
 }

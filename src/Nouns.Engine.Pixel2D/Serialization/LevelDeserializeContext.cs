@@ -11,7 +11,7 @@ public sealed class LevelDeserializeContext
     private readonly AnimationDeserializeContext animationDeserializeContext;
     private readonly IAssetProvider assetProvider;
 
-    public LevelDeserializeContext(BinaryReader br, IAssetProvider assetProvider, GraphicsDevice device)
+    public LevelDeserializeContext(BinaryReader br, IAssetProvider assetProvider, GraphicsDevice graphicsDevice)
     {
         this.br = br;
         this.assetProvider = assetProvider;
@@ -21,7 +21,7 @@ public sealed class LevelDeserializeContext
         if (Version > LevelSerializeContext.FormatVersion)
             throw new Exception("Tried to load asset with a version that is too new");
         
-        animationDeserializeContext = new AnimationDeserializeContext(br, device);
+        animationDeserializeContext = new AnimationDeserializeContext(br, graphicsDevice);
     }
 
     public AnimationSet ReadAnimationSet()
