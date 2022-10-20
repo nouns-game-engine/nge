@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using NGE.Graphics;
 
-namespace Nouns.Assets.MagicaVoxel
+namespace NGE.Assets.MagicaVoxel
 {
     public static class VoxProcessor
     {

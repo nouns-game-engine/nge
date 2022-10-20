@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using NGE.Graphics;
 
-namespace Nouns.Assets.MagicaVoxel
+namespace NGE.Assets.MagicaVoxel
 {
     public sealed class VoxelModel
     {

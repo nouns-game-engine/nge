@@ -14,10 +14,10 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\lib\FNA\FNA.Core.csproj" />
 		<ProjectReference Include="..\NGE.Assets.GLTF\NGE.Assets.GLTF.csproj" />
+		<ProjectReference Include="..\NGE.Assets.MagicaVoxel\NGE.Assets.MagicaVoxel.csproj" />
 		<ProjectReference Include="..\NGE.Core\NGE.Core.csproj" />
 		<ProjectReference Include="..\NGE.Editor\NGE.Editor.csproj" />
 		<ProjectReference Include="..\NGE.Pipeline\NGE.Pipeline.csproj" />
-		<ProjectReference Include="..\Nouns.Assets.MagicaVoxel\Nouns.Assets.MagicaVoxel.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Nouns.Assets.MagicaVoxel
+namespace NGE.Assets.MagicaVoxel
 {
     [Flags]
     public enum Faces

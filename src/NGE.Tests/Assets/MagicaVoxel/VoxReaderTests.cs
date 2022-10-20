@@ -1,6 +1,6 @@
 using System.IO;
 using System.Linq;
-using Nouns.Assets.MagicaVoxel;
+using NGE.Assets.MagicaVoxel;
 using Xunit;
 using Xunit.Abstractions;
 

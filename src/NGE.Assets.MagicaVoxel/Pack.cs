@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace Nouns.Assets.MagicaVoxel
+namespace NGE.Assets.MagicaVoxel
 {
     [DebuggerDisplay("PACK:({ModelCount} models)")]
     public sealed class Pack : Chunk

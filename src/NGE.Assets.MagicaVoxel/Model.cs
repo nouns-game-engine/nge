@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-namespace Nouns.Assets.MagicaVoxel
+namespace NGE.Assets.MagicaVoxel
 {
     [DebuggerDisplay("Model: {Size}=: {Voxels.Count} voxels")]
     public sealed class Model : Chunk

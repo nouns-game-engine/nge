@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace Nouns.Assets.MagicaVoxel
+namespace NGE.Assets.MagicaVoxel
 {
     [DebuggerDisplay("UNKNOWN: {Id} =: {Children.Count} children")]
     public class Unknown : Chunk

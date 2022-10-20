@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using NGE.Graphics;
 
-namespace Nouns.Assets.MagicaVoxel
+namespace NGE.Assets.MagicaVoxel
 {
     [DebuggerDisplay("XYZI:({X},{Y},{Z},{I})")]
     public sealed class Voxel

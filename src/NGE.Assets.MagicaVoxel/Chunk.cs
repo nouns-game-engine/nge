@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace Nouns.Assets.MagicaVoxel
+namespace NGE.Assets.MagicaVoxel
 {
     [DebuggerDisplay("CHUNK: {Id}:= {Children.Count} children")]
     public class Chunk

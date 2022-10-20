@@ -1,9 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.IO.MemoryMappedFiles;
-using NGE.Assets;
 
-namespace Nouns.Assets.MagicaVoxel
+namespace NGE.Assets.MagicaVoxel
 {
     public sealed class VoxReader : IAssetReader
     {

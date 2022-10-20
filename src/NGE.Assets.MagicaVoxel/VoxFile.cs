@@ -1,4 +1,4 @@
-﻿namespace Nouns.Assets.MagicaVoxel
+﻿namespace NGE.Assets.MagicaVoxel
 {
     /// <summary>
     /// Spec: https://github.com/ephtracy/voxel-model/blob/master/MagicaVoxel-file-format-vox.txt
