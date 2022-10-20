@@ -38,21 +38,17 @@ namespace Nouns.Assets.Core.Snaps
 
         public void UpdateLayout(IEditingContext context, GameTime gameTime)
         {
-            if (queueUpdate)
+            if (!queueUpdate)
+                return;
+
+            registrations.Clear();
+            foreach (var registration in AssetReader.RegisteredTypes)
             {
-                registrations.Clear();
-
-                foreach (var registration in AssetReader.RegisteredTypes)
-                {
-                    if (!registrations.TryGetValue(registration, out _))
-                    {
-                        var extensions = AssetReader.Extensions(registration).ToArray();
-                        registrations.Add(registration, extensions);
-                    }
-                }
-
-                queueUpdate = false;
+                if (registrations.TryGetValue(registration, out _)) continue;
+                registrations.Add(registration, AssetReader.Extensions(registration).ToArray());
             }
+
+            queueUpdate = false;
         }
 
         public void DrawLayout(IEditingContext context, GameTime gameTime)
@@ -64,7 +60,7 @@ namespace Nouns.Assets.Core.Snaps
 
             if (ImGui.BeginMenu("Readers"))
             {
-                foreach (var registration in registrations)
+                foreach (var registration in registrations.OrderBy(x => x.Key.Name))
                 {
                     foreach (var extension in registration.Value)
                     {

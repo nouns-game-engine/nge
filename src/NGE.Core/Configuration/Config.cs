@@ -26,6 +26,28 @@ namespace NGE.Core.Configuration
 
         private static void CreateDefaultConfigFile()
         {
+            var excludedAssemblies = new HashSet<string>
+            {
+                "Microsoft.*",
+                "System.*",
+                "NBitcoin.*",
+                "Nethereum.*",
+                "Magick.NET*",
+                "Svg",
+                "Tomlyn",
+                "runtime.osx.*",
+                "FNA",
+                "SixLabors.ImageSharp",
+                "ImGui.NET",
+                "BouncyCastle.Crypto",
+                "ExCSS",
+                "Fizzler",
+                "Newtonsoft.Json",
+                "SharpGLTF.*"
+            };
+
+            var excludedAssembliesString = string.Join(';', excludedAssemblies);
+            
             var document = new DocumentSyntax
             {
                 Tables =
@@ -46,6 +68,13 @@ namespace NGE.Core.Configuration
                         {
                             {"Nouns", @"0x9c8ff314c9bc7f6e59a9d9225fb22946427edc03"},
                             {"CrypToadz", @"0x1cb1a5e65610aeff2551a50f76a87a7d3fb649c6"}
+                        }
+                    },
+                    new TableSyntax("editor")
+                    {
+                        Items =
+                        {
+                            {"excludeAssemblies", excludedAssembliesString}
                         }
                     },
                     new TableSyntax("locations")

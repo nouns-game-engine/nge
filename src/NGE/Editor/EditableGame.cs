@@ -291,6 +291,22 @@ namespace NGE.Editor
 
             var visited = new HashSet<string> { self.Location };
 
+            var excludedAssembliesString = configuration.GetSection("editor")["excludeAssemblies"];
+            var excludeNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            var excludeWildcards = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+            if (!string.IsNullOrWhiteSpace(excludedAssembliesString))
+            {
+                var assemblyStrings = excludedAssembliesString.Split(";", StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+                foreach (var assemblyString in assemblyStrings)
+                {
+                    if (assemblyString.EndsWith("*"))
+                        excludeWildcards.Add(assemblyString[..^1]);
+                    else
+                        excludeNames.Add(assemblyString);
+                }
+            }
+
             var loaded = AppDomain.CurrentDomain.GetAssemblies()
                 .ToDictionary(k => k.Location, v => v);
             
@@ -298,6 +314,28 @@ namespace NGE.Editor
             {
                 if (!File.Exists(dll))
                     continue;
+
+                var dllName = Path.GetFileNameWithoutExtension(dll);
+
+                var excluded = excludeNames.Contains(dllName);
+
+                if (!excluded)
+                {
+                    foreach (var excludeWildcard in excludeWildcards)
+                    {
+                        if (!dllName.StartsWith(excludeWildcard, StringComparison.OrdinalIgnoreCase))
+                            continue;
+                        visited.Add(dll);
+                        excluded = true;
+                        break;
+                    }
+                }
+
+                if (excluded)
+                {
+                    visited.Add(dll);
+                    continue;
+                }
 
                 try
                 {
@@ -354,7 +392,7 @@ namespace NGE.Editor
             }
         }
 
-        private static void InitializeAssetReaders(Assembly assembly)
+        protected static void InitializeAssetReaders(Assembly assembly)
         {
             foreach (var type in assembly.GetAssetReaderTypes())
             {

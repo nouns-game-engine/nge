@@ -88,6 +88,7 @@ namespace NGE
                 {
                     var loadedAssembly = Assembly.LoadFrom(assemblyFile);
                     InitializeEditorComponents(loadedAssembly, gameEditors);
+                    InitializeAssetReaders(loadedAssembly);
                     return loadedAssembly;
                 }
 
