@@ -1,5 +1,4 @@
 ﻿using NGE.Assets;
-using NGE.Core;
 
 namespace NGE.Engine.Pixel2D.Assets;
 
@@ -14,6 +13,11 @@ public sealed class LevelReader : IAssetReader
     public void Load()
     {
         foreach (var extension in Extensions)
-            AssetReader.Add<Level>(extension, (fullPath, assetProvider, services) => Level.ReadFromFile(fullPath, assetProvider, services.GetGraphicsDevice()));
+            AssetReader.Add<Level>(extension, (fullPath, _, services) =>
+            {
+                var level = new Level();
+                level.ReadFromFile(fullPath, services);
+                return level;
+            });
     }
 }

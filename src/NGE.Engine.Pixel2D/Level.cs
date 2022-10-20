@@ -66,15 +66,15 @@ public class Level : IHasReferencedAssets, ISerialize<LevelSerializeContext>, ID
         Serialize(new LevelSerializeContext(bw, serviceProvider.GetRequiredService<IAssetPathProvider>()));
     }
 
-    public static Level ReadFromFile(string path, IAssetProvider assetProvider, GraphicsDevice graphicsDevice)
+    public void ReadFromFile(string path, IServiceProvider serviceProvider)
     {
         using var stream = File.OpenRead(path);
         using var unzip = new GZipStream(stream, CompressionMode.Decompress, true);
         using var br = new BinaryReader(unzip);
-        var deserializeContext = new LevelDeserializeContext(br, assetProvider, graphicsDevice);
-        return new Level(deserializeContext);
-    }
 
+        Deserialize(new LevelDeserializeContext(br, serviceProvider.GetRequiredService<IAssetProvider>(), serviceProvider.GetGraphicsDevice()));
+    }
+    
     #region IHasReferencedAssets Members
 
     public IEnumerable<object> GetReferencedAssets()

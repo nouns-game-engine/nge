@@ -38,7 +38,7 @@ public class LevelObject : ISerialize<LevelSerializeContext>, IDeserialize<Level
             properties.Add(context.br.ReadString(), context.br.ReadString());
         }
     }
-
+    
     public void Serialize(LevelSerializeContext context)
     {
         context.WriteAnimationSet(AnimationSet);
@@ -58,4 +58,10 @@ public class LevelObject : ISerialize<LevelSerializeContext>, IDeserialize<Level
     {
         throw new NotImplementedException();
     }
+
+    public void ReadFromFile(string path, IServiceProvider serviceProvider)
+    {
+        throw new NotImplementedException();
+    }
+
 }

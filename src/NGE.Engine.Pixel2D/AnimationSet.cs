@@ -1,4 +1,5 @@
 ﻿using System.IO.Compression;
+using NGE.Assets;
 using NGE.Core;
 using NGE.Core.Serialization;
 using NGE.Engine.Pixel2D.Serialization;
@@ -40,13 +41,12 @@ public class AnimationSet : ISerialize<AnimationSerializeContext>, IDeserialize<
         Serialize(new AnimationSerializeContext(bw));
     }
 
-    public static AnimationSet ReadFromFile(string path, IServiceProvider serviceProvider)
+    public void ReadFromFile(string path, IServiceProvider serviceProvider)
     {
         using var stream = File.OpenRead(path);
         using var unzip = new GZipStream(stream, CompressionMode.Decompress, true);
         using var br = new BinaryReader(unzip);
 
-        var context = new AnimationDeserializeContext(br, serviceProvider.GetGraphicsDevice());
-        return new AnimationSet(context);
+        Deserialize(new AnimationDeserializeContext(br, serviceProvider.GetGraphicsDevice()));
     }
 }

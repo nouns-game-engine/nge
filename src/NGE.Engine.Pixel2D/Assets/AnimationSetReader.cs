@@ -13,6 +13,11 @@ public sealed class AnimationSetReader : IAssetReader
     public void Load()
     {
         foreach (var extension in Extensions)
-            AssetReader.Add<AnimationSet>(extension, (fullPath, _, serviceProvider) => AnimationSet.ReadFromFile(fullPath, serviceProvider));
+            AssetReader.Add<AnimationSet>(extension, (fullPath, _, serviceProvider) =>
+            {
+                var animationSet = new AnimationSet();
+                animationSet.ReadFromFile(fullPath, serviceProvider);
+                return animationSet;
+            });
     }
 }
