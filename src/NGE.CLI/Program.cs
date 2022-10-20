@@ -18,8 +18,8 @@ namespace NGE.CLI
             Masthead.Print();
             Bootstrap.Init();
 
-            graphicsDevice = Headless.AcquireGraphicsDevice(out var serviceContainer);
-            services = serviceContainer;
+            graphicsDevice = Headless.AcquireGraphicsDevice();
+            services = Headless.AcquireServices();
 
             var configuration = Config.GetOrCreateConfiguration();
             CommandLine.ProcessArguments(ref configuration, args);
