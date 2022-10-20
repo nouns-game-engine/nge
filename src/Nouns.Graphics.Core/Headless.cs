@@ -22,9 +22,9 @@ namespace Nouns.Graphics.Core
         private static string rootDirectory;
         private static GraphicsDevice graphicsDevice;
         private static IServiceContainer services;
-        private static IAssetProvider assetPathProvider;
+        private static AssetManager assetPathProvider;
 
-        public static IAssetProvider AcquireAssetPathProvider(string directory = null)
+        public static AssetManager AcquireAssetManager(string directory = null)
         {
             directory ??= Environment.CurrentDirectory;
 
