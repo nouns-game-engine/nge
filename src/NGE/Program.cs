@@ -1,4 +1,4 @@
-﻿using Nouns.Core.Configuration;
+﻿using NGE.Core.Configuration;
 using Nouns.Graphics.Core;
 
 namespace NGE

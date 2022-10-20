@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using Tomlyn;
 
-namespace Nouns.Core.Configuration
+namespace NGE.Core.Configuration
 {
     public sealed class TomlConfigurationSource : FileConfigurationSource
     {

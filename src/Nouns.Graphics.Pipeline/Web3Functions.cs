@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Nouns.Core.Web3;
+using NGE.Core.Web3;
 
 namespace Nouns.Graphics.Pipeline
 {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.Design;
 using Microsoft.Xna.Framework.Graphics;
-using Nouns.Core.Configuration;
+using NGE.Core.Configuration;
 using Nouns.Graphics.Core;
 
 namespace NGE.CLI

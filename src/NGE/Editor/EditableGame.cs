@@ -6,9 +6,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using NGE.Core;
 using NGE.Snaps;
 using Nouns.Assets.Core;
-using Nouns.Core;
 using Nouns.Editor;
 using SDL2;
 

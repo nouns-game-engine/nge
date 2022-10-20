@@ -1,4 +1,4 @@
-﻿namespace Nouns.Core
+﻿namespace NGE.Core
 {
     public static class BinaryExtensions
     {

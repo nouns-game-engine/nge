@@ -3,7 +3,7 @@ using System.Text.Json;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Nouns.Core;
+using NGE.Core;
 using Nouns.Graphics.Pipeline;
 using Velentr.Font;
 using Text = Velentr.Font.Text;

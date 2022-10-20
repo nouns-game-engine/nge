@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-namespace Nouns.Core
+namespace NGE.Core
 {
     public static class Input
     {

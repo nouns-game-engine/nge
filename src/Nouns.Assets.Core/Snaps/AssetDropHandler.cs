@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using Microsoft.Extensions.Configuration;
-using Nouns.Core;
+using NGE.Core;
 using Nouns.Editor;
 
 namespace Nouns.Assets.Core.Snaps

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
-namespace Nouns.Core
+namespace NGE.Core
 {
     public static class ServiceProviderExtensions
     {

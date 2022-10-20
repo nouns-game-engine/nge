@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Tomlyn.Syntax;
 
-namespace Nouns.Core.Configuration
+namespace NGE.Core.Configuration
 {
     public static class Config
     {

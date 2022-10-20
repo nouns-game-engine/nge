@@ -4,7 +4,7 @@ using System.Linq;
 using ImGuiNET;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Xna.Framework;
-using Nouns.Core;
+using NGE.Core;
 using Nouns.Editor;
 
 namespace Nouns.Assets.Core.Snaps

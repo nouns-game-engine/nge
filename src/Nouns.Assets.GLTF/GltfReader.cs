@@ -1,7 +1,6 @@
-﻿using Nouns.Assets.Core;
+﻿using NGE.Core;
+using Nouns.Assets.Core;
 using Nouns.Assets.GLTF.Runtime;
-using Nouns.Core;
-using SharpGLTF.Schema2;
 
 namespace Nouns.Assets.GLTF;
 

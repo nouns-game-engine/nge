@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using Microsoft.Extensions.Configuration;
 
-namespace Nouns.Core.Configuration
+namespace NGE.Core.Configuration
 {
     public static class CommandLine
     {

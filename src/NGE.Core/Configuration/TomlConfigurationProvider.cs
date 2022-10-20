@@ -6,7 +6,7 @@ using Tomlyn;
 using Tomlyn.Model;
 using Tomlyn.Syntax;
 
-namespace Nouns.Core.Configuration
+namespace NGE.Core.Configuration
 {
     public sealed class TomlConfigurationProvider : FileConfigurationProvider
     {

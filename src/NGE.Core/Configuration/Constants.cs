@@ -1,4 +1,4 @@
-﻿namespace Nouns.Core.Configuration
+﻿namespace NGE.Core.Configuration
 {
     public static class Constants
     {

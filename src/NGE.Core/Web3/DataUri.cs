@@ -1,8 +1,8 @@
-﻿using System.Text.RegularExpressions;
-using System.Text;
+﻿using System.Text;
+using System.Text.RegularExpressions;
 using Microsoft.Xna.Framework;
 
-namespace Nouns.Core.Web3;
+namespace NGE.Core.Web3;
 
 public static class DataUri
 {

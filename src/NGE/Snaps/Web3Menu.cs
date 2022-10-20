@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Nouns.Core;
+using NGE.Core;
 using Nouns.Editor;
 using Nouns.Graphics.Pipeline;
 using Color = Microsoft.Xna.Framework.Color;

@@ -1,21 +1,17 @@
 ﻿using System.Diagnostics;
-using System.Numerics;
 using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using NBitcoin.Secp256k1;
-using Nethereum.Model;
+using NGE.Core;
+using NGE.Core.Configuration;
 using NGE.Editor;
 using NGE.Screens;
 using NGE.Snaps;
 using Nouns.Assets.Core;
-using Nouns.Core;
-using Nouns.Core.Configuration;
 using Nouns.Editor;
-using Nouns.Engine.Core;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace NGE
