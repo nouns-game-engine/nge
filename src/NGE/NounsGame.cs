@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using NGE.Assets;
 using NGE.Core;
 using NGE.Core.Configuration;
 using NGE.Editor;
@@ -105,7 +104,7 @@ namespace NGE
             if (game == null)
                 return;
 
-            Trace.WriteLine($"found game {game.Name} v{game.Version}");
+            Trace.WriteLine($"Found game {game.Name} v{game.Version}");
 
             foreach (var contentItem in Directory.EnumerateFiles(Path.Combine(referencesPath, "Content")))
             {
@@ -142,13 +141,13 @@ namespace NGE
                 StartBackgroundLoading();
                 oneTimeBackgroundLoad = true;
             }
-            
-            // for testing only, should be removed
-            AssetReader.Add<Texture2D>(".png", (fullPath, _, services) => Texture2D.FromStream(services.GetGraphicsDevice(), File.OpenRead(fullPath)));
+
+            currentGame?.LoadContent();
         }
 
         protected override void UnloadContent()
         {
+            currentGame?.UnloadContent();
             Content.Unload();
             sb.Dispose();
         }
@@ -261,8 +260,8 @@ namespace NGE
 #endif
         }
 
-        private ScreenContext screenContext;
-        private ScreenManager screenManager;
+        private ScreenContext screenContext = null!;
+        private ScreenManager screenManager = null!;
 
         public void OnFinishedLoading()
         {

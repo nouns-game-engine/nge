@@ -78,7 +78,7 @@ namespace NGE.Snaps
             else if(line.StartsWith("NGE Warning: 0 : "))
             {
                 lineText = line.Replace("NGE Warning: 0 : ", "warn: ");
-                lineColor = Color.LightYellow.ToImGuiVector4();
+                lineColor = Color.Yellow.ToImGuiVector4();
             }
             else if (line.StartsWith("NGE Error: 0 : "))
             {

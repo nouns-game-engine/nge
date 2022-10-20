@@ -33,10 +33,47 @@ namespace Platformer
 
         public void Initialize(GameServiceContainer services)
         {
-            definitions = new PixelsDefinitions();
-            gameState = new PlatformerGameState(definitions);
             assetManager = services.GetRequiredService<EditorAssetManager>();
             Content = services.GetRequiredService<ContentManager>();
+        }
+
+        public void LoadContent()
+        {
+            definitions = new PixelsDefinitions();
+            gameState = new PlatformerGameState(definitions);
+
+            // simulate background loading
+            // var backgroundTasks = new List<Task>();
+            // backgroundTasks.Add(Task.Delay(TimeSpan.FromSeconds(10)));
+            // return backgroundTasks.ToArray();
+
+            var sprite = new Sprite(Content.Load<Texture2D>("cloud-large"));
+            var cel = new Cel(sprite);
+            var frame = new AnimationFrame();
+            frame.layers.Add(cel);
+            var animation = new Animation();
+            animation.frames.Add(frame);
+            var animationSet = new AnimationSet();
+            animationSet.animations.Add(animation);
+
+            var thing = new LevelObject(animationSet, new Position(100, 100), false);
+
+            var level = new Level();
+            level.levelObjects.Add(thing);
+            definitions.levels.Add(level);
+
+            var cloud = new Cloud(thing, updateContext);
+            gameState.actors.Add(cloud);
+
+            editContext.EditObject(cloud);
+
+            assetManager.UserStartTracking(animationSet);
+        }
+
+        public void UnloadContent()
+        {
+            definitions = null!;
+            gameState = null!;
         }
 
         public ContentManager Content { get; set; } = null!;
@@ -57,39 +94,12 @@ namespace Platformer
         {
             Engine.Initialize(typeof(Cloud).Assembly);
 
-            // simulate background loading
-            // var backgroundTasks = new List<Task>();
-            // backgroundTasks.Add(Task.Delay(TimeSpan.FromSeconds(10)));
-            // return backgroundTasks.ToArray();
-                        
-            var sprite = new Sprite(Content.Load<Texture2D>("cloud-large"));
-            var cel = new Cel(sprite);
-            var frame = new AnimationFrame();
-            frame.layers.Add(cel);
-            var animation = new Animation();
-            animation.frames.Add(frame);
-            var animationSet = new AnimationSet();
-            animationSet.animations.Add(animation);
-            
-            var thing = new LevelObject(animationSet, new Position(100, 100), false);
-            
-            var level = new Level();
-            level.levelObjects.Add(thing);
-            definitions.levels.Add(level);
-
-            var cloud = new Cloud(thing, updateContext);
-            gameState.actors.Add(cloud);
-
-            editContext.EditObject(cloud);
-
-            assetManager.UserStartTracking(animationSet);
-
             return Array.Empty<Task>();
         }
 
-        public void OnFinishedBackgroundLoading(SpriteBatch sb)
+        public void OnFinishedBackgroundLoading(SpriteBatch? sb)
         {
-            drawContext = new PixelsDrawContext(sb);
+            drawContext = new PixelsDrawContext(sb!);
             updateContext = new PixelsUpdateContext();
         }
 

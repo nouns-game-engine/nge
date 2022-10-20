@@ -8,13 +8,14 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using NGE.Assets;
 using NGE.Core;
+using NGE.Core.Configuration;
 using NGE.Snaps;
 using SDL2;
 
 namespace NGE.Editor
 {
     // ReSharper disable once UnusedMember.Global
-    public abstract class EditableGame : Game, IEditingContext
+    public abstract class EditableGame : Game, IEditingContext, IAssetRebuildReceiver
     {
         protected IConfiguration configuration = null!;
 
@@ -67,7 +68,22 @@ namespace NGE.Editor
             //
             // Reset:
             if (Input.Alt && Input.KeyWentDown(Keys.R))
+            {
                 Reset();
+
+                if(!IsNetworkGame)
+                    Trace.TraceError("Reset must provide stable transition to local-only play!");
+            }
+
+            //
+            // Asset Rebuilding:
+            if (!IsNetworkGame)
+            {
+                if (Input.KeyWentDown(Keys.F5) || assetRebuildQueued)
+                {
+                    TryRebuildAssets();
+                }
+            }
 
             //
             // Windows:
@@ -198,6 +214,24 @@ namespace NGE.Editor
                     if (ImGui.MenuItem("Reset Game", "Alt+R"))
                         Reset();
 
+                    var options = configuration.GetSection("options");
+                    bool.TryParse(options["liveReload"], out var liveReload);
+                    if (ImGui.Checkbox("Live Reload", ref liveReload))
+                    {
+                        options["liveReload"] = liveReload.ToString();
+
+                        if (liveReload)
+                            AssetRebuild.EnableLiveReload(this);
+                        else
+                            AssetRebuild.DisableLiveReload();
+                    }
+
+                    if (!IsNetworkGame)
+                    {
+                        if (ImGui.MenuItem("Rebuild Assets", "F5"))
+                            TryRebuildAssets();
+                    }
+
                     if (ImGui.MenuItem("Quit"))
                         Exit();
 
@@ -274,6 +308,10 @@ namespace NGE.Editor
             ImGuiInit();
 
             ScanForEditorComponents();
+
+            bool.TryParse(configuration.GetSection("options")["liveReload"], out var liveReloadEnabled);
+            if (liveReloadEnabled)
+                AssetRebuild.EnableLiveReload(this);
         }
 
         protected EditorExcludes excludes = null!;
@@ -504,6 +542,39 @@ namespace NGE.Editor
                 Array.Resize(ref showWindows, showWindows.Length - 1);
             }
         }
+
+        #endregion
+
+        #region Asset Reload
+
+        public bool assetRebuildQueued;
+
+        public void ShouldRebuildAssets()
+        {
+            assetRebuildQueued = true;
+        }
+
+        public void TryRebuildAssets()
+        {
+            try
+            {
+                if (!AssetRebuild.Run())
+                    return;
+
+                UnloadContent();
+                LoadContent();
+            }
+            finally
+            {
+                assetRebuildQueued = false;
+            }
+        }
+
+        #endregion
+
+        #region Networking
+
+        public virtual bool IsNetworkGame => false;
 
         #endregion
     }

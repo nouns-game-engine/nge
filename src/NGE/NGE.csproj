@@ -9,6 +9,7 @@
 		<Platforms>AnyCPU;x64</Platforms>
 		<StartupObject>NGE.Program</StartupObject>
 		<ImplicitUsings>enable</ImplicitUsings>
+    <MonoGamePlatform>Windows</MonoGamePlatform>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -24,6 +25,7 @@
 	  <Content Include="Content\**\*.*">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>
+    <CompileShader Include="Content\shaders\*.fx" />
 	  <Content Include="game.ico" />
 	</ItemGroup>
 
@@ -52,6 +54,14 @@
 
 	<ItemGroup>
 	  <PackageReference Include="ImGui.NET" Version="1.87.3" />
+    <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303" />
 	</ItemGroup>
+
+  <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
+    <Message Text="Restoring dotnet tools" Importance="High" />
+    <Exec Command="dotnet tool restore" />
+  </Target>
+
+  <Import Project="..\..\build\BuildShaders.targets" />
 
 </Project>

@@ -84,6 +84,13 @@ namespace NGE.Core.Configuration
                             {"assetDirectory", Path.Combine(Directory.GetCurrentDirectory(), "Content")}
                         }
                     },
+                    new TableSyntax("options")
+                    {
+                        Items =
+                        {
+                            {"liveReload", true}
+                        }
+                    },
                     new TableSyntax("games")
                     {
                         Items =

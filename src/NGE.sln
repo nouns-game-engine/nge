@@ -52,6 +52,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NGE.Assets.GLTF", "NGE.Asse
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NGE.Assets.MagicaVoxel", "NGE.Assets.MagicaVoxel\NGE.Assets.MagicaVoxel.csproj", "{C0C9733E-5B24-42F3-A5D7-CE75F150D498}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{850CA339-05D9-4865-956D-A208602EECA9}"
+	ProjectSection(SolutionItems) = preProject
+		..\build\BuildShaders.targets = ..\build\BuildShaders.targets
+		..\build\ContentRebuilder.targets = ..\build\ContentRebuilder.targets
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -5,8 +5,6 @@ using System.IO;
 
 namespace NGE.Assets
 {
-
-
 	public static class AssetReader
 	{
 		public delegate object ReadFromFile(string fullPath, IAssetProvider assetProvider, IServiceProvider serviceProvider);

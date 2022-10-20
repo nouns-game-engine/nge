@@ -9,6 +9,8 @@ namespace NGE.Core.Configuration
         Version? Version { get; }
 
         void Initialize(GameServiceContainer services);
+        void LoadContent();
+        void UnloadContent();
         void Update();
         void Draw(RenderTarget2D renderTarget);
 
