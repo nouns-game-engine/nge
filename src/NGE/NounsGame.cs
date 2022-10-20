@@ -159,7 +159,7 @@ namespace NGE
             if (!assetRebuildQueued)
             {
                 sb.Dispose();
-                fontManager.Dispose();
+                // fontManager.Dispose(); // bugged 
             }
         }
 

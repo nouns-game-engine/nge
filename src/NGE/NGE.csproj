@@ -10,8 +10,6 @@
 		<StartupObject>NGE.Program</StartupObject>
 		<ImplicitUsings>enable</ImplicitUsings>
     <MonoGamePlatform>Windows</MonoGamePlatform>
-    <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
-    <BaseOutputPath>bin\</BaseOutputPath>
 	</PropertyGroup>
 
 	<ItemGroup>
