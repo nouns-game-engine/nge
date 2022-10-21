@@ -4,7 +4,7 @@ description: Welcome to NounsGame!
 
 # Welcome
 
-<figure><img src=".gitbook/assets/social.png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/welcome.png" alt=""><figcaption></figcaption></figure>
 
 **Nouns Game Engine (NGE)** is the first CC0 game engine for amateurs and professionals. It has two primary reasons to exist:
 
