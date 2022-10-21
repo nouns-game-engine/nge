@@ -2,38 +2,19 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using NGE.Assets;
 using NGE.Core;
 using NGE.Core.Configuration;
-using NGE.Editor;
-using NGE.Engine.Pixel2D;
-using Platformer.Actors;
 
 namespace Platformer
 {
     // ReSharper disable once UnusedMember.Global (Reflection)
     public class PlatformerGame : IGame
     {
-        private readonly IEditingContext editContext;
-
-        private PixelsGameState gameState = null!;
-        private PixelsUpdateContext updateContext = null!;
-        private PixelsDrawContext drawContext = null!;
-        private EditorAssetManager assetManager = null!;
-        private PixelsDefinitions definitions = null!;
-
-
-        public PlatformerGame(IEditingContext editContext)
-        {
-            this.editContext = editContext;
-        }
-
         public string Name => "Platformer";
         public Version? Version => Assembly.GetExecutingAssembly().GetName().Version;
 
         public void Initialize(GameServiceContainer services)
         {
-            assetManager = services.GetRequiredService<EditorAssetManager>();
             Content = services.GetRequiredService<ContentManager>();
         }
 
@@ -44,28 +25,23 @@ namespace Platformer
 
         public void UnloadContent(bool isAssetRebuild)
         {
-            definitions = null!;
-            gameState = null!;
+            
         }
 
         public ContentManager Content { get; set; } = null!;
 
         public void Update()
         {
-            gameState.Update(updateContext);
+            
         }
 
         public void Draw(RenderTarget2D renderTarget)
         {
             renderTarget.GraphicsDevice.Clear(Color.SkyBlue);
-
-            gameState.Draw(drawContext);
         }
 
         public Task[] StartBackgroundLoading()
         {
-            Engine.Initialize(typeof(Cloud).Assembly);
-
             // simulate background loading (to test loading screen)
             var backgroundTasks = new List<Task>();
             backgroundTasks.Add(Task.Delay(TimeSpan.FromSeconds(10)));
@@ -74,36 +50,12 @@ namespace Platformer
 
         public void OnFinishedBackgroundLoading(SpriteBatch? sb)
         {
-            drawContext = new PixelsDrawContext(sb!);
-            updateContext = new PixelsUpdateContext();
+            
         }
 
         public void Reset()
         {
-            definitions = new PixelsDefinitions();
-            gameState = new PlatformerGameState(definitions);
-
-            var sprite = new Sprite(Content.Load<Texture2D>("cloud-large"));
-            var cel = new Cel(sprite);
-            var frame = new AnimationFrame();
-            frame.layers.Add(cel);
-            var animation = new Animation();
-            animation.frames.Add(frame);
-            var animationSet = new AnimationSet();
-            animationSet.animations.Add(animation);
-
-            var thing = new LevelObject(animationSet, new Position(100, 100), false);
-
-            var level = new Level();
-            level.levelObjects.Add(thing);
-            definitions.levels.Add(level);
-
-            var cloud = new Cloud(thing, updateContext);
-            gameState.actors.Add(cloud);
-
-            editContext.EditObject(cloud);
-
-            assetManager.UserStartTracking(animationSet);
+            
         }
     }
 }

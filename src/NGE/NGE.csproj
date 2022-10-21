@@ -56,6 +56,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Content\Content.mgcb" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <PackageReference Include="ImGui.NET" Version="1.87.3" />
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303" />
     <PackageReference Include="SharpFont.NetStandard" Version="1.0.5" />

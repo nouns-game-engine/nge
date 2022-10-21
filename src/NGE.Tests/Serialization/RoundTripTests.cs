@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using NGE.Core.Serialization;
-using NGE.Engine.Pixel2D;
-using NGE.Engine.Pixel2D.Serialization;
+using NGE.Engine.Pixel3D;
+using NGE.Engine.Pixel3D.Serialization;
 using NGE.Graphics;
 using Xunit;
 
