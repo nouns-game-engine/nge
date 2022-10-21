@@ -4,7 +4,6 @@
 
 ## Documentation
 
-* [Getting Started](documentation/getting-started.md)
 * [Introduction](documentation/introduction.md)
 * [Why?](documentation/why/README.md)
   * [Context](documentation/why/context.md)
@@ -31,9 +30,11 @@
 * [Staff](nounsdao-proposal/staff.md)
 * [History](nounsdao-proposal/previous-proposal.md)
 
-***
+## Development
 
-* [Third Party Notices](THIRD\_PARTY\_NOTICES.md)
+* [Getting Started](development/getting-started.md)
+* [Building](development/building.md)
+* [Third Party Notices](development/third\_party\_notices.md)
 
 ## Links
 
