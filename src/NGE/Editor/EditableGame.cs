@@ -447,27 +447,8 @@ namespace NGE.Editor
             return false;
         }
 
-        public void AddWindow(IEditorWindow window, bool isVisible = false)
-        {
-            Array.Resize(ref context.windows, context.windows.Length + 1);
-            Array.Resize(ref context.showWindows, context.showWindows.Length + 1);
-            context.windows[^1] = window;
-            context.showWindows[context.windows.Length - 1] = isVisible;
-        }
-
-        // ReSharper disable once UnusedMember.Global
-        public void AddMenu(IEditorMenu menu)
-        {
-            Array.Resize(ref context.menus, context.menus.Length + 1);
-            context.menus[^1] = menu;
-        }
-
-        // ReSharper disable once UnusedMember.Global
-        public void AddDropHandler(IEditorDropHandler dropHandler)
-        {
-            Array.Resize(ref context.dropHandlers, context.dropHandlers.Length + 1);
-            context.dropHandlers[^1] = dropHandler;
-        }
+        
+        
 
         #region Drop Handling
 
@@ -527,7 +508,7 @@ namespace NGE.Editor
                 return;
 
             objects.Add(instance);
-            AddWindow(new ObjectEditingWindow<T>(instance), true);
+            context.AddWindow(new ObjectEditingWindow<T>(instance), true);
         }
 
         public virtual void Reset()

@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using NBitcoin.Secp256k1;
 using NGE.Core;
 using NGE.Core.Configuration;
 using NGE.Editor;
@@ -120,16 +119,16 @@ namespace NGE
             if (!string.IsNullOrWhiteSpace(currentGame.Name))
                 Window.Title = currentGame.Name;
 
-            AddMenu(new GameMenu(currentGame));
+            context.AddMenu(new GameMenu(currentGame));
 
             foreach(var window in gameEditors.windowList)
-                AddWindow(window);
+                context.AddWindow(window);
 
             foreach (var menu in gameEditors.menuList)
-                AddMenu(menu);
+                context.AddMenu(menu);
 
             foreach(var dropHandler in gameEditors.dropHandlerList)
-                AddDropHandler(dropHandler);
+                context.AddDropHandler(dropHandler);
         }
 
         internal SpriteBatch sb = null!;
