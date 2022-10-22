@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace NGE.Core
 {
@@ -81,112 +82,59 @@ namespace NGE.Core
 
         #region Mouse State
 
-        public static bool LeftMouseWentDown
-        {
-            get { return IsActive && lastMouseState.LeftButton == ButtonState.Released && mouseState.LeftButton == ButtonState.Pressed; }
-        }
+        public static bool MouseWentDown => LeftMouseWentDown || MiddleMouseWentDown || RightMouseWentDown;
 
-        public static bool LeftMouseWentUp
-        {
-            get { return IsActive && lastMouseState.LeftButton == ButtonState.Pressed && mouseState.LeftButton == ButtonState.Released; }
-        }
+        public static bool MouseWentUp => LeftMouseWentUp || MiddleMouseWentUp || RightMouseWentUp;
 
-        public static bool LeftMouseIsDown
-        {
-            get { return IsActive && mouseState.LeftButton == ButtonState.Pressed; }
-        }
+        public static bool MouseIsDown => LeftMouseIsDown || MiddleMouseIsDown || RightMouseIsDown;
 
-        public static bool LeftMouseIsUp
-        {
-            get { return !IsActive || mouseState.LeftButton == ButtonState.Released; }
-        }
+        public static bool MouseIsUp => LeftMouseIsUp || MiddleMouseIsUp || RightMouseIsUp;
 
+        public static bool LeftMouseWentDown => IsActive && lastMouseState.LeftButton == ButtonState.Released && mouseState.LeftButton == ButtonState.Pressed;
 
-        public static bool RightMouseWentDown
-        {
-            get { return IsActive && lastMouseState.RightButton == ButtonState.Released && mouseState.RightButton == ButtonState.Pressed; }
-        }
+        public static bool LeftMouseWentUp => IsActive && lastMouseState.LeftButton == ButtonState.Pressed && mouseState.LeftButton == ButtonState.Released;
 
-        public static bool RightMouseWentUp
-        {
-            get { return IsActive && lastMouseState.RightButton == ButtonState.Pressed && mouseState.RightButton == ButtonState.Released; }
-        }
+        public static bool LeftMouseIsDown => IsActive && mouseState.LeftButton == ButtonState.Pressed;
 
-        public static bool RightMouseIsDown
-        {
-            get { return IsActive && mouseState.RightButton == ButtonState.Pressed; }
-        }
+        public static bool LeftMouseIsUp => !IsActive || mouseState.LeftButton == ButtonState.Released;
 
-        public static bool RightMouseIsUp
-        {
-            get { return !IsActive || mouseState.RightButton == ButtonState.Released; }
-        }
+        public static bool RightMouseWentDown => IsActive && lastMouseState.RightButton == ButtonState.Released && mouseState.RightButton == ButtonState.Pressed;
 
+        public static bool RightMouseWentUp => IsActive && lastMouseState.RightButton == ButtonState.Pressed && mouseState.RightButton == ButtonState.Released;
 
-        public static bool MiddleMouseWentDown
-        {
-            get { return IsActive && lastMouseState.MiddleButton == ButtonState.Released && mouseState.MiddleButton == ButtonState.Pressed; }
-        }
+        public static bool RightMouseIsDown => IsActive && mouseState.RightButton == ButtonState.Pressed;
 
-        public static bool MiddleMouseWentUp
-        {
-            get { return IsActive && lastMouseState.MiddleButton == ButtonState.Pressed && mouseState.MiddleButton == ButtonState.Released; }
-        }
+        public static bool RightMouseIsUp => !IsActive || mouseState.RightButton == ButtonState.Released;
 
-        public static bool MiddleMouseIsDown
-        {
-            get { return IsActive && mouseState.MiddleButton == ButtonState.Pressed; }
-        }
+        public static bool MiddleMouseWentDown => IsActive && lastMouseState.MiddleButton == ButtonState.Released && mouseState.MiddleButton == ButtonState.Pressed;
 
-        public static bool MiddleMouseIsUp
-        {
-            get { return !IsActive || mouseState.MiddleButton == ButtonState.Released; }
-        }
+        public static bool MiddleMouseWentUp => IsActive && lastMouseState.MiddleButton == ButtonState.Pressed && mouseState.MiddleButton == ButtonState.Released;
 
+        public static bool MiddleMouseIsDown => IsActive && mouseState.MiddleButton == ButtonState.Pressed;
 
-        public static Point MousePosition
-        {
-            get { return new Point(mouseState.X, mouseState.Y); }
-        }
+        public static bool MiddleMouseIsUp => !IsActive || mouseState.MiddleButton == ButtonState.Released;
 
-        public static Point LastMousePosition
-        {
-            get { return new Point(lastMouseState.X, lastMouseState.Y); }
-        }
+        public static Point MousePosition => new(mouseState.X, mouseState.Y);
 
+        public static Point LastMousePosition => new(lastMouseState.X, lastMouseState.Y);
 
-        public static Point LeftMouseDrag
-        {
-            get
-            {
-                if (IsActive && mouseState.LeftButton == ButtonState.Pressed && lastMouseState.LeftButton == ButtonState.Pressed)
-                    return new Point(mouseState.X - lastMouseState.X, mouseState.Y - lastMouseState.Y);
-                else
-                    return new Point();
-            }
-        }
+        public static Point LeftMouseDrag =>
+            IsActive && mouseState.LeftButton == ButtonState.Pressed &&
+            lastMouseState.LeftButton == ButtonState.Pressed
+                ? new Point(mouseState.X - lastMouseState.X, mouseState.Y - lastMouseState.Y)
+                : new Point();
 
-        public static Point MiddleMouseDrag
-        {
-            get
-            {
-                if (IsActive && mouseState.MiddleButton == ButtonState.Pressed && lastMouseState.MiddleButton == ButtonState.Pressed)
-                    return new Point(mouseState.X - lastMouseState.X, mouseState.Y - lastMouseState.Y);
-                else
-                    return new Point();
-            }
-        }
+        public static Point MiddleMouseDrag =>
+            IsActive && mouseState.MiddleButton == ButtonState.Pressed &&
+            lastMouseState.MiddleButton == ButtonState.Pressed
+                ? new Point(mouseState.X - lastMouseState.X, mouseState.Y - lastMouseState.Y)
+                : new Point();
 
-        public static Point RightMouseDrag
-        {
-            get
-            {
-                if (IsActive && mouseState.RightButton == ButtonState.Pressed && lastMouseState.RightButton == ButtonState.Pressed)
-                    return new Point(mouseState.X - lastMouseState.X, mouseState.Y - lastMouseState.Y);
-                else
-                    return new Point();
-            }
-        }
+        public static Point RightMouseDrag =>
+            IsActive && mouseState.RightButton == ButtonState.Pressed &&
+            lastMouseState.RightButton == ButtonState.Pressed
+                ? new Point(mouseState.X - lastMouseState.X, mouseState.Y - lastMouseState.Y)
+                : new Point();
 
         #endregion
 
@@ -248,14 +196,17 @@ namespace NGE.Core
 
         public static GamePadState GamePadState(int playerIndex) { return gamePadStates[playerIndex]; }
 
-        public static bool GamePadButtonWentDown(int playerIndex, Buttons button)
-        {
-            return gamePadStates[playerIndex].IsButtonDown(button) && !lastGamePadStates[playerIndex].IsButtonDown(button);
-        }
+        public static bool GamePadButtonWentDown(int playerIndex, Buttons button) => gamePadStates[playerIndex].IsButtonDown(button) && !lastGamePadStates[playerIndex].IsButtonDown(button);
 
-        public static bool GamePadButtonWentUp(int playerIndex, Buttons button)
+        public static bool GamePadButtonWentUp(int playerIndex, Buttons button) => !gamePadStates[playerIndex].IsButtonDown(button) && lastGamePadStates[playerIndex].IsButtonDown(button);
+
+        public static bool GamePadButtonIsDown(int playerIndex, Buttons button) => gamePadStates[playerIndex].IsButtonDown(button);
+
+        public static bool GamePadButtonIsUp(int playerIndex, Buttons button) => !gamePadStates[playerIndex].IsButtonUp(button);
+
+        public static void GamePadRumble(int playerIndex, float leftMotor, float rightMotor)
         {
-            return !gamePadStates[playerIndex].IsButtonDown(button) && lastGamePadStates[playerIndex].IsButtonDown(button);
+            GamePad.SetVibration((PlayerIndex) playerIndex, leftMotor, rightMotor);
         }
 
         #endregion
