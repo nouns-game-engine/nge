@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using NBitcoin.Secp256k1;
 using NGE.Core;
 using NGE.Core.Configuration;
 using NGE.Editor;
@@ -174,11 +175,11 @@ namespace NGE
             {
 
 #if !WASM
-                if (devMenuEnabled)
+                if (context.devMenuEnabled)
                     UpdateEditor(gameTime);
 
                 else if (Input.KeyWentDown(Keys.F1))
-                    devMenuEnabled = !devMenuEnabled;
+                    context.devMenuEnabled = !context.devMenuEnabled;
 
                 currentGame?.Update();
 
@@ -227,7 +228,7 @@ namespace NGE
                     sb.End();
                 }
 
-                if (devMenuEnabled)
+                if (context.devMenuEnabled)
                 {
                     imGui.BeforeLayout(gameTime);
                     DrawEditor(gameTime);

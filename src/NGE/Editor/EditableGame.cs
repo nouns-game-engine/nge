@@ -14,23 +14,27 @@ using SDL2;
 namespace NGE.Editor
 {
     // ReSharper disable once UnusedMember.Global
+    [Obsolete("Remove this base class hierarchy so the editor is portable, and opt-in")]
     public abstract class EditableGame : Game, IEditingContext, IAssetRebuildReceiver
     {
         protected IConfiguration configuration = null!;
 
-        protected IEditorWindow[] windows = null!;
-        protected IEditorMenu[] menus = null!;
-        protected IEditorDropHandler[] dropHandlers = null!;
-
-        protected bool[] showWindows = null!;
-        private bool showDemoWindow;
-        protected bool devMenuEnabled = true;
-
+        
         protected ImGuiRenderer imGui = null!;
         protected RenderTarget2D renderTarget = null!;
 
-        protected void ImGuiInit()
+        protected EditorContext context;
+
+        protected void InitializeEditor()
         {
+            context = new EditorContext();
+
+            editorAssetManager = new EditorAssetManager(Content.ServiceProvider);
+
+            Services.AddService(typeof(EditorAssetManager), editorAssetManager);
+
+            SDL.SDL_AddEventWatch(dropFileEvent = DropFileEvent, IntPtr.Zero);
+
             imGui = new ImGuiRenderer(this);
             imGui.RebuildFontAtlas();
 
@@ -39,14 +43,21 @@ namespace NGE.Editor
             CreateRenderTarget();
 
             Window.ClientSizeChanged += delegate { CreateRenderTarget(); };
-            
+
             void CreateRenderTarget()
             {
                 renderTarget = new RenderTarget2D(GraphicsDevice, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height,
                     false, GraphicsDevice.PresentationParameters.BackBufferFormat, DepthFormat.Depth24,
                     0, RenderTargetUsage.PreserveContents);
             }
+
+            ScanForEditorComponents();
+
+            bool.TryParse(configuration.GetSection("options")["liveReload"], out var liveReloadEnabled);
+            if (liveReloadEnabled)
+                AssetRebuild.EnableLiveReload(this);
         }
+
 
         #region Update
 
@@ -62,7 +73,7 @@ namespace NGE.Editor
             //
             // UI toggle:
             if (Input.KeyWentDown(Keys.F1))
-                devMenuEnabled = !devMenuEnabled;
+                context.devMenuEnabled = !context.devMenuEnabled;
 
             //
             // Reset:
@@ -87,9 +98,9 @@ namespace NGE.Editor
 
             //
             // Windows:
-            for (var i = 0; i < windows.Length; i++)
+            for (var i = 0; i < context.windows.Length; i++)
             {
-                var window = windows[i];
+                var window = context.windows[i];
                 if (window.Shortcut == null)
                     continue;
 
@@ -174,14 +185,14 @@ namespace NGE.Editor
                         continue;
 
                     if (Input.KeyWentDown(keys))
-                        showWindows[index] = !showWindows[index];
+                        context.showWindows[index] = !context.showWindows[index];
                 }
             }
 
-            foreach(var menu in menus)
+            foreach(var menu in context.menus)
                 menu.UpdateLayout(this, gameTime);
 
-            foreach (var window in windows)
+            foreach (var window in context.windows)
                 window.UpdateLayout(this, gameTime);
         }
 
@@ -195,10 +206,10 @@ namespace NGE.Editor
 
             DrawWindows(gameTime);
 
-            if (showDemoWindow)
+            if(context.showDemoWindow)
             {
                 ImGui.SetNextWindowPos(new System.Numerics.Vector2(650, 20), ImGuiCond.FirstUseEver);
-                ImGui.ShowDemoWindow(ref showDemoWindow);
+                ImGui.ShowDemoWindow(ref context.showDemoWindow);
             }
         }
 
@@ -208,8 +219,8 @@ namespace NGE.Editor
             {
                 if (ImGui.BeginMenu("Editor"))
                 {
-                    if (ImGui.MenuItem("Toggle UI", "F1", devMenuEnabled, devMenuEnabled))
-                        devMenuEnabled = !devMenuEnabled;
+                    if (ImGui.MenuItem("Toggle UI", "F1", context.devMenuEnabled, context.devMenuEnabled))
+                        context.devMenuEnabled = !context.devMenuEnabled;
 
                     if (ImGui.MenuItem("Reset Game", "Alt+R"))
                         Reset();
@@ -241,7 +252,7 @@ namespace NGE.Editor
                     ImGui.EndMenu();
                 }
 
-                foreach (var menu in menus.OrderBy(x => x.GetType().GetCustomAttribute<OrderAttribute>()?.Order ?? 0))
+                foreach (var menu in context.menus.OrderBy(x => x.GetType().GetCustomAttribute<OrderAttribute>()?.Order ?? 0))
                 {
                     if (menu is ObjectEditingMenu && objects.Count == 0)
                         continue;
@@ -255,19 +266,19 @@ namespace NGE.Editor
 
                 if (ImGui.BeginMenu("Window"))
                 {
-                    for (var i = 0; i < windows.Length; i++)
+                    for (var i = 0; i < context.windows.Length; i++)
                     {
-                        if (!windows[i].Enabled)
+                        if (!context.windows[i].Enabled)
                             continue;
 
-                        if (ImGui.MenuItem(windows[i].Label, windows[i].Shortcut, showWindows[i], true))
-                            showWindows[i] = !showWindows[i];
+                        if (ImGui.MenuItem(context.windows[i].Label, context.windows[i].Shortcut, context.showWindows[i], true))
+                            context.showWindows[i] = !context.showWindows[i];
                     }
 
                     ImGui.Separator();
 
-                    if (ImGui.MenuItem("ImGUI Test Window", null, showDemoWindow, true))
-                        showDemoWindow = !showDemoWindow;
+                    if (ImGui.MenuItem("ImGUI Test Window", null, context.showDemoWindow, true))
+                        context.showDemoWindow = !context.showDemoWindow;
                     ImGui.EndMenu();
                 }
 
@@ -284,14 +295,14 @@ namespace NGE.Editor
 
         private void DrawWindows(GameTime gameTime)
         {
-            for (var i = 0; i < showWindows.Length; i++)
+            for (var i = 0; i < context.showWindows.Length; i++)
             {
-                if (!showWindows[i] || !windows[i].Enabled)
+                if (!context.showWindows[i] || !context.windows[i].Enabled)
                     continue;
-                var window = windows[i];
+                var window = context.windows[i];
                 ImGui.SetNextWindowSize(new System.Numerics.Vector2(window.Width, window.Height), ImGuiCond.FirstUseEver);
-                if (ImGui.Begin(window.Label, ref showWindows[i], window.Flags))
-                    windows[i].DrawLayout(this, gameTime, ref showWindows[i]);
+                if (ImGui.Begin(window.Label, ref context.showWindows[i], window.Flags))
+                    context.windows[i].DrawLayout(this, gameTime, ref context.showWindows[i]);
                 ImGui.End();
             }
         }
@@ -300,23 +311,7 @@ namespace NGE.Editor
 
         private EditorAssetManager editorAssetManager = null!;
 
-        protected void InitializeEditor()
-        {
-            editorAssetManager = new EditorAssetManager(Content.ServiceProvider);
-
-            Services.AddService(typeof(EditorAssetManager), editorAssetManager);
-
-            SDL.SDL_AddEventWatch(dropFileEvent = DropFileEvent, IntPtr.Zero);
-
-            ImGuiInit();
-
-            ScanForEditorComponents();
-
-            bool.TryParse(configuration.GetSection("options")["liveReload"], out var liveReloadEnabled);
-            if (liveReloadEnabled)
-                AssetRebuild.EnableLiveReload(this);
-        }
-
+       
         protected EditorExcludes excludes = null!;
 
         private void ScanForEditorComponents()
@@ -373,18 +368,18 @@ namespace NGE.Editor
             //
             // Windows:
             editors.windowList.Sort(OrderExtensions.TrySortByOrder);
-            windows = editors.windowList.ToArray();
-            showWindows = new bool[windows.Length];
+            context.windows = editors.windowList.ToArray();
+            context.showWindows = new bool[context.windows.Length];
 
             // 
             // Menus:
             editors.menuList.Sort(OrderExtensions.TrySortByOrder);
-            menus = editors.menuList.ToArray();
+            context.menus = editors.menuList.ToArray();
 
             //
             // Drops:
             editors.dropHandlerList.Sort(OrderExtensions.TrySortByOrder);
-            dropHandlers = editors.dropHandlerList.ToArray();
+            context.dropHandlers = editors.dropHandlerList.ToArray();
         }
 
         protected void InitializeEditorComponents(Assembly assembly, Editors editors)
@@ -454,24 +449,24 @@ namespace NGE.Editor
 
         public void AddWindow(IEditorWindow window, bool isVisible = false)
         {
-            Array.Resize(ref windows, windows.Length + 1);
-            Array.Resize(ref showWindows, showWindows.Length + 1);
-            windows[^1] = window;
-            showWindows[windows.Length - 1] = isVisible;
+            Array.Resize(ref context.windows, context.windows.Length + 1);
+            Array.Resize(ref context.showWindows, context.showWindows.Length + 1);
+            context.windows[^1] = window;
+            context.showWindows[context.windows.Length - 1] = isVisible;
         }
 
         // ReSharper disable once UnusedMember.Global
         public void AddMenu(IEditorMenu menu)
         {
-            Array.Resize(ref menus, menus.Length + 1);
-            menus[^1] = menu;
+            Array.Resize(ref context.menus, context.menus.Length + 1);
+            context.menus[^1] = menu;
         }
 
         // ReSharper disable once UnusedMember.Global
         public void AddDropHandler(IEditorDropHandler dropHandler)
         {
-            Array.Resize(ref dropHandlers, dropHandlers.Length + 1);
-            dropHandlers[^1] = dropHandler;
+            Array.Resize(ref context.dropHandlers, context.dropHandlers.Length + 1);
+            context.dropHandlers[^1] = dropHandler;
         }
 
         #region Drop Handling
@@ -490,7 +485,7 @@ namespace NGE.Editor
 
                 var filename = SDL.UTF8_ToManaged(evt.drop.file, true);
                 Trace.WriteLine($"File dropped: {filename}");
-                foreach (var dropHandler in dropHandlers)
+                foreach (var dropHandler in context.dropHandlers)
                 {
                     if (dropHandler.Enabled && dropHandler.Handle(this, filename))
                     {
@@ -517,10 +512,10 @@ namespace NGE.Editor
 
         public void ToggleEditorsFor(object instance)
         {
-            for (var i = 0; i < windows.Length; i++)
+            for (var i = 0; i < context.windows.Length; i++)
             {
-                if (windows[i] is IEditObject edit && edit.Object == instance)
-                    showWindows[i] = !showWindows[i];
+                if (context.windows[i] is IEditObject edit && edit.Object == instance)
+                    context.showWindows[i] = !context.showWindows[i];
             }
         }
 
@@ -542,12 +537,12 @@ namespace NGE.Editor
 
         private void ClearRetainedObjectEditors()
         {
-            for (var i = windows.Length - 1; i >= 0; i--)
+            for (var i = context.windows.Length - 1; i >= 0; i--)
             {
-                if (windows[i] is not IEditObject)
+                if (context.windows[i] is not IEditObject)
                     continue;
-                Array.Resize(ref windows, windows.Length - 1);
-                Array.Resize(ref showWindows, showWindows.Length - 1);
+                Array.Resize(ref context.windows, context.windows.Length - 1);
+                Array.Resize(ref context.showWindows, context.showWindows.Length - 1);
             }
 
             ObjectsUnderEdit.Clear();
