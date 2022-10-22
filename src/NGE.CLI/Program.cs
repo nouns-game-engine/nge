@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.Design;
 using Microsoft.Xna.Framework.Graphics;
+using NGE.Core;
 using NGE.Core.Configuration;
 using NGE.Graphics;
 

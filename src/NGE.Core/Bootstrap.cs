@@ -1,9 +1,6 @@
-﻿using System;
-using System.IO;
-using System.Runtime.InteropServices;
-using System.Threading;
+﻿using System.Runtime.InteropServices;
 
-namespace NGE.Graphics;
+namespace NGE.Core;
 
 public static class Bootstrap
 {

@@ -2,6 +2,7 @@
 using System.ComponentModel.Design;
 using Microsoft.Xna.Framework.Graphics;
 using NGE.Assets;
+using NGE.Core;
 
 namespace NGE.Graphics
 {

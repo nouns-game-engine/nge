@@ -8,7 +8,7 @@ namespace NGE
     {
         public static void Main(params string[] args)
         {
-            Graphics.Bootstrap.Init();
+            Core.Bootstrap.Init();
             var configuration = Config.GetOrCreateConfiguration();
             using var game = new NounsGame(configuration, args);
             game.Run();
