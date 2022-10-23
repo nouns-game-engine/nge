@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NGE.Editor
+﻿namespace NGE.Core
 {
     public static class TypeExtensions
     {

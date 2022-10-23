@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NGE.Assets;
+﻿namespace NGE.Core.Assets;
 
 public interface IAssetReader
 {

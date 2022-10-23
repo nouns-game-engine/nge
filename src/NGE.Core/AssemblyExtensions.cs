@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using NGE.Editor;
+﻿using System.Reflection;
+using NGE.Core.Assets;
 
-namespace NGE.Assets;
+namespace NGE.Core;
 
 public static class AssemblyExtensions
 {

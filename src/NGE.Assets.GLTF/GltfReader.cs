@@ -1,5 +1,6 @@
 ﻿using NGE.Assets.GLTF.Runtime;
 using NGE.Core;
+using NGE.Core.Assets;
 
 namespace NGE.Assets.GLTF;
 

@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using NGE.Assets;
 using NGE.Core;
+using NGE.Core.Assets;
 using NGE.Snaps;
 using SDL2;
 
