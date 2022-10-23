@@ -86,11 +86,11 @@ namespace NGE
                 if (assemblyFile == null) throw new Exception($"'{fileName}' not found");
 
                 var loadedAssembly = Assembly.LoadFrom(assemblyFile);
-                if (excludes.IsExcluded(Path.GetFileName(assemblyFile)))
+                if (context.excludes.IsExcluded(Path.GetFileName(assemblyFile)))
                     return loadedAssembly;
 
-                InitializeEditorComponents(loadedAssembly, gameEditors);
-                InitializeAssetReaders(loadedAssembly);
+                context.InitializeEditorComponents(loadedAssembly, gameEditors, Services);
+                context.InitializeAssetReaders(loadedAssembly);
                 return loadedAssembly;
             };
 

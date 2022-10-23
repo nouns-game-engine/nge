@@ -49,7 +49,7 @@ public sealed class EditorContext
 
     #region Scanning
 
-    private EditorExcludes excludes = null!;
+    public EditorExcludes excludes = null!;
 
     public void ScanForEditorComponents(IConfiguration configuration, IServiceProvider serviceProvider)
     {
@@ -119,7 +119,7 @@ public sealed class EditorContext
         dropHandlers = editors.dropHandlerList.ToArray();
     }
 
-    private void InitializeEditorComponents(Assembly assembly, Editors editors, IServiceProvider serviceProvider)
+    public void InitializeEditorComponents(Assembly assembly, Editors editors, IServiceProvider serviceProvider)
     {
         foreach (var type in assembly.GetEditorTypes())
         {
@@ -138,7 +138,7 @@ public sealed class EditorContext
         }
     }
 
-    private static void InitializeAssetReaders(Assembly assembly)
+    public void InitializeAssetReaders(Assembly assembly)
     {
         foreach (var type in assembly.GetAssetReaderTypes())
         {

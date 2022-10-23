@@ -8,7 +8,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using NGE.Assets;
 using NGE.Core;
-using NGE.Core.Assets;
 using NGE.Snaps;
 using SDL2;
 
@@ -25,12 +24,13 @@ namespace NGE.Editor
         protected RenderTarget2D renderTarget = null!;
 
         protected EditorContext context;
+        private EditorAssetManager editorAssetManager = null!;
 
         protected void InitializeEditor()
         {
             context = new EditorContext();
 
-            editorAssetManager = new EditorAssetManager(Content.ServiceProvider);
+            editorAssetManager = new EditorAssetManager(Services);
 
             Services.AddService(typeof(EditorAssetManager), editorAssetManager);
 
@@ -52,7 +52,7 @@ namespace NGE.Editor
                     0, RenderTargetUsage.PreserveContents);
             }
 
-            ScanForEditorComponents();
+            context.ScanForEditorComponents(configuration, Services);
 
             bool.TryParse(configuration.GetSection("options")["liveReload"], out var liveReloadEnabled);
             if (liveReloadEnabled)
@@ -309,147 +309,6 @@ namespace NGE.Editor
         }
 
         #endregion
-
-        private EditorAssetManager editorAssetManager = null!;
-
-       
-        protected EditorExcludes excludes = null!;
-
-        private void ScanForEditorComponents()
-        {
-            var editors = new Editors();
-
-            var location = Assembly.GetExecutingAssembly().Location;
-            var binDir = Path.GetDirectoryName(location) ?? location;
-
-            var self = Assembly.GetExecutingAssembly();
-
-            InitializeEditorComponents(self, editors);
-            InitializeAssetReaders(self);
-
-            var visited = new HashSet<string> { self.Location };
-
-            excludes = EditorExcludes.FromConfiguration(configuration);
-            
-            var loaded = AppDomain.CurrentDomain.GetAssemblies()
-                .ToDictionary(k => k.Location, v => v);
-            
-            foreach (var dll in Directory.GetFiles(binDir, "*.dll"))
-            {
-                if (!File.Exists(dll))
-                    continue;
-
-                var dllName = Path.GetFileNameWithoutExtension(dll);
-
-                if (excludes.IsExcluded(dllName))
-                {
-                    visited.Add(dll);
-                    continue;
-                }
-
-                try
-                {
-                    if(!loaded.TryGetValue(dll, out var assembly))
-                        assembly = Assembly.LoadFile(dll);
-
-                    if (visited.Contains(assembly.Location))
-                        continue;
-
-                    visited.Add(assembly.Location);
-
-                    InitializeEditorComponents(assembly, editors);
-                    InitializeAssetReaders(assembly);
-                }
-                catch (Exception ex)
-                {
-                    Trace.TraceError($"{ex}");
-                }
-            }
-
-            //
-            // Windows:
-            editors.windowList.Sort(OrderExtensions.TrySortByOrder);
-            context.windows = editors.windowList.ToArray();
-            context.showWindows = new bool[context.windows.Length];
-
-            // 
-            // Menus:
-            editors.menuList.Sort(OrderExtensions.TrySortByOrder);
-            context.menus = editors.menuList.ToArray();
-
-            //
-            // Drops:
-            editors.dropHandlerList.Sort(OrderExtensions.TrySortByOrder);
-            context.dropHandlers = editors.dropHandlerList.ToArray();
-        }
-
-        protected void InitializeEditorComponents(Assembly assembly, Editors editors)
-        {
-            foreach (var type in assembly.GetEditorTypes())
-            {
-                // ctor(IServiceProvider)
-                if (ActivateWithConstructor(new[] {typeof(IServiceProvider)}, editors, type, Services))
-                    continue;
-
-                // ctor()
-                if (ActivateWithConstructor(Type.EmptyTypes, editors, type))
-                    continue;
-
-                if (type.Implements<IEditObject>())
-                    continue; // deferred
-
-                Trace.TraceError($"Editor component '{type.Name}' has no valid constructors");
-            }
-        }
-
-        protected static void InitializeAssetReaders(Assembly assembly)
-        {
-            foreach (var type in assembly.GetAssetReaderTypes())
-            {
-                // ctor()
-                if (Activator.CreateInstance(type) is IAssetReader reader)
-                {
-                    reader.Load();
-                    continue;
-                }
-
-                Trace.TraceError($"Asset reader '{type.Name}' has no valid constructors");
-            }
-        }
-
-        private static bool ActivateWithConstructor(Type[] parameterTypes, Editors editors, Type type, params object[] parameters)
-        {
-            var ctor = type.GetConstructor(parameterTypes);
-            if (ctor == null)
-                return false;
-
-            if (type.Implements<IEditorWindow>() && Activator.CreateInstance(type, parameters) is IEditorWindow window)
-            {
-                editors.windowList.Add(window);
-                Trace.TraceInformation($"Adding window '{type.Name}'");
-                return true;
-            }
-
-            if (type.Implements<IEditorMenu>() && Activator.CreateInstance(type, parameters) is IEditorMenu menu)
-            {
-                editors.menuList.Add(menu);
-                Trace.TraceInformation($"Adding menu '{type.Name}'");
-                return true;
-            }
-
-            if (type.Implements<IEditorDropHandler>() &&
-                Activator.CreateInstance(type, parameters) is IEditorDropHandler dropHandler)
-            {
-                editors.dropHandlerList.Add(dropHandler);
-                Trace.TraceInformation($"Adding drop handler '{type.Name}'");
-                return true;
-            }
-
-            return false;
-        }
-
-        
-        
 
         #region Drop Handling
 
