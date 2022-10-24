@@ -5,13 +5,22 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using NGE.Core;
 using NGE.Core.Assets;
 
 namespace NGE.Editor;
 
-public sealed class EditorContext
+public sealed class Editor
 {
+    private readonly IEditingContext host;
+
+    public Editor(IEditingContext host)
+    {
+        this.host = host;
+    }
+
     #region Snaps
 
     public IEditorWindow[] windows = null!;
@@ -20,7 +29,7 @@ public sealed class EditorContext
 
     public bool[] showWindows = null!;
     public bool showDemoWindow;
-    public bool devMenuEnabled = true;
+    public bool editorEnabled = true;
 
     // ReSharper disable once UnusedMember.Global
     public void AddWindow(IEditorWindow window, bool isVisible = false)
@@ -182,6 +191,124 @@ public sealed class EditorContext
         }
 
         return false;
+    }
+
+    #endregion
+
+    #region Update
+
+    private bool lastActive;
+
+    public void UpdateEditor(GameTime gameTime)
+    {
+        if (lastActive != host.IsActive)
+            Trace.TraceInformation(host.IsActive ? "editor gained focus" : "editor lost focus");
+
+        lastActive = host.IsActive;
+
+        //
+        // UI toggle:
+        if (Input.KeyWentDown(Keys.F1))
+            editorEnabled = !editorEnabled;
+        
+        //
+        // Windows:
+        for (var i = 0; i < windows.Length; i++)
+        {
+            var window = windows[i];
+            if (window.Shortcut == null)
+                continue;
+
+            var tokens = window.Shortcut.Split(new[] { '+' }, StringSplitOptions.RemoveEmptyEntries);
+            for (var j = 0; j < tokens.Length; j++)
+                tokens[j] = tokens[j].Trim();
+
+            var index = i;
+            bool isControl = false, isAlt = false, isShift = false;
+
+            for (var t = 0; t < tokens.Length; t++)
+            {
+                if (tokens[t].Equals("Ctrl", StringComparison.OrdinalIgnoreCase))
+                {
+                    isControl = true;
+                    continue;
+                }
+                if (tokens[t].Equals("Alt", StringComparison.OrdinalIgnoreCase))
+                {
+                    isAlt = true;
+                    continue;
+                }
+                if (tokens[t].Equals("Shift", StringComparison.OrdinalIgnoreCase))
+                {
+                    isShift = true;
+                    continue;
+                }
+
+                if (tokens[t].Equals("0", StringComparison.OrdinalIgnoreCase))
+                {
+                    tokens[t] = "D0";
+                }
+                if (tokens[t].Equals("1", StringComparison.OrdinalIgnoreCase))
+                {
+                    tokens[t] = "D1";
+                }
+                if (tokens[t].Equals("2", StringComparison.OrdinalIgnoreCase))
+                {
+                    tokens[t] = "D2";
+                }
+                if (tokens[t].Equals("3", StringComparison.OrdinalIgnoreCase))
+                {
+                    tokens[t] = "D3";
+                }
+                if (tokens[t].Equals("4", StringComparison.OrdinalIgnoreCase))
+                {
+                    tokens[t] = "D4";
+                }
+                if (tokens[t].Equals("5", StringComparison.OrdinalIgnoreCase))
+                {
+                    tokens[t] = "D5";
+                }
+                if (tokens[t].Equals("6", StringComparison.OrdinalIgnoreCase))
+                {
+                    tokens[t] = "D6";
+                }
+                if (tokens[t].Equals("7", StringComparison.OrdinalIgnoreCase))
+                {
+                    tokens[t] = "D7";
+                }
+                if (tokens[t].Equals("8", StringComparison.OrdinalIgnoreCase))
+                {
+                    tokens[t] = "D8";
+                }
+                if (tokens[t].Equals("9", StringComparison.OrdinalIgnoreCase))
+                {
+                    tokens[t] = "D9";
+                }
+
+                if (!Enum.TryParse(tokens[t], true, out Keys keys))
+                    continue;
+
+                var control = isControl;
+                var alt = isAlt;
+                var shift = isShift;
+
+                if (control && !Input.Control)
+                    continue;
+                if (alt && !Input.Alt)
+                    continue;
+                if (shift && !Input.Shift)
+                    continue;
+
+                if (Input.KeyWentDown(keys))
+                    showWindows[index] = !showWindows[index];
+            }
+        }
+
+        foreach (var menu in menus)
+            menu.UpdateLayout(host, gameTime);
+
+        foreach (var window in windows)
+            window.UpdateLayout(host, gameTime);
     }
 
     #endregion

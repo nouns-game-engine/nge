@@ -7,6 +7,7 @@ namespace NGE.Editor
     {
         GraphicsDevice GraphicsDevice { get; }
         ICollection<object> ObjectsUnderEdit { get; }
+        bool IsActive { get; }
         void EditObject<T>(T instance);
         void ToggleEditorsFor(object instance);
         void Reset();

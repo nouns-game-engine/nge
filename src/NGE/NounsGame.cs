@@ -86,11 +86,11 @@ namespace NGE
                 if (assemblyFile == null) throw new Exception($"'{fileName}' not found");
 
                 var loadedAssembly = Assembly.LoadFrom(assemblyFile);
-                if (context.excludes.IsExcluded(Path.GetFileName(assemblyFile)))
+                if (editor.excludes.IsExcluded(Path.GetFileName(assemblyFile)))
                     return loadedAssembly;
 
-                context.InitializeEditorComponents(loadedAssembly, gameEditors, Services);
-                context.InitializeAssetReaders(loadedAssembly);
+                editor.InitializeEditorComponents(loadedAssembly, gameEditors, Services);
+                editor.InitializeAssetReaders(loadedAssembly);
                 return loadedAssembly;
             };
 
@@ -119,16 +119,16 @@ namespace NGE
             if (!string.IsNullOrWhiteSpace(currentGame.Name))
                 Window.Title = currentGame.Name;
 
-            context.AddMenu(new GameMenu(currentGame));
+            editor.AddMenu(new GameMenu(currentGame));
 
             foreach(var window in gameEditors.windowList)
-                context.AddWindow(window);
+                editor.AddWindow(window);
 
             foreach (var menu in gameEditors.menuList)
-                context.AddMenu(menu);
+                editor.AddMenu(menu);
 
             foreach(var dropHandler in gameEditors.dropHandlerList)
-                context.AddDropHandler(dropHandler);
+                editor.AddDropHandler(dropHandler);
         }
 
         internal SpriteBatch sb = null!;
@@ -174,16 +174,35 @@ namespace NGE
             {
 
 #if !WASM
-                if (context.devMenuEnabled)
-                    UpdateEditor(gameTime);
-
+                if (editor.editorEnabled)
+                    editor.UpdateEditor(gameTime);
                 else if (Input.KeyWentDown(Keys.F1))
-                    context.devMenuEnabled = !context.devMenuEnabled;
+                    editor.editorEnabled = !editor.editorEnabled;
+
+                //
+                // Asset Rebuilding:
+                if (!IsNetworkGame)
+                {
+                    if (Input.KeyWentDown(Keys.F5) || assetRebuildQueued)
+                    {
+                        assetRebuildQueued = true;
+                        TryRebuildAssets();
+                    }
+                }
 
                 currentGame?.Update();
 
                 screenManager.Update();
 #endif
+                //
+                // Reset:
+                if (Input.Alt && Input.KeyWentDown(Keys.R))
+                {
+                    Reset();
+
+                    if (!IsNetworkGame)
+                        Trace.TraceError("Reset must provide stable transition to local-only play!");
+                }
             }
             else
             {
@@ -227,7 +246,7 @@ namespace NGE
                     sb.End();
                 }
 
-                if (context.devMenuEnabled)
+                if (editor.editorEnabled)
                 {
                     imGui.BeforeLayout(gameTime);
                     DrawEditor(gameTime);

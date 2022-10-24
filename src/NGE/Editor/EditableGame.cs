@@ -23,12 +23,12 @@ namespace NGE.Editor
         protected ImGuiRenderer imGui = null!;
         protected RenderTarget2D renderTarget = null!;
 
-        protected EditorContext context;
+        protected Editor editor;
         private EditorAssetManager editorAssetManager = null!;
 
         protected void InitializeEditor()
         {
-            context = new EditorContext();
+            editor = new Editor(this);
 
             editorAssetManager = new EditorAssetManager(Services);
 
@@ -52,153 +52,13 @@ namespace NGE.Editor
                     0, RenderTargetUsage.PreserveContents);
             }
 
-            context.ScanForEditorComponents(configuration, Services);
+            editor.ScanForEditorComponents(configuration, Services);
 
             bool.TryParse(configuration.GetSection("options")["liveReload"], out var liveReloadEnabled);
             if (liveReloadEnabled)
                 AssetRebuild.EnableLiveReload(this);
         }
-
-
-        #region Update
-
-        private bool lastActive;
-
-        protected void UpdateEditor(GameTime gameTime)
-        {
-            if (lastActive != IsActive)
-                Trace.TraceInformation(IsActive ? "editor gained focus" : "editor lost focus");
-
-            lastActive = IsActive;
-
-            //
-            // UI toggle:
-            if (Input.KeyWentDown(Keys.F1))
-                context.devMenuEnabled = !context.devMenuEnabled;
-
-            //
-            // Reset:
-            if (Input.Alt && Input.KeyWentDown(Keys.R))
-            {
-                Reset();
-
-                if(!IsNetworkGame)
-                    Trace.TraceError("Reset must provide stable transition to local-only play!");
-            }
-
-            //
-            // Asset Rebuilding:
-            if (!IsNetworkGame)
-            {
-                if (Input.KeyWentDown(Keys.F5) || assetRebuildQueued)
-                {
-                    assetRebuildQueued = true;
-                    TryRebuildAssets();
-                }
-            }
-
-            //
-            // Windows:
-            for (var i = 0; i < context.windows.Length; i++)
-            {
-                var window = context.windows[i];
-                if (window.Shortcut == null)
-                    continue;
-
-                var tokens = window.Shortcut.Split(new[] { '+' }, StringSplitOptions.RemoveEmptyEntries);
-                for (var j = 0; j < tokens.Length; j++)
-                    tokens[j] = tokens[j].Trim();
-
-                var index = i;
-                bool isControl = false, isAlt = false, isShift = false;
-
-                for (var t = 0; t < tokens.Length; t++)
-                {
-                    if (tokens[t].Equals("Ctrl", StringComparison.OrdinalIgnoreCase))
-                    {
-                        isControl = true;
-                        continue;
-                    }
-                    if (tokens[t].Equals("Alt", StringComparison.OrdinalIgnoreCase))
-                    {
-                        isAlt = true;
-                        continue;
-                    }
-                    if (tokens[t].Equals("Shift", StringComparison.OrdinalIgnoreCase))
-                    {
-                        isShift = true;
-                        continue;
-                    }
-
-                    if (tokens[t].Equals("0", StringComparison.OrdinalIgnoreCase))
-                    {
-                        tokens[t] = "D0";
-                    }
-                    if (tokens[t].Equals("1", StringComparison.OrdinalIgnoreCase))
-                    {
-                        tokens[t] = "D1";
-                    }
-                    if (tokens[t].Equals("2", StringComparison.OrdinalIgnoreCase))
-                    {
-                        tokens[t] = "D2";
-                    }
-                    if (tokens[t].Equals("3", StringComparison.OrdinalIgnoreCase))
-                    {
-                        tokens[t] = "D3";
-                    }
-                    if (tokens[t].Equals("4", StringComparison.OrdinalIgnoreCase))
-                    {
-                        tokens[t] = "D4";
-                    }
-                    if (tokens[t].Equals("5", StringComparison.OrdinalIgnoreCase))
-                    {
-                        tokens[t] = "D5";
-                    }
-                    if (tokens[t].Equals("6", StringComparison.OrdinalIgnoreCase))
-                    {
-                        tokens[t] = "D6";
-                    }
-                    if (tokens[t].Equals("7", StringComparison.OrdinalIgnoreCase))
-                    {
-                        tokens[t] = "D7";
-                    }
-                    if (tokens[t].Equals("8", StringComparison.OrdinalIgnoreCase))
-                    {
-                        tokens[t] = "D8";
-                    }
-                    if (tokens[t].Equals("9", StringComparison.OrdinalIgnoreCase))
-                    {
-                        tokens[t] = "D9";
-                    }
-
-                    if (!Enum.TryParse(tokens[t], true, out Keys keys))
-                        continue;
-
-                    var control = isControl;
-                    var alt = isAlt;
-                    var shift = isShift;
-
-                    if (control && !Input.Control)
-                        continue;
-                    if (alt && !Input.Alt)
-                        continue;
-                    if (shift && !Input.Shift)
-                        continue;
-
-                    if (Input.KeyWentDown(keys))
-                        context.showWindows[index] = !context.showWindows[index];
-                }
-            }
-
-            foreach(var menu in context.menus)
-                menu.UpdateLayout(this, gameTime);
-
-            foreach (var window in context.windows)
-                window.UpdateLayout(this, gameTime);
-        }
-
-        #endregion
-
+        
         #region Draw
 
         protected void DrawEditor(GameTime gameTime)
@@ -207,10 +67,10 @@ namespace NGE.Editor
 
             DrawWindows(gameTime);
 
-            if(context.showDemoWindow)
+            if(editor.showDemoWindow)
             {
                 ImGui.SetNextWindowPos(new System.Numerics.Vector2(650, 20), ImGuiCond.FirstUseEver);
-                ImGui.ShowDemoWindow(ref context.showDemoWindow);
+                ImGui.ShowDemoWindow(ref editor.showDemoWindow);
             }
         }
 
@@ -220,8 +80,8 @@ namespace NGE.Editor
             {
                 if (ImGui.BeginMenu("Editor"))
                 {
-                    if (ImGui.MenuItem("Toggle UI", "F1", context.devMenuEnabled, context.devMenuEnabled))
-                        context.devMenuEnabled = !context.devMenuEnabled;
+                    if (ImGui.MenuItem("Toggle UI", "F1", editor.editorEnabled, editor.editorEnabled))
+                        editor.editorEnabled = !editor.editorEnabled;
 
                     if (ImGui.MenuItem("Reset Game", "Alt+R"))
                         Reset();
@@ -253,7 +113,7 @@ namespace NGE.Editor
                     ImGui.EndMenu();
                 }
 
-                foreach (var menu in context.menus.OrderBy(x => x.GetType().GetCustomAttribute<OrderAttribute>()?.Order ?? 0))
+                foreach (var menu in editor.menus.OrderBy(x => x.GetType().GetCustomAttribute<OrderAttribute>()?.Order ?? 0))
                 {
                     if (menu is ObjectEditingMenu && objects.Count == 0)
                         continue;
@@ -267,19 +127,19 @@ namespace NGE.Editor
 
                 if (ImGui.BeginMenu("Window"))
                 {
-                    for (var i = 0; i < context.windows.Length; i++)
+                    for (var i = 0; i < editor.windows.Length; i++)
                     {
-                        if (!context.windows[i].Enabled)
+                        if (!editor.windows[i].Enabled)
                             continue;
 
-                        if (ImGui.MenuItem(context.windows[i].Label, context.windows[i].Shortcut, context.showWindows[i], true))
-                            context.showWindows[i] = !context.showWindows[i];
+                        if (ImGui.MenuItem(editor.windows[i].Label, editor.windows[i].Shortcut, editor.showWindows[i], true))
+                            editor.showWindows[i] = !editor.showWindows[i];
                     }
 
                     ImGui.Separator();
 
-                    if (ImGui.MenuItem("ImGUI Test Window", null, context.showDemoWindow, true))
-                        context.showDemoWindow = !context.showDemoWindow;
+                    if (ImGui.MenuItem("ImGUI Test Window", null, editor.showDemoWindow, true))
+                        editor.showDemoWindow = !editor.showDemoWindow;
                     ImGui.EndMenu();
                 }
 
@@ -296,14 +156,14 @@ namespace NGE.Editor
 
         private void DrawWindows(GameTime gameTime)
         {
-            for (var i = 0; i < context.showWindows.Length; i++)
+            for (var i = 0; i < editor.showWindows.Length; i++)
             {
-                if (!context.showWindows[i] || !context.windows[i].Enabled)
+                if (!editor.showWindows[i] || !editor.windows[i].Enabled)
                     continue;
-                var window = context.windows[i];
+                var window = editor.windows[i];
                 ImGui.SetNextWindowSize(new System.Numerics.Vector2(window.Width, window.Height), ImGuiCond.FirstUseEver);
-                if (ImGui.Begin(window.Label, ref context.showWindows[i], window.Flags))
-                    context.windows[i].DrawLayout(this, gameTime, ref context.showWindows[i]);
+                if (ImGui.Begin(window.Label, ref editor.showWindows[i], window.Flags))
+                    editor.windows[i].DrawLayout(this, gameTime, ref editor.showWindows[i]);
                 ImGui.End();
             }
         }
@@ -326,7 +186,7 @@ namespace NGE.Editor
 
                 var filename = SDL.UTF8_ToManaged(evt.drop.file, true);
                 Trace.WriteLine($"File dropped: {filename}");
-                foreach (var dropHandler in context.dropHandlers)
+                foreach (var dropHandler in editor.dropHandlers)
                 {
                     if (dropHandler.Enabled && dropHandler.Handle(this, filename))
                     {
@@ -350,13 +210,13 @@ namespace NGE.Editor
         private readonly List<object> objects = new();
 
         public ICollection<object> ObjectsUnderEdit => objects;
-
+        
         public void ToggleEditorsFor(object instance)
         {
-            for (var i = 0; i < context.windows.Length; i++)
+            for (var i = 0; i < editor.windows.Length; i++)
             {
-                if (context.windows[i] is IEditObject edit && edit.Object == instance)
-                    context.showWindows[i] = !context.showWindows[i];
+                if (editor.windows[i] is IEditObject edit && edit.Object == instance)
+                    editor.showWindows[i] = !editor.showWindows[i];
             }
         }
 
@@ -368,7 +228,7 @@ namespace NGE.Editor
                 return;
 
             objects.Add(instance);
-            context.AddWindow(new ObjectEditingWindow<T>(instance), true);
+            editor.AddWindow(new ObjectEditingWindow<T>(instance), true);
         }
 
         public virtual void Reset()
@@ -378,12 +238,12 @@ namespace NGE.Editor
 
         private void ClearRetainedObjectEditors()
         {
-            for (var i = context.windows.Length - 1; i >= 0; i--)
+            for (var i = editor.windows.Length - 1; i >= 0; i--)
             {
-                if (context.windows[i] is not IEditObject)
+                if (editor.windows[i] is not IEditObject)
                     continue;
-                Array.Resize(ref context.windows, context.windows.Length - 1);
-                Array.Resize(ref context.showWindows, context.showWindows.Length - 1);
+                Array.Resize(ref editor.windows, editor.windows.Length - 1);
+                Array.Resize(ref editor.showWindows, editor.showWindows.Length - 1);
             }
 
             ObjectsUnderEdit.Clear();
