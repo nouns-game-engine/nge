@@ -1,13 +1,12 @@
 ﻿namespace NGE.Engine.Pixel2D
 {
-    public class GameState
+    public class PixelGameState : GameState
     {
-        public int frameCounter;
         public List<Actor> actors = new();
 
-        public void Update()
+        public PixelGameState(Definitions definitions) : base(definitions)
         {
-            frameCounter++;
+
         }
 
         public PlayerController? GetPlayerController(int controllerIndex)

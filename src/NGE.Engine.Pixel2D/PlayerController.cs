@@ -8,7 +8,6 @@ public sealed class PlayerController : IController
     public PlayerController(byte playerIndex)
     {
         this.playerIndex = playerIndex;
-        rumble = new Rumble();
-        rumble.range = 20;
+        rumble = new Rumble { range = 20 };
     }
 }

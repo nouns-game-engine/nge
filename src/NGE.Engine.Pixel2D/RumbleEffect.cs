@@ -10,7 +10,7 @@ namespace NGE.Engine.Pixel2D
         public int rumbleCountdown;
         public int lastRumbleUpdateFrame;
 
-        public void Update(GameState gameState)
+        public void Update(PixelGameState gameState)
         {
             if (!Input.IsActive || lastRumbleUpdateFrame == gameState.frameCounter)
             {

@@ -1,4 +1,4 @@
-﻿namespace NGE.Engine.Pixel2D;
+﻿namespace NGE.Engine;
 
 public static class EngineConstants
 {
