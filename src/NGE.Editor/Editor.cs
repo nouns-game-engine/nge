@@ -14,11 +14,11 @@ namespace NGE.Editor;
 
 public sealed class Editor
 {
-    private readonly IEditingContext host;
+    private readonly IEditingContext context;
 
-    public Editor(IEditingContext host)
+    public Editor(IEditingContext context)
     {
-        this.host = host;
+        this.context = context;
     }
 
     #region Snaps
@@ -201,10 +201,10 @@ public sealed class Editor
 
     public void UpdateEditor(GameTime gameTime)
     {
-        if (lastActive != host.IsActive)
-            Trace.TraceInformation(host.IsActive ? "editor gained focus" : "editor lost focus");
+        if (lastActive != context.IsActive)
+            Trace.TraceInformation(context.IsActive ? "editor gained focus" : "editor lost focus");
 
-        lastActive = host.IsActive;
+        lastActive = context.IsActive;
 
         //
         // UI toggle:
@@ -305,10 +305,10 @@ public sealed class Editor
         }
 
         foreach (var menu in menus)
-            menu.UpdateLayout(host, gameTime);
+            menu.UpdateLayout(context, gameTime);
 
         foreach (var window in windows)
-            window.UpdateLayout(host, gameTime);
+            window.UpdateLayout(context, gameTime);
     }
 
     #endregion

@@ -5,9 +5,7 @@ using ImGuiNET;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using NGE.Assets;
-using NGE.Core;
 using NGE.Snaps;
 using SDL2;
 
@@ -23,7 +21,7 @@ namespace NGE.Editor
         protected ImGuiRenderer imGui = null!;
         protected RenderTarget2D renderTarget = null!;
 
-        protected Editor editor;
+        protected Editor editor = null!;
         private EditorAssetManager editorAssetManager = null!;
 
         protected void InitializeEditor()
