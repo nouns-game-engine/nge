@@ -309,15 +309,6 @@ namespace NGE
 
         #endregion
 
-        #region Command Line
-
-        public void ProcessCommandLine()
-        {
-            CommandLine.ProcessArguments(ref configuration, args);
-        }
-
-#endregion
-
         public override void Reset()
         {
             currentGame?.Reset();

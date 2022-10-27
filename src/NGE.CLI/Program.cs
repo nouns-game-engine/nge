@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.Design;
+﻿using System;
+using System.ComponentModel.Design;
 using Microsoft.Xna.Framework.Graphics;
 using NGE.Core;
 using NGE.Core.Configuration;
@@ -24,6 +25,10 @@ namespace NGE.CLI
 
             var configuration = Config.GetOrCreateConfiguration();
             CommandLine.ProcessArguments(ref configuration, args);
+
+            var assetRootDir = configuration.GetSection("locations")["assetDirectory"];
+            Console.Out.WriteLine($"Asset root directory: {assetRootDir}");
+            Console.Out.WriteLine();
         }
     }
 }
