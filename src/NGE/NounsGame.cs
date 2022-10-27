@@ -51,8 +51,6 @@ namespace NGE
 
         protected override void Initialize()
         {
-            ProcessCommandLine();
-
             loadingScreen = new LoadingScreen(this);
 
 #if !WASM
