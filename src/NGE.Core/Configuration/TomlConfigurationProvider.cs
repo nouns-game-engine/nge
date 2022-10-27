@@ -28,6 +28,23 @@ namespace NGE.Core.Configuration
             PopulateData();
         }
 
+        public void Save()
+        {
+            SaveAs(source.Path);
+        }
+
+        public void SaveAs(string path)
+        {
+            if (document == null)
+            {
+                Trace.TraceWarning($"No configuration document was found while attempting to save to {path}");
+                return;
+            }
+            using var fs = File.OpenWrite(path);
+            using var sw = new StreamWriter(fs);
+            document.WriteTo(sw);
+        }
+
         public override void Set(string key, string value)
         {
             base.Set(key, value);
@@ -39,7 +56,11 @@ namespace NGE.Core.Configuration
             while (key.Contains(':'))
             {     
                 var keyPath = key[..key.IndexOf(':', StringComparison.Ordinal)].ToLowerInvariant();
-                keyContainer = model[keyPath] as TomlTable;
+
+                if(!model.TryGetValue(keyPath, out var tomlTable))
+                    model.Add(keyPath, tomlTable = new TomlTable());
+                
+                keyContainer = tomlTable as TomlTable;
                 key = key[(1 + key.IndexOf(':', StringComparison.Ordinal))..];
             }
 

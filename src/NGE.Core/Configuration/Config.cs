@@ -110,5 +110,19 @@ namespace NGE.Core.Configuration
             using var sw = new StreamWriter(fs);
             document.WriteTo(sw);
         }
+
+        public static void Save()
+        {
+            foreach(var provider in configuration.Providers)
+                if(provider is TomlConfigurationProvider toml)
+                    toml.Save();
+        }
+
+        public static void SaveAs(string path)
+        {
+            foreach (var provider in configuration.Providers)
+                if (provider is TomlConfigurationProvider toml)
+                    toml.SaveAs(path);
+        }
     }
 }

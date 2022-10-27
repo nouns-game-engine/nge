@@ -1,11 +1,10 @@
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.FileProviders;
-using NGE.Core.Configuration;
 using Tomlyn;
 
-// ReSharper disable once CheckNamespace (following convention)
-namespace Microsoft.Extensions.Configuration
+namespace NGE.Core.Configuration
 {
-    public static class TomlConfigurationExtensions
+    public static class ConfigurationBuilderExtensions
     {
         public static IConfigurationBuilder AddTomlFile(this IConfigurationBuilder builder, string path, TomlParserOptions parserOptions = TomlParserOptions.ParseAndValidate)
         {
