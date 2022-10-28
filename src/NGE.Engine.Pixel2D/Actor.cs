@@ -32,7 +32,7 @@ public class Actor : StateMachine<UpdateContext>
     #region Animation
 
     public AnimationSet animationSet = null!;
-    private readonly AnimationPlayer currentAnimation;
+    protected AnimationPlayer currentAnimation;
 
     private void TickAnimation(UpdateContext updateContext)
     {

@@ -7,14 +7,14 @@ public class AnimationFrame
     public int delay;
     public List<Cel> layers = new();
 
-    public void Draw(DrawContext drawContext, Position position, bool flipX)
+    public void Draw(DrawContext drawContext, Position position, bool flipX, float radians = 0f)
     {
-        Draw(drawContext, position, flipX, Color.White);
+        Draw(drawContext, position, flipX, Color.White, radians);
     }
 
-    public void Draw(DrawContext drawContext, Position position, bool flipX, Color color)
+    public void Draw(DrawContext drawContext, Position position, bool flipX, Color color, float radians = 0f)
     {
         foreach (var layer in layers)
-            layer.Draw(drawContext, position, flipX, color);
+            layer.Draw(drawContext, position, flipX, color, radians);
     }
 }

@@ -14,8 +14,8 @@ public class Cel
         this.sprite = sprite;
     }
 
-    public void Draw(DrawContext drawContext, Position position, bool flipX, Color color)
+    public void Draw(DrawContext drawContext, Position position, bool flipX, Color color, float radians = 0f)
     {
-        drawContext.sb.DrawWorldNoTransform(sprite, position, color, flipX);
+        drawContext.sb.DrawWorldNoTransform(sprite, position, color, flipX, radians);
     }
 }
