@@ -15,4 +15,14 @@ public abstract class GameState
     {
         frameCounter++;
     }
+
+    public readonly IRandomProvider random = new SysNetRandom();
+
+    public virtual void FillUpdateContext(UpdateContext updateContext)
+    {
+        updateContext.Reset();
+
+        updateContext.GameState = this;
+        updateContext.random = random;
+    }
 }

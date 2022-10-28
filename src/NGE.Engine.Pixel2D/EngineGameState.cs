@@ -27,12 +27,5 @@ namespace NGE.Engine.Pixel2D
 
             return null;
         }
-
-        public void FillUpdateContext(UpdateContext updateContext)
-        {
-            updateContext.Reset();
-            Debug.Assert(updateContext.GameState == null, "UpdateContext.Reset must clear GameState every frame");
-            updateContext.GameState = this;
-        }
     }
 }

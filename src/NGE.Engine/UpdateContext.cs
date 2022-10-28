@@ -7,10 +7,12 @@ public abstract class UpdateContext
     #region Non-Retained Data
 
     public GameState? GameState { get; set; }
+    public IRandomProvider? random;
 
     public void Reset()
     {
         GameState = null!;
+        random = null;
     }
 
     #endregion
