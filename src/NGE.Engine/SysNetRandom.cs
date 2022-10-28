@@ -8,4 +8,9 @@ internal sealed class SysNetRandom : IRandomProvider
     {
         random = new Random();
     }
+
+    public float NextFloat()
+    {
+        return random.NextSingle();
+    }
 }
