@@ -42,8 +42,7 @@ namespace NGE.Engine.StateMachine
             if(StateMethods?.BeginState != null)
                 StateMethods?.BeginState.Invoke(this, updateContext, previousState!);
         }
-
-
+        
         public new class MethodTable : StateProvider.MethodTable
         {
             [AlwaysNullChecked] public Action<StateMachine<TUpdateContext>, TUpdateContext, State> BeginState = null!;

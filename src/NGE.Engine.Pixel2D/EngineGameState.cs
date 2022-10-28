@@ -1,10 +1,10 @@
 ﻿namespace NGE.Engine.Pixel2D
 {
-    public class PixelGameState : GameState
+    public class EngineGameState : GameState
     {
         public List<Actor> actors = new();
 
-        public PixelGameState(Definitions definitions) : base(definitions)
+        public EngineGameState(Definitions definitions) : base(definitions)
         {
 
         }

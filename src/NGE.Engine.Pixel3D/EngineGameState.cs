@@ -1,15 +1,15 @@
 ﻿namespace NGE.Engine.Pixel3D;
 
-public class PixelsGameState : GameState<PixelsUpdateContext, PixelsDrawContext>
+public class EngineGameState : GameState<EngineUpdateContext, EngineDrawContext>
 {
     public readonly List<Actor> actors = new();
 
-    public PixelsGameState(Definitions definitions) : base(definitions)
+    public EngineGameState(Definitions definitions) : base(definitions)
     {
 
     }
 
-    public override void Update(PixelsUpdateContext updateContext)
+    public override void Update(EngineUpdateContext updateContext)
     {
         base.Update(updateContext);
 
@@ -17,7 +17,7 @@ public class PixelsGameState : GameState<PixelsUpdateContext, PixelsDrawContext>
             actor.Update(updateContext);
     }
 
-    public override void Draw(PixelsDrawContext drawContext)
+    public override void Draw(EngineDrawContext drawContext)
     {
         base.Draw(drawContext);
 

@@ -19,12 +19,12 @@ namespace NGE.Engine.Pixel3D
             currentAnimation = new AnimationPlayer(animationSet.animations[0]);
         }
         
-        public void Update(PixelsUpdateContext updateContext)
+        public void Update(EngineUpdateContext updateContext)
         {
             StateMethods.Update(this, updateContext);
         }
 
-        public void Draw(PixelsDrawContext drawContext)
+        public void Draw(EngineDrawContext drawContext)
         {
             currentAnimation.CurrentFrame.Draw(drawContext, position, facingLeft);
         }

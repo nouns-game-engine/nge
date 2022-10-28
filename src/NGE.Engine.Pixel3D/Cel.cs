@@ -14,7 +14,7 @@ public class Cel
         this.sprite = sprite;
     }
 
-    public void Draw(PixelsDrawContext drawContext, Position position, bool flipX, Color color)
+    public void Draw(EngineDrawContext drawContext, Position position, bool flipX, Color color)
     {
         drawContext.DrawWorldNoTransform(sprite, position, color, flipX);
     }

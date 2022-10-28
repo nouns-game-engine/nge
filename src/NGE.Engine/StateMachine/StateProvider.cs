@@ -78,7 +78,7 @@ namespace NGE.Engine.StateMachine
 			}
 		}
 
-		public TState GetState<TState>() where TState : State, new()
+		public TState? GetState<TState>() where TState : State, new()
 		{
 			// We need to get our own true type - that is, the fully-derived type, so that we get the correct method table
 			//
@@ -86,11 +86,11 @@ namespace NGE.Engine.StateMachine
 			// which sets state Q, we want to get B's method table for state Q.
 			var type = GetType();
 
-			return StateInstanceLookup<TState>.forType[type];
+            StateInstanceLookup<TState>.forType.TryGetValue(type, out var state);
+            return state;
 		}
 
-
-		public static TState GetState<TType, TState>()
+        public static TState GetState<TType, TState>()
 			where TType : StateProvider
 			where TState : State, new()
 		{
@@ -176,7 +176,6 @@ namespace NGE.Engine.StateMachine
 			}
 		}
 
-
 		private static string GetStateName(MemberInfo stateType)
 		{
 			var stateName = stateType.Name;
@@ -184,8 +183,7 @@ namespace NGE.Engine.StateMachine
 				stateName = stateName.Substring(0, stateName.Length - "State".Length);
 			return stateName;
 		}
-
-
+		
 		private static void SetupStateMachineTypeRecursive(
 			Dictionary<Type, Dictionary<Type, State>> stateMachinesToStates,
 			Dictionary<Type, Dictionary<Type, MethodTable>> stateMachinesToAbstractStates,
@@ -206,14 +204,12 @@ namespace NGE.Engine.StateMachine
 				baseAbstractStates = stateMachinesToAbstractStates[stateMachineType.BaseType!];
 			}
 
-
-			// "Used" state methods will be removed from this list, because we want to report errors if any are unused (indicates likely end-user error)
+            // "Used" state methods will be removed from this list, because we want to report errors if any are unused (indicates likely end-user error)
 			var stateMethods = stateMachineType
 				.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance |
 				            BindingFlags.DeclaredOnly)
 				.Where(mi => mi.Name.StartsWith("State_")).ToDictionary(mi => mi.Name);
-
-
+			
 			// Get our method table type:
 			Type methodTableType;
 			var methodTableSearchType = stateMachineType;
@@ -375,8 +371,7 @@ namespace NGE.Engine.StateMachine
 			}
 		}
 
-
-		private static void SetupStateTypeRecursive(IDictionary<Type, State> states, IDictionary<Type, MethodTable> abstractStates, Type stateType, Type stateMachineType, Type methodTableType, Dictionary<string, MethodInfo> stateMethods)
+        private static void SetupStateTypeRecursive(IDictionary<Type, State> states, IDictionary<Type, MethodTable> abstractStates, Type stateType, Type stateMachineType, Type methodTableType, Dictionary<string, MethodInfo> stateMethods)
 		{
 			if (states.ContainsKey(stateType) || abstractStates.ContainsKey(stateType))
 				return; // Already processed
@@ -417,7 +412,6 @@ namespace NGE.Engine.StateMachine
 			}
 		}
 
-
 		private static MethodTable ShallowCloneToDerived(MethodTable state, Type derivedType, Type stateMachineType)
 		{
 			var baseType = state.GetType();
@@ -436,8 +430,7 @@ namespace NGE.Engine.StateMachine
 
 			return derivedMethodTable;
 		}
-
-
+		
         /// <summary>Find methods from the state machine type to insert into the method table</summary>
         /// <param name="stateMachineType"></param>
         /// <param name="stateMethods">Methods from the state machine type. "Used" methods will be removed.</param>
@@ -514,8 +507,7 @@ namespace NGE.Engine.StateMachine
                 stateMethods.Remove(potentialMethodName);
             }
 		}
-
-        private static void ThrowMethodMismatch(MethodInfo methodInStateMachine, MethodInfo methodInMethodTable) => throw new Exception($"Method signature does not match: \"{methodInStateMachine}\" cannot be used for \"{methodInMethodTable}\"");
+		private static void ThrowMethodMismatch(MethodInfo methodInStateMachine, MethodInfo methodInMethodTable) => throw new Exception($"Method signature does not match: \"{methodInStateMachine}\" cannot be used for \"{methodInMethodTable}\"");
 
         #endregion
 	}
