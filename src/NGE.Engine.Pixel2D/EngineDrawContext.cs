@@ -4,5 +4,5 @@ namespace NGE.Engine.Pixel2D;
 
 public sealed class EngineDrawContext : DrawContext
 {
-    public EngineDrawContext(SpriteBatch spriteBatch) : base(spriteBatch) { }
+    public EngineDrawContext(SpriteBatch sb, Texture2D whitePixel) : base(sb, whitePixel) { }
 }

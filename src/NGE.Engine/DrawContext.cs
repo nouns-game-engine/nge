@@ -6,14 +6,17 @@ namespace NGE.Engine;
 public abstract class DrawContext
 {
     public readonly SpriteBatch sb;
+    public readonly Texture2D whitePixel;
+
     private readonly RasterizerState rasterizer;
     private readonly Effect effect;
 
-    protected DrawContext(SpriteBatch spriteBatch)
+    protected DrawContext(SpriteBatch sb, Texture2D whitePixel)
     {
-        sb = spriteBatch;
+        this.sb = sb;
+        this.whitePixel = whitePixel;
 
-        effect = new BasicEffect(spriteBatch.GraphicsDevice);
+        effect = new BasicEffect(sb.GraphicsDevice);
         rasterizer = new RasterizerState
         {
             CullMode = CullMode.CullCounterClockwiseFace

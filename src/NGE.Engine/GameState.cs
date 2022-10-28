@@ -11,7 +11,7 @@ public abstract class GameState
         this.definitions = definitions;
     }
 
-    public virtual void Update()
+    public virtual void Update(UpdateContext updateContext)
     {
         frameCounter++;
     }
