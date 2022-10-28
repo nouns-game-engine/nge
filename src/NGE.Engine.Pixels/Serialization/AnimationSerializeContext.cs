@@ -1,6 +1,6 @@
 ﻿using NGE.Core.Serialization;
 
-namespace NGE.Engine.Pixel3D.Serialization;
+namespace NGE.Engine.Pixels.Serialization;
 
 public class AnimationSerializeContext : ISerializeContext
 {

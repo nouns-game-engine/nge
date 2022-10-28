@@ -3,6 +3,7 @@ using NGE.Assets;
 using NGE.Core;
 using NGE.Core.Serialization;
 using NGE.Engine.Pixel3D.Serialization;
+using NGE.Engine.Pixels;
 
 namespace NGE.Engine.Pixel3D;
 

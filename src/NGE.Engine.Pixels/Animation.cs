@@ -1,9 +1,11 @@
-﻿namespace NGE.Engine.Pixel3D;
+﻿namespace NGE.Engine.Pixels;
 
 public class Animation
 {
     public bool isLooped;
     public List<AnimationFrame> frames = new();
+
+    public int FrameCount => frames.Count;
 
     public Animation()
     {

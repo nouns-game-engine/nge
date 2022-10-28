@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace NGE.Engine.Pixel3D;
+namespace NGE.Engine.Pixels;
 
 public class Cel
 {
@@ -14,8 +14,8 @@ public class Cel
         this.sprite = sprite;
     }
 
-    public void Draw(EngineDrawContext drawContext, Position position, bool flipX, Color color)
+    public void Draw(DrawContext drawContext, Position position, bool flipX, Color color)
     {
-        drawContext.DrawWorldNoTransform(sprite, position, color, flipX);
+        drawContext.sb.DrawWorldNoTransform(sprite, position, color, flipX);
     }
 }

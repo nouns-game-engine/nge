@@ -1,4 +1,5 @@
 ﻿using NGE.Editor;
+using NGE.Engine.Pixels;
 using NGE.Engine.StateMachine;
 
 namespace NGE.Engine.Pixel3D
@@ -26,7 +27,7 @@ namespace NGE.Engine.Pixel3D
 
         public void Draw(EngineDrawContext drawContext)
         {
-            currentAnimation.CurrentFrame.Draw(drawContext, position, facingLeft);
+            currentAnimation.CurrentFrame?.Draw(drawContext, position, facingLeft);
         }
 
         #region State Machine

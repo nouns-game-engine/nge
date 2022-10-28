@@ -1,9 +1,9 @@
 ﻿using System.IO.Compression;
 using NGE.Core;
 using NGE.Core.Serialization;
-using NGE.Engine.Pixel3D.Serialization;
+using NGE.Engine.Pixels.Serialization;
 
-namespace NGE.Engine.Pixel3D;
+namespace NGE.Engine.Pixels;
 
 public class AnimationSet : ISerialize<AnimationSerializeContext>, IDeserialize<AnimationDeserializeContext>
 {

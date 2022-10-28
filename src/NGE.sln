@@ -60,6 +60,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{850CA339
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NGE.Engine.Pixel3D", "NGE.Engine.Pixel3D\NGE.Engine.Pixel3D.csproj", "{DEF9C006-7A09-4A23-9A7B-B66FFABEE065}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NGE.Engine.Pixels", "NGE.Engine.Pixels\NGE.Engine.Pixels.csproj", "{DF82EE12-71C4-4A5E-809B-9D0A81BED28D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -228,6 +230,14 @@ Global
 		{DEF9C006-7A09-4A23-9A7B-B66FFABEE065}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DEF9C006-7A09-4A23-9A7B-B66FFABEE065}.Release|x64.ActiveCfg = Release|Any CPU
 		{DEF9C006-7A09-4A23-9A7B-B66FFABEE065}.Release|x64.Build.0 = Release|Any CPU
+		{DF82EE12-71C4-4A5E-809B-9D0A81BED28D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF82EE12-71C4-4A5E-809B-9D0A81BED28D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF82EE12-71C4-4A5E-809B-9D0A81BED28D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{DF82EE12-71C4-4A5E-809B-9D0A81BED28D}.Debug|x64.Build.0 = Debug|Any CPU
+		{DF82EE12-71C4-4A5E-809B-9D0A81BED28D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF82EE12-71C4-4A5E-809B-9D0A81BED28D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF82EE12-71C4-4A5E-809B-9D0A81BED28D}.Release|x64.ActiveCfg = Release|Any CPU
+		{DF82EE12-71C4-4A5E-809B-9D0A81BED28D}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

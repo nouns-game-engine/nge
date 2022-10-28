@@ -11,6 +11,7 @@
     <ProjectReference Include="..\..\lib\FNA\FNA.Core.csproj" />
     <ProjectReference Include="..\NGE.Assets\NGE.Assets.csproj" />
     <ProjectReference Include="..\NGE.Core\NGE.Core.csproj" />
+    <ProjectReference Include="..\NGE.Engine.Pixels\NGE.Engine.Pixels.csproj" />
     <ProjectReference Include="..\NGE.Engine\NGE.Engine.csproj" />
   </ItemGroup>
 

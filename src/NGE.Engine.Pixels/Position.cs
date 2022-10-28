@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using NGE.Editor;
 
-namespace NGE.Engine.Pixel3D
+namespace NGE.Engine.Pixels
 {
     public struct Position
     {

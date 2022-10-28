@@ -1,4 +1,6 @@
-﻿namespace NGE.Engine.Pixel3D;
+﻿using NGE.Engine.Pixels;
+
+namespace NGE.Engine.Pixel3D;
 
 public static class PositionExtensions
 {

@@ -2,6 +2,8 @@
 using NGE.Core.Serialization;
 using NGE.Engine.Pixel3D;
 using NGE.Engine.Pixel3D.Serialization;
+using NGE.Engine.Pixels;
+using NGE.Engine.Pixels.Serialization;
 using NGE.Graphics;
 using Xunit;
 

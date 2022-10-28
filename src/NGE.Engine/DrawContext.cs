@@ -1,10 +1,11 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace NGE.Engine;
 
 public abstract class DrawContext
 {
-    protected readonly SpriteBatch sb;
+    public readonly SpriteBatch sb;
     private readonly RasterizerState rasterizer;
     private readonly Effect effect;
 
