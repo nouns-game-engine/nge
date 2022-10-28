@@ -6,14 +6,16 @@ namespace NGE.Engine;
 public abstract class DrawContext
 {
     public readonly SpriteBatch sb;
+    public readonly SpriteFont defaultFont;
     public readonly Texture2D whitePixel;
 
     private readonly RasterizerState rasterizer;
     private readonly Effect effect;
 
-    protected DrawContext(SpriteBatch sb, Texture2D whitePixel)
+    protected DrawContext(SpriteBatch sb, SpriteFont defaultFont, Texture2D whitePixel)
     {
         this.sb = sb;
+        this.defaultFont = defaultFont;
         this.whitePixel = whitePixel;
 
         effect = new BasicEffect(sb.GraphicsDevice);
