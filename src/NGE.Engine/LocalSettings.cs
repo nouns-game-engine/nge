@@ -3,11 +3,9 @@ using SDL2;
 
 namespace NGE.Engine;
 
-public class LocalSettings<TPlayerButton> where TPlayerButton : Enum
+public class LocalSettings
 {
-    private readonly string gameName;
-
-    public InputBindings<TPlayerButton> inputBindings = new();
+    public readonly string gameName;
 
     public LocalSettings(string gameName)
     {
@@ -42,4 +40,12 @@ public class LocalSettings<TPlayerButton> where TPlayerButton : Enum
 
         static string EnsureExists(string directory) => Directory.CreateDirectory(directory).Name;
     }
+}
+
+public class LocalSettings<TPlayerButton> : LocalSettings
+    where TPlayerButton : Enum
+{
+    public InputBindings<TPlayerButton> inputBindings = new();
+
+    public LocalSettings(string gameName) : base(gameName) { }
 }
