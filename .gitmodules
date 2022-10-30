@@ -7,3 +7,6 @@
 [submodule "lib/Tomlyn"]
 	path = lib/Tomlyn
 	url = https://github.com/wattsyart/Tomlyn
+[submodule "lib/ImGui.NET"]
+	path = lib/ImGui.NET
+	url = https://github.com/mellinoe/ImGui.NET

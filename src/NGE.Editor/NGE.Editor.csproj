@@ -8,13 +8,34 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ImGui.NET" Version="1.87.3" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\lib\FNA\FNA.Core.csproj" />
+    <ProjectReference Include="..\..\lib\ImGui.NET\src\ImGui.NET\ImGui.NET.csproj" />
+    <ProjectReference Include="..\..\lib\ImGui.NET\src\ImNodes.NET\ImNodes.NET.csproj" />
     <ProjectReference Include="..\NGE.Core\NGE.Core.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\..\lib\ImGui.NET\deps\cimgui\win-x86\**\*.*" Condition="'$(OS)' == 'Windows_NT' AND '$(Platform)' != 'x64'">
+      <Link>x86\%(RecursiveDir)%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\lib\ImGui.NET\deps\cimgui\win-x64\**\*.*" Condition="'$(OS)' == 'Windows_NT' AND '$(Platform)' != 'x86'">
+      <Link>x64\%(RecursiveDir)%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\lib\ImGui.NET\deps\cimgui\osx\**\*.*" Condition="'$(OS)' != 'Windows_NT'">
+      <Link>osx\%(RecursiveDir)%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\lib\ImGui.NET\deps\cimgui\linux-x64\**\*.*" Condition="'$(OS)' != 'Windows_NT'">
+      <Link>lib64\%(RecursiveDir)%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 
 </Project>
