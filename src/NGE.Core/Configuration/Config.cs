@@ -88,7 +88,10 @@ namespace NGE.Core.Configuration
                     {
                         Items =
                         {
-                            {"liveReload", true}
+                            {"liveReload", true},
+                            {"fullScreen", false},
+                            {"peaceful", false},
+                            {"volume", 0.5f},
                         }
                     },
                     new TableSyntax("games")

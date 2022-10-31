@@ -15,6 +15,9 @@ namespace NGE.Core.Configuration
             commands.Add("config", ConfigOptions);
             commands.Add("imgui", ImGuiOptions);
             commands.Add("stat", StatOptions);
+            commands.Add("fullscreen", FullScreen);
+            commands.Add("quiet", Quiet);
+            commands.Add("peaceful", Peaceful);
         }
 
         public static void AddCommand(string commandName, Func<IConfiguration, Queue<string>, IConfiguration> commandFunc)
@@ -117,6 +120,24 @@ namespace NGE.Core.Configuration
                 }
             }
 
+            return configuration;
+        }
+
+        private static IConfiguration FullScreen(IConfiguration configuration, Queue<string> arguments)
+        {
+            configuration.Set("options:fullScreen", "true");
+            return configuration;
+        }
+
+        private static IConfiguration Quiet(IConfiguration configuration, Queue<string> arguments)
+        {
+            configuration.Set("options:volume", "0");
+            return configuration;
+        }
+
+        private static IConfiguration Peaceful(IConfiguration configuration, Queue<string> arguments)
+        {
+            configuration.Set("options:peaceful", "true");
             return configuration;
         }
 

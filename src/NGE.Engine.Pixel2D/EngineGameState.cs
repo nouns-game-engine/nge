@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace NGE.Engine.Pixel2D
+﻿namespace NGE.Engine.Pixel2D
 {
     public class EngineGameState : GameState
     {
