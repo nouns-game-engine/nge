@@ -1,4 +1,6 @@
-﻿namespace NGE.Engine.Pixel2D
+﻿using NGE.Engine.InputManagement;
+
+namespace NGE.Engine.Pixel2D
 {
     public class EngineGameState : GameState
     {
@@ -24,6 +26,13 @@
             }
 
             return null;
+        }
+
+        public override void Update(UpdateContext updateContext, MultiInputState currentInput)
+        {
+            base.Update(updateContext, currentInput);
+
+            lastInput = currentInput;
         }
     }
 }

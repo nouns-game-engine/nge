@@ -4,8 +4,7 @@ namespace NGE.Engine.InputManagement;
 
 public class InputMapping
 {
-    public static MultiInputState GetMultiInputState<TPlayerButton>(LocalSettings<TPlayerButton> localSettings) 
-        where TPlayerButton : Enum
+    public static MultiInputState GetMultiInputState<TPlayerButton>(LocalSettings<TPlayerButton> localSettings) where TPlayerButton : Enum
     {
         var output = new MultiInputState();
         if (!Input.IsActive)

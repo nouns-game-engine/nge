@@ -1,8 +1,8 @@
 ﻿namespace NGE.Engine.InputManagement;
 
-public struct PlayerInput<TPlayerButton> where TPlayerButton : Enum
+public struct PlayerInput
 {
-    public static readonly PlayerInput<TPlayerButton> None = new();
+    public static readonly PlayerInput None = new();
 
     public PlayerInput(InputState last, InputState current)
     {
@@ -15,27 +15,27 @@ public struct PlayerInput<TPlayerButton> where TPlayerButton : Enum
     public InputState last;
     public InputState current;
 
-    public bool IsUp(TPlayerButton button) => !IsDown(button);
-    public bool IsDown(TPlayerButton button) => (current & (InputState)(1u << (int)(object) button)) != 0;
+    public bool IsUp<TPlayerButton>(TPlayerButton button) => !IsDown(button);
+    public bool IsDown<TPlayerButton>(TPlayerButton button) => (current & (InputState)(1u << (int)(object) button)) != 0;
     
-    public bool Changed(TPlayerButton button) => (current & (InputState)(1u << (int)(object) button)) != (last & (InputState)(1u << (int)(object) button));
-    public bool PreviousFrameDown(TPlayerButton button) => (last & (InputState)(1u << (int)(object) button)) != 0;
+    public bool Changed<TPlayerButton>(TPlayerButton button) => (current & (InputState)(1u << (int)(object) button)) != (last & (InputState)(1u << (int)(object) button));
+    public bool PreviousFrameDown<TPlayerButton>(TPlayerButton button) => (last & (InputState)(1u << (int)(object) button)) != 0;
 
-    public bool WentUp(TPlayerButton button) => !IsDown(button) & PreviousFrameDown(button);
-    public bool WentDown(TPlayerButton button) => IsDown(button) & !PreviousFrameDown(button);
+    public bool WentUp<TPlayerButton>(TPlayerButton button) => !IsDown(button) & PreviousFrameDown(button);
+    public bool WentDown<TPlayerButton>(TPlayerButton button) => IsDown(button) & !PreviousFrameDown(button);
 
     public bool AnythingWentDown() => !current.Equals(InputState.None) && last.Equals(InputState.None);
 
     public bool AnythingIsDown() => !current.Equals(InputState.None);
 
-    public bool IsDownDirection(TPlayerButton button)
+    public bool IsDownDirection<TPlayerButton>(TPlayerButton button) where TPlayerButton : Enum
     {
         if ((int)(object)button >= 4)
             return IsDown(button);
         return (current & DirectionMask) == button.AsInput();
     }
 
-    public bool WentDownDirection(TPlayerButton button)
+    public bool WentDownDirection<TPlayerButton>(TPlayerButton button) where TPlayerButton : Enum
     {
         if ((int)(object)button >= 4)
             return WentDown(button);

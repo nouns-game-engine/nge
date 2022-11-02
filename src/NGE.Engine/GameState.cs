@@ -1,4 +1,6 @@
-﻿namespace NGE.Engine;
+﻿using NGE.Engine.InputManagement;
+
+namespace NGE.Engine;
 
 public abstract class GameState
 {
@@ -11,18 +13,23 @@ public abstract class GameState
         this.definitions = definitions;
     }
 
-    public virtual void Update(UpdateContext updateContext)
+    public MultiInputState lastInput;
+
+    public virtual void Update(UpdateContext updateContext, MultiInputState currentInput)
     {
         frameCounter++;
     }
 
     public readonly IRandomProvider random = new SysNetRandom();
 
-    public virtual void FillUpdateContext(UpdateContext updateContext)
+    public virtual void FillUpdateContext(UpdateContext updateContext, MultiInputState currentInput)
     {
         updateContext.Reset();
 
         updateContext.GameState = this;
         updateContext.random = random;
+
+        for (var i = 0; i < MultiInputState.Count; i++)
+            updateContext.AllPlayerInputs[i] = new PlayerInput(lastInput[i], currentInput[i]);
     }
 }
