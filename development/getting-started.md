@@ -5,7 +5,7 @@ description: How to download and use the engine.
 # Getting Started
 
 {% hint style="warning" %}
-NounsGame is still in pre-production. The documentation here may be prospective, contain errors or very little information, or not work as intended.
+NGE is still in pre-production. The documentation here may be prospective, contain errors or very little information, or not work as intended.
 {% endhint %}
 
 ## Source Code

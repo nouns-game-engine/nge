@@ -2,7 +2,7 @@
 
 On a space-constrained ledger, user-generated content is expensive to store, and for more ambitious projects, impossible, when those assets are high resolution graphic textures, soundtracks, and cutscene video.
 
-NounsGame can mitigate these concerns by supporting a variety of game-addressable assets.
+NGE can mitigate these concerns by supporting a variety of game-addressable assets.
 
 | Asset Type                         | Description                                                                                                                                                                                                                                                                                    |
 | ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

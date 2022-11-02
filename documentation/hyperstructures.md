@@ -38,7 +38,7 @@ As a CC0 project, there is no owner. Value is accrued in the form of direct expe
 
 While Nouns Game Engine does not intend to introduce any hard incentives, such as an in-game token, the ability for others to do so for their games and in-game marketplaces is an implicit incentive for participants, whether they are players obtaining incentives for playing creators' games, or creators building sustainable business models around their game content.&#x20;
 
-For this reason, Nouns Game Engine purposefully removes itself as an arbiter of incentives, to remain agnostic and useful for all participants. NounsGame also provides expansiveness in the form of shared leaderboards and achievements, acting as an identity-based "passport" across participant creations, if the participants elect to use it.
+For this reason, Nouns Game Engine purposefully removes itself as an arbiter of incentives, to remain agnostic and useful for all participants. NGE also provides expansiveness in the form of shared leaderboards and achievements, acting as an identity-based "passport" across participant creations, if the participants elect to use it.
 
 #### Permissionless
 
@@ -65,7 +65,7 @@ While Nouns Game Engine can guarantee its own execution on a variety of consumer
 \
 Games made with Nouns Game Engine for these appliances will still need to adhere to those restrictions, and there's no guarantee that support will exist for those platforms beyond what is shipped or provided by the engine, and the developer's own capabilities to work with those companies and hardware.\
 \
-A good rule thumb might be: _if it can run an Ethereum node, it can run NounsGame._
+A good rule thumb might be: _if it can run an Ethereum node, it can run NGE._
 {% endhint %}
 
 ## Approach & Caveats

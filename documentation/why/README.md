@@ -1,5 +1,5 @@
 ---
-description: Why NounsGame should exist, according to its creators.
+description: Why NGE should exist, according to its creator.
 ---
 
 # Why?
