@@ -2,5 +2,5 @@
 
 public sealed class EngineUpdateContext : UpdateContext
 {
-
+    public EngineUpdateContext(LocalSettings localSettings) : base(localSettings) { }
 }

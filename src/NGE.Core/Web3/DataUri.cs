@@ -89,6 +89,5 @@ public static class DataUri
 
         format.Data = format.IsBase64 ? Convert.FromBase64String(data) : Encoding.UTF8.GetBytes(data);
         return true;
-
     }
 }
